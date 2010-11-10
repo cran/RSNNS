@@ -1,0 +1,22 @@
+\name{SnnsRObject$somPredictCurrPatSetWinners}
+\alias{SnnsR__somPredictCurrPatSetWinners}
+\title{Get most of the relevant results from a som.}
+\usage{\S4method{somPredictCurrPatSetWinners}{SnnsR}(updateFuncParams=c(0.0, 0.0, 1.0), 
+saveWinnersPerPattern=TRUE, targets=NULL)}
+\description{Get most of the relevant results from a som.}
+\details{This function is most conveniently used through \code{\link{som}}.}
+\value{a list with three elements:
+\item{nWinnersPerUnit}{For each unit, the amount of patterns where this unit won is given. So, this is a 1d vector representing the normal version of the som.}
+\item{winnersPerPattern}{a vector where for each pattern the number of the winning unit is given. This is an intermediary result
+that normally won't be saved.}
+\item{labeledUnits}{a matrix which -- if the \code{targets} parameter is given -- contains for each unit (rows) and each class 
+present in the \code{targets} (columns), the amount of patterns of the class where the unit has won. From the \code{labeledUnits}, 
+the \code{labeledMap} can be computed, e.g. by voting of the class labels for the final label of the unit.}}
+\alias{somPredictCurrPatSetWinners,SnnsR-method}
+\alias{SnnsRObject$somPredictCurrPatSetWinners}
+\seealso{\code{\link{som}}}
+\arguments{\item{updateFuncParams}{parameters passed to the networks update function}
+\item{saveWinnersPerPattern}{should a list with the winners for every pattern be saved?}
+\item{targets}{optional target classes of the patterns}
+}
+

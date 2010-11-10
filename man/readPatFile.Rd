@@ -1,0 +1,13 @@
+\name{readPatFile}
+\alias{readPatFile}
+\title{Load data from a pat file.}
+\usage{readPatFile(filename)
+}
+\description{Load data from a pat file.}
+\details{This function generates an \link{SnnsR-class} object, loads the given .pat file 
+there as a pattern set and then extracts the patterns to a matrix, 
+using \link{SnnsRObject$extractPatterns}.}
+\value{a matrix containing the data loaded from the .pat file.}
+\arguments{\item{filename}{the name of the .pat file}
+}
+
