@@ -1,6 +1,6 @@
 \name{vectorToActMap}
 \alias{vectorToActMap}
-\title{Organize network activation as 2d map.}
+\title{Convert a vector to an activation map}
 \usage{vectorToActMap(v, nrow=0, ncol=0)
 }
 \description{Organize network activation as 2d map.}

@@ -1,6 +1,6 @@
 \name{matrixToActMapList}
 \alias{matrixToActMapList}
-\title{Organize a matrix containing 1d vectors of network activations as 2d maps.}
+\title{Convert matrix of activations to activation map list}
 \usage{matrixToActMapList(m, nrow=0, ncol=0)
 }
 \description{Organize a matrix containing 1d vectors of network activations as 2d maps.}

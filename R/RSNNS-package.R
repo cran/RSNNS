@@ -24,20 +24,21 @@
 #############################################################################
 
 
-#' Getting started with the RSNNS package
-#'
-#' \tabular{ll}{
-#' Package: \tab RSNNS\cr
-#' Type: \tab Package\cr
-#' Version: \tab 0.3-1\cr
-#' Date: \tab 2010-11-17\cr
-#' License: \tab LGPL (>= 2)\cr
-#' LazyLoad: \tab yes\cr
-#' }
-#'
+# \tabular{ll}{
+# Package: \tab RSNNS\cr
+# Type: \tab Package\cr
+# Version: \tab 0.3-2\cr
+# Date: \tab 2010-11-30\cr
+# License: \tab LGPL (>= 2)\cr
+# LazyLoad: \tab yes\cr
+# }
+#
 #' The Stuttgart Neural Network Simulator (SNNS) is a library containing many 
 #' standard implementations of neural networks. This package wraps the SNNS 
 #' functionality to make it available from within R.
+#' 
+#' If you have problems using RSNNS, find a bug, or have suggestions, please contact the package maintainer by email, instead of writing to the general R lists or contacting the 
+#' authors of the original SNNS software. 
 #' 
 #' The package has a hierarchical architecture with three levels:
 #' \itemize{
@@ -52,7 +53,7 @@
 #' 
 #' \code{demo()}
 #'  
-#' It is a good idea to start with the demos of the high-level api (which is much more convenient to use). E.g. to access
+#' It is a good idea to start with the demos of the high-level api (which is much more convenient to use). E.g., to access
 #' the iris classification demo type:
 #' 
 #' \code{demo(iris)}
@@ -63,7 +64,7 @@
 #' 
 #' As the high-level api is already quite powerful and flexible, you'll most probably normally end up using one of the functions:
 #' \code{\link{mlp}}, \code{\link{dlvq}}, \code{\link{rbf}}, \code{\link{rbfDDA}}, \code{\link{elman}}, 
-#' \code{\link{jordan}}, \code{\link{som}}, \code{\link{art1}}, \code{\link{art2}}, or \code{\link{assoz}},
+#' \code{\link{jordan}}, \code{\link{som}}, \code{\link{art1}}, \code{\link{art2}}, \code{\link{artmap}}, or \code{\link{assoz}},
 #' with some pre- and postprocessing. These S3 classes are all subclasses of \code{\link{rsnns}}.
 #' 
 #' You might also want to have a look at the original SNNS program and the SNNS User Manual 4.2, especially pp 67-87 for explications on all the parameters
@@ -77,11 +78,16 @@
 #' object, so that they can be called conveniently using the "$"-operator. This calling mechanism also allows for transparent masking of methods or extending the 
 #' kernel with new methods from within R. See \code{\link{$,SnnsR-method}}. R-functions that are added by RSNNS to the kernel are documented in 
 #' this manual under topics beginning with \code{SnnsRObject$}. Documentation of the original SNNS kernel user interface functions can be found in the SNNS User Manual 4.2 pp 290-314. 
-#' A call to e.g. the SNNS kernel function \code{krui_getNoOfUnits(..)} can be done with \code{SnnsRObject$getNoOfUnits(...)}. However, some functions were excluded 
+#' A call to, e.g., the SNNS kernel function \code{krui_getNoOfUnits(...)} can be done with \code{SnnsRObject$getNoOfUnits(...)}. However, a few functions were excluded 
 #' from the wrapping for various reasons. Fur more details and other known issues see the file /inst/doc/KnownIssues.
 #' 
 #' Most of the example data included in SNNS is also present in this package, see \code{\link{snnsData}}.
 #' 
+#' Additional information is also available at the project website: 
+#' 
+#' \url{http://sci2s.ugr.es/dicits/software/RSNNS}
+#' 
+#' @title Getting started with the RSNNS package
 #' @name RSNNS-package
 #' @aliases RSNNS
 #' @docType package
@@ -97,13 +103,32 @@
 #' \url{http://dicits.ugr.es}, \url{http://sci2s.ugr.es}
 #' 
 #' @references 
-#' Zell, A. et al. SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2
 #' 
+#' \emph{General neural network literature:}
+#' 
+#' Bishop, C. M. (2003), Neural networks for pattern recognition, University Press, Oxford.
+#' 
+#' Haykin, S. S. (1999), Neural networks :a comprehensive foundation, Prentice Hall, Upper Saddle River, NJ.
+#' 
+#' Kriesel, D. ( 2007 ), A Brief Introduction to Neural Networks. http://www.dkriesel.com
+#' 
+#' Ripley, B. D. (2007), Pattern recognition and neural networks, Cambridge University Press, Cambridge.
+#' 
+#' Rojas, R. (1996), Neural networks :a systematic introduction, Springer-Verlag, Berlin.
+#' 
+# Rumelhart, D. E.; Clelland, J. L. M. & Group, P. R. (1986), Parallel distributed processing :explorations in the microstructure of cognition, Mit, Cambridge, MA etc..
+# 
+#' \emph{Literature on the original SNNS software:}
+#' 
+#' Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
 #' \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
-# @references
+#' 
+#' Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley.
+
+#' 
 #' @keywords package neural networks SNNS
 #' @seealso \code{\link{mlp}}, \code{\link{dlvq}}, \code{\link{rbf}}, \code{\link{rbfDDA}}, \code{\link{elman}}, 
-#' \code{\link{jordan}}, \code{\link{som}}, \code{\link{art1}}, \code{\link{art2}}, \code{\link{assoz}}
+#' \code{\link{jordan}}, \code{\link{som}}, \code{\link{art1}}, \code{\link{art2}}, \code{\link{artmap}}, \code{\link{assoz}}
 #' @useDynLib RSNNS .registration=TRUE
 # @exportPattern "^[[:alpha:]]+"
 # @examples

@@ -1,6 +1,6 @@
 \name{getSnnsRFunctionTable}
 \alias{getSnnsRFunctionTable}
-\title{Get the function table of available SNNS functions.}
+\title{Get SnnsR function table}
 \description{Get the function table of available SNNS functions.}
 \value{a data.frame with columns:
 \item{name}{name of the function}

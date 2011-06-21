@@ -1,10 +1,9 @@
 \name{splitForTrainingAndTest}
 \alias{splitForTrainingAndTest}
-\title{Function to split data into training and test set.}
+\title{Function to split data into training and test set}
 \usage{splitForTrainingAndTest(x, y, ratio=0.15)
 }
-\description{Function to split data into training and test set.}
-\details{Split the input and target values to a training and a test set. Test set is taken from the end of the
+\description{Split the input and target values to a training and a test set. Test set is taken from the end of the
 data. If the data is to be shuffled, this should be done before calling this function.}
 \value{a named list with the following elements:
 \item{inputsTrain}{a matrix containing the training inputs}
@@ -19,7 +18,7 @@ data. If the data is to be shuffled, this should be done before calling this fun
 #shuffle the vector
 iris <- iris[sample(1:nrow(iris),length(1:nrow(iris))),1:ncol(iris)]
 
-irisValues <- normalizeData(iris[,1:4], "norm")
+irisValues <- iris[,1:4]
 irisTargets <- decodeClassLabels(iris[,5])
 
 splitForTrainingAndTest(irisValues, irisTargets, ratio=0.15)}

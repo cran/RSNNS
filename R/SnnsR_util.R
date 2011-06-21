@@ -24,10 +24,11 @@
 #############################################################################
 
 
-#' Reset the \code{SnnsR-class} object.
-#' 
-#' Delete all pattern sets and delete the current net in the \code{\link{SnnsR-class}} object.
-#'  
+
+#' SnnsR low-level function to delete all pattern sets and 
+#' delete the current net in the \code{\link{SnnsR-class}} object.
+#'
+#' @title Reset the SnnsR object.  
 #' @rdname SnnsRObject$resetRSNNS
 #' @usage \S4method{resetRSNNS}{SnnsR}()
 #' @aliases resetRSNNS,SnnsR-method SnnsRObject$resetRSNNS
@@ -43,116 +44,31 @@ SnnsR__resetRSNNS <- function(snnsObject)  {
   
 }
 
-#' Get all units in the net of a certain \code{ttype}.
-#' 
-#' Possible \code{ttype} defined by SNNS are, among others:
-#' "UNIT_OUTPUT", "UNIT_INPUT", and "UNIT_HIDDEN".
-#' 
-#' @param ttype a string containing the \code{ttype}.
-#' @return a vector with integer numbers identifying the units.
-#' @rdname SnnsRObject$getAllUnitsTType
-#' @usage \S4method{getAllUnitsTType}{SnnsR}(ttype)
-#' @aliases getAllUnitsTType,SnnsR-method SnnsRObject$getAllUnitsTType
-#' @seealso \link{SnnsRObject$getAllOutputUnits}, \link{SnnsRObject$getAllInputUnits}, \link{SnnsRObject$getAllHiddenUnits}
-SnnsR__getAllUnitsTType <- function(snnsObject, ttype) {
-  
-  res <- NULL
-  
-  resolvedTType <- resolveSnnsRDefine("topologicalUnitTypes", ttype)
-  
-  nUnits <- snnsObject$getNoOfUnits()
-  
-  for(i in 1:nUnits)  {
-    if(i==1)  unit <- snnsObject$getFirstUnit()
-    else unit <- snnsObject$getNextUnit()
-    
-    #print(unit)
-    type <- snnsObject$getUnitTType(unit)
-    if(type == resolvedTType) res <- c(res, unit)
-    #print(type)
-  }
-  
-  return(res)
-}
 
-#' Get all output units of the net.
-#' 
-#' @return a vector with integer numbers identifying the units.
-#' @rdname SnnsRObject$getAllOutputUnits
-#' @usage \S4method{getAllOutputUnits}{SnnsR}()
-#' @aliases getAllOutputUnits,SnnsR-method SnnsRObject$getAllOutputUnits
-#' @seealso \link{SnnsRObject$getAllUnitsTType}
-SnnsR__getAllOutputUnits <- function(snnsObject) {
-  return(snnsObject$getAllUnitsTType("UNIT_OUTPUT"))  
-}
+#SnnsR__serialize <- function(snnsObject) {
+#  
+#  s <- snnsObject$serializeNet("RSNNS_untitled")
+#  snnsObject@variables$serialization <- s$serialization
+#  s
+##  filename <- tempfile(pattern = "rsnns")
+##  snnsObject$saveNet(filename, "RSNNS_untitled")
+##  file <- file(filename, "r")
+##  s <- readLines(file)
+##  close(file)
+##  unlink(filename)    
+##  snnsObject@variables$serialization <- s
+##  s
+#}
 
-#' Get all input units of the net.
-#' 
-#' @return a vector with integer numbers identifying the units.
-#' @rdname SnnsRObject$getAllInputUnits
-#' @usage \S4method{getAllInputUnits}{SnnsR}()
-#' @aliases getAllInputUnits,SnnsR-method SnnsRObject$getAllInputUnits
-#' @seealso \link{SnnsRObject$getAllUnitsTType}
-SnnsR__getAllInputUnits <- function(snnsObject) {
-  return(snnsObject$getAllUnitsTType("UNIT_INPUT"))  
-}
 
-#' Get all hidden units of the net.
-#' 
-#' @return a vector with integer numbers identifying the units.
-#' @rdname SnnsRObject$getAllHiddenUnits
-#' @usage \S4method{getAllHiddenUnits}{SnnsR}()
-#' @aliases getAllHiddenUnits,SnnsR-method SnnsRObject$getAllHiddenUnits
-#' @seealso \link{SnnsRObject$getAllUnitsTType}
-SnnsR__getAllHiddenUnits <- function(snnsObject) {
-  return(snnsObject$getAllUnitsTType("UNIT_HIDDEN"))  
-}
-
-#\link{getAllUnitsTType,SnnsR-method}
-
-#' Set the activation function for all units of a certain ttype.
-#' 
-#' The function uses the function \code{\link{SnnsRObject$getAllUnitsTType}} to find all units of a certain
-#' \code{ttype}, and sets the activation function of all these units to the given activation function.
-#'  
-#' @param ttype a string containing the \code{ttype}.
-#' @param act_func the name of the activation function to set.
-#' @rdname SnnsRObject$setTTypeUnitsActFunc
-#' @usage \S4method{setTTypeUnitsActFunc}{SnnsR}(ttype, act_func)
-#' @aliases setTTypeUnitsActFunc,SnnsR-method SnnsRObject$setTTypeUnitsActFunc
-#' @seealso \code{\link{SnnsRObject$getAllUnitsTType}}
-#' @examples
-#' \dontrun{SnnsRObject$setTTypeUnitsActFunc("UNIT_HIDDEN", "Act_Logistic")}
-SnnsR__setTTypeUnitsActFunc <- function(snnsObject, ttype, act_func) {
+SnnsR__deserialize <- function(snnsObject, str) {
   
-  units <- snnsObject$getAllUnitsTType(ttype)
+  filename <- tempfile(pattern = "rsnns")
+  file <- file(filename, "w")
+  writeLines(str, con=file)
+  close(file)
   
-  for(unit in units) {
-    snnsObject$setUnitActFunc(unit, act_func)
-  }
-
-}
-
-#' Find all units whose name begins with a given prefix.
-#' 
-#' @param prefix a prefix that the names of the units to find have.
-#' @return a vector with integer numbers identifying the units.
-#' @rdname SnnsRObject$getUnitsByName
-#' @usage \S4method{getUnitsByName}{SnnsR}(prefix)
-#' @aliases getUnitsByName,SnnsR-method SnnsRObject$getUnitsByName
-SnnsR__getUnitsByName <- function(snnsObject, prefix) {
+  snnsObject$loadNet(filename)
   
-  res <- NULL
-  
-  nUnits <- snnsObject$getNoOfUnits()
-  
-  for(i in 1:nUnits)  {
-    if(i==1)  unit <- snnsObject$getFirstUnit()
-    else unit <- snnsObject$getNextUnit()
-    
-    name <- snnsObject$getUnitName(unit)
-    if(beginsWith(name,prefix)) res <- c(res, unit)
-  }
-  
-  return(res)
+  unlink(filename)
 }

@@ -24,12 +24,11 @@
 #############################################################################
 
 
-#' Initialize the network.
-#'
-#' This function masks the SNNS kernel function of the same name
-#'  to allow for both giving the initialization function
-#' directly in the call or to use the one that is currently set. 
-#' 
+#' This SnnsR low-level function masks the SNNS kernel function of the same name
+#' to allow for both giving the initialization function
+#' directly in the call or to use the one that is currently set.
+#'  
+#' @title Initialize the network
 #' @param parameterInArray the parameters of the initialization function
 #' @param initFunc the name of the initialization function
 #' @rdname SnnsRObject$initializeNet
@@ -38,20 +37,20 @@
 SnnsR__initializeNet <- function(snnsObject, parameterInArray, initFunc) {
   
   if(!missing(initFunc)) {
-    .Call("SnnsCLib__setInitialisationFunc", snnsObject@snnsCLibPointer, initFunc, package="RSNNS")
+    .Call("SnnsCLib__setInitialisationFunc", snnsObject@variables$snnsCLibPointer, initFunc, package="RSNNS")
   }
-  err <- .Call("SnnsCLib__initializeNet", snnsObject@snnsCLibPointer, parameterInArray, package="RSNNS")
+  err <- .Call("SnnsCLib__initializeNet", snnsObject@variables$snnsCLibPointer, parameterInArray, package="RSNNS")
   err
 }
 
-#' Set the unit defaults.
-#'
-#' This function masks the SNNS kernel function of the same name 
+
+#' This SnnsR low-level function masks the SNNS kernel function of the same name 
 #' to allow both for giving the parameters directly or as a vector.
 #' If the second parameter, \code{bias}, is missing, it is assumed 
 #' that the first parameter should be interpreted as a vector containing
 #' all parameters.
 #' 
+#' @title Set the unit defaults
 #' @param act same as SNNS kernel function
 #' @param bias idem
 #' @param st idem
@@ -77,7 +76,7 @@ SnnsR__setUnitDefaults <- function(snnsObject, act, bias, st, subnet_no, layer_n
     act <- as.numeric(act[1])    
   }
     
-  err <- .Call("SnnsCLib__setUnitDefaults", snnsObject@snnsCLibPointer, act, bias, st, subnet_no, layer_no, 
+  err <- .Call("SnnsCLib__setUnitDefaults", snnsObject@variables$snnsCLibPointer, act, bias, st, subnet_no, layer_no, 
       act_func, out_func, package="RSNNS")
   err
 }

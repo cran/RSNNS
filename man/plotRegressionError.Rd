@@ -1,10 +1,9 @@
 \name{plotRegressionError}
 \alias{plotRegressionError}
-\title{Plot a regression error plot.}
+\title{Plot a regression error plot}
 \usage{plotRegressionError(targets, fits, ...)
 }
-\description{Plot a regression error plot.}
-\details{The plot shows target values on the x-axis and fitted/predicted values on the y-axis. 
+\description{The plot shows target values on the x-axis and fitted/predicted values on the y-axis. 
 The optimal fit would yield a line through zero with gradient one.
 This optimal line is shown in black color. A linear fit to the actual data
 is shown in red color.}

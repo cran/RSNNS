@@ -1,13 +1,45 @@
 \name{dlvq}
 \alias{dlvq}
-\title{Create and train a dlvq network.}
+\title{Create and train a dlvq network}
 \usage{dlvq(x, ...)
 \method{dlvq}{default}(x, y, initFunc="DLVQ_Weights", initFuncParams=c(1, -1),
     learnFunc="Dynamic_LVQ", learnFuncParams=c(0.03, 0.03, 10),
     updateFunc="Dynamic_LVQ", updateFuncParams=c(0),
     shufflePatterns=TRUE, ...)
 }
-\description{Create and train a dlvq network.}
+\description{Dynamic learning vector quantization (DLVQ) networks are similar to 
+self-organizing maps (SOM, \code{\link{som}}). But they perform supervised learning
+and lack a neighborhood relationship between the prototypes.}
+\details{\code{dlvq}: The input data has to be normalized in order to use DLVQ.
+
+Learning in DLVQ: For each class, a mean vector (prototype) is calculated and stored 
+in a (newly generated) hidden unit. Then, the net is used to classify every pattern 
+by using the nearest prototype. If a pattern gets misclassified as class y instead of 
+class x, the prototype of class y is moved away from the pattern, and the prototype 
+of class x is moved towards the pattern. This procedure is repeated iteratively until no more changes 
+in classification take place. Then, new prototypes are introduced in the net per class
+as new hidden units, and initialized by the mean vector of misclassified patterns in that class.
+
+Network architecture: The network only has one hidden layer, containing one unit for each prototype.
+The prototypes/hidden units are also called codebook vectors. Because SNNS generates the units 
+automatically, and does not need their number to be specified in advance, the procedure is called
+\emph{dynamic} LVQ in SNNS.
+
+The default initialization, learning, and update functions are the only ones suitable for this kind of 
+network. The three parameters of the learning function specify two learning rates (for the cases 
+correctly/uncorrectly classified), and the number of cycles the net is trained before mean vectors are 
+calculated.
+
+A detailed description of the theory and the parameters is available, as always, from the SNNS 
+documentation and the other referenced literature.
+
+}
+\references{Kohonen, T. (1988), Self-organization and associative memory, Vol. 8, Springer-Verlag.
+
+Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
+\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+
+Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)}
 \alias{dlvq.default}
 \value{\code{dlvq.default}: an \code{\link{rsnns}} object. The \code{fitted.values} member contains the 
 activation patterns for all inputs.
@@ -25,5 +57,17 @@ activation patterns for all inputs.
 \item{...}{additional function parameters (currently not used)}
 }
 \examples{\dontrun{demo(dlvq_ziff)}
-\dontrun{demo(dlvq_ziffSnnsR)}}
+\dontrun{demo(dlvq_ziffSnnsR)}
+
+
+data(snnsData)
+dataset <- snnsData$dlvq_ziff_100.pat
+
+inputs <- dataset[,inputColumns(dataset)]
+outputs <- dataset[,outputColumns(dataset)]
+
+model <- dlvq(inputs, outputs)
+
+fitted(model) == outputs
+mean(fitted(model) - outputs)}
 

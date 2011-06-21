@@ -1,24 +1,42 @@
 \name{art2}
 \alias{art2}
-\title{Create and train an art2 network.}
+\title{Create and train an art2 network}
 \usage{art2(x, ...)
 \method{art2}{default}(x, f2Units=5, maxit=100, initFunc="ART2_Weights", initFuncParams=c(0.9,
     2), learnFunc="ART2", learnFuncParams=c(0.98, 10, 10, 0.1, 0),
     updateFunc="ART2_Stable", updateFuncParams=c(0.98, 10, 10, 0.1, 0),
     shufflePatterns=TRUE, ...)
 }
-\description{Create and train an art2 network.}
-\details{\code{art2}: Art2 is very similar to art1, but for real-valued input. See \code{\link{art1}}
-for more information. A difference is, that the art2 implementation doesn't 
-assume two-dimensional input and output.
+\description{ART2 is very similar to ART1, but for real-valued input. See \code{\link{art1}}
+for more information. Opposed to the ART1 implementation, the ART2 implementation 
+does not assume two-dimensional input.}
+\details{\code{art2}: As comparison of real-valued vectors is more difficult than comparison of binary vectors, 
+the comparison layer is more complex in ART2, and actually consists of three layers. With a more
+complex comparison layer, also other parts of the network enhance their complexity.
+In SNNS, this enhanced complexity is reflected by the presence of more parameters in initialization-, learning-,
+and update function.  
+
+In analogy to the implementation of ART1, there are one initialization function, one learning function and two 
+update functions suitable for ART2.  The learning and update functions have five parameters, the initialization function has two 
+parameters. For details see the SNNS User Manual, p. 67 and pp. 192.
 
 }
+\references{Carpenter, G. A. & Grossberg, S. (1987), 'ART 2: self-organization of stable category recognition codes for analog input patterns', Appl. Opt. 26(23), 4919--4930.
+
+Grossberg, S. (1988), Adaptive pattern classification and universal recoding. I.: parallel development and coding of neural feature detectors, MIT Press, Cambridge, MA, USA, chapter I, pp. 243--258.
+
+Herrmann, K.-U. (1992), 'ART -- Adaptive Resonance Theory -- Architekturen, Implementierung und Anwendung', Master's thesis, IPVR, University of Stuttgart. (in German)
+
+Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
+\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+
+Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)}
 \alias{art2.default}
 \value{\code{art2.default}: an \code{\link{rsnns}} object. The \code{fitted.values} member contains the 
 activation patterns for all inputs.
 
 }
-\seealso{\code{\link{art2}}}
+\seealso{\code{\link{art1}}, \code{\link{artmap}}}
 \arguments{\item{x}{a matrix with training inputs for the network}
 \item{f2Units}{controls the number of clusters assumed to be present}
 \item{maxit}{maximum of iterations to learn}
@@ -32,5 +50,22 @@ activation patterns for all inputs.
 \item{...}{additional function parameters (currently not used)}
 }
 \examples{\dontrun{demo(art2_tetra)}
-\dontrun{demo(art2_tetraSnnsR)}}
+\dontrun{demo(art2_tetraSnnsR)}
+
+
+data(snnsData)
+patterns <- snnsData$art2_tetra_med.pat
+
+model <- art2(patterns, f2Units=5, learnFuncParams=c(0.99, 20, 20, 0.1, 0), 
+updateFuncParams=c(0.99, 20, 20, 0.1, 0))
+model
+
+testPatterns <- snnsData$art2_tetra_high.pat
+predictions <- predict(model, testPatterns)
+
+\dontrun{library(scatterplot3d)}
+
+\dontrun{par(mfrow=c(2,2))}
+\dontrun{scatterplot3d(patterns, pch=encodeClassLabels(model$fitted.values))}
+\dontrun{scatterplot3d(testPatterns, pch=encodeClassLabels(predictions))}}
 

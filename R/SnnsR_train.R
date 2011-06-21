@@ -24,8 +24,9 @@
 #############################################################################
 
 
-#' Train a network and test it in every training iteration.
+#' SnnsR low-level function to train a network and test it in every training iteration.
 #'
+#' @title Train a network and test it in every training iteration
 #' @param inputsTrain a matrix with inputs for the network
 #' @param targetsTrain the corresponding targets
 #' @param initFunc the initialization function to use
@@ -48,16 +49,17 @@
 #' @rdname SnnsRObject$train
 #' @usage \S4method{train}{SnnsR}(inputsTrain, targetsTrain=NULL, 
 #'     initFunc="Randomize_Weights", initFuncParams=c(1.0, -1.0), 
-#'     learnFunc="Quickprop", learnFuncParams=c(0.2, 0, 0, 0),
+#'     learnFunc="Std_Backpropagation", learnFuncParams=c(0.2, 0),
 #'     updateFunc="Topological_Order", updateFuncParams=c(0.0), 
 #'     outputMethod="reg_class", maxit=100, shufflePatterns=TRUE, 
 #'     computeError=TRUE, inputsTest=NULL, targetsTest=NULL)
 #' @aliases train,SnnsR-method SnnsRObject$train
 SnnsR__train <- function(snnsObject, inputsTrain, targetsTrain=NULL, 
     initFunc="Randomize_Weights", initFuncParams=c(1.0, -1.0), 
-    learnFunc="Quickprop", learnFuncParams=c(0.2, 0, 0, 0),
+    learnFunc="Std_Backpropagation", learnFuncParams=c(0.2, 0),
     updateFunc="Topological_Order", updateFuncParams=c(0.0), outputMethod="reg_class", 
-    maxit=100, shufflePatterns=TRUE, computeError=TRUE, inputsTest=NULL, targetsTest=NULL) {
+    maxit=100, shufflePatterns=TRUE, computeError=TRUE, inputsTest=NULL, targetsTest=NULL, 
+    serializeTrainedObject=TRUE) {
 
   testing <- TRUE
   if(is.null(inputsTest)) testing <- FALSE
@@ -163,5 +165,10 @@ SnnsR__train <- function(snnsObject, inputsTrain, targetsTrain=NULL,
   #has to be deleted at last
   snnsObject$deletePatSet(patSetTrain$set_no)
   
-  return(result)
+  if(serializeTrainedObject) {
+    s <- snnsObject$serializeNet("RSNNS_untitled")
+    snnsObject@variables$serialization <- s$serialization
+  }
+  
+  result
 }

@@ -1,9 +1,8 @@
 \name{SnnsRObject$setUnitDefaults}
 \alias{SnnsR__setUnitDefaults}
-\title{Set the unit defaults.}
+\title{Set the unit defaults}
 \usage{\S4method{setUnitDefaults}{SnnsR}(act, bias, st, subnet_no, layer_no, act_func, out_func)}
-\description{Set the unit defaults.}
-\details{This function masks the SNNS kernel function of the same name 
+\description{This SnnsR low-level function masks the SNNS kernel function of the same name 
 to allow both for giving the parameters directly or as a vector.
 If the second parameter, \code{bias}, is missing, it is assumed 
 that the first parameter should be interpreted as a vector containing

@@ -1,6 +1,6 @@
 \name{encodeClassLabels}
 \alias{encodeClassLabels}
-\title{Applies analyzeClassification row-wise to a matrix.}
+\title{Encode a matrix of (decoded) class labels}
 \usage{encodeClassLabels(x, method="WTA", l=0, h=0)
 }
 \description{Applies \code{analyzeClassification} row-wise to a matrix.}

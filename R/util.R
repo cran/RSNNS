@@ -54,40 +54,13 @@ rot90 <- function(a) {
   t(a[n:1, ])
 }
 
-#' Data normalization.
-#'
-#' The input matrix is column-wise normalized. The parameter \code{type} specifies how:
-#' \describe{
-#' \item{0_1}{values are normalized to the [0,1]-interval. The minimum in the data is mapped to zero, the maximum to one.}
-#' \item{center}{the data is centered, i.e. the mean is substracted}
-#' \item{norm}{the data is normalized to mean zero, variance one}
-#' }
-#' 
-#' @param x input data
-#' @param type string specifying the type of normalization. Implemented are "0_1", "center", and "norm"
-#' @return column-wise normalized input
-#' @export
-normalizeData <- function(x, type="norm") {
-  
-  res <- NULL
-  
-  if(type == "0_1") {
-    res <- apply(x, 2, function(y) {(y - min(y)) / (max(y) - min(y))})  
-  } else if(type== "center") {
-    res <- apply(x, 2, function(y) {y - mean(y)})
-  } else {
-    res <- apply(x, 2, function(y) {(y - mean(y)) / sd(y)})    
-  }
-  res
-}
-
-
 #' Organize network activation as 2d map.
 #'
 #' The input to this function is a vector containing in each row an activation
 #' pattern/output of a neural network. This function reorganizes the vector to
 #' a matrix. Normally, only the number of rows \code{nrow} will be used.
 #' 
+#' @title Convert a vector to an activation map
 #' @param v the vector containing the activation pattern
 #' @param nrow number of rows the resulting matrices will have
 #' @param ncol number of columns the resulting matrices will have
@@ -108,6 +81,7 @@ vectorToActMap <- function(v, nrow=0, ncol=0) {
 #' reorganize the matrix to a list of matrices, whereby each row of the input matrix 
 #' is converted to a matrix in the output list.
 #' 
+#' @title Convert matrix of activations to activation map list
 #' @param m the matrix containing one activation pattern in every row
 #' @param nrow number of rows the resulting matrices will have
 #' @param ncol number of columns the resulting matrices will have
@@ -123,6 +97,7 @@ matrixToActMapList <- function(m, nrow=0, ncol=0) {
 
 #' Plot an activation map as a heatmap.
 #'
+#' @title Plot activation map
 #' @param x the input data matrix 
 #' @param ... parameters passed to \code{image}
 #' @export
@@ -133,6 +108,7 @@ plotActMap <- function(x, ...) {
 
 #' Get the function table of available SNNS functions.
 #'
+#' @title Get SnnsR function table
 #' @return a data.frame with columns:
 #' \item{name}{name of the function}
 #' \item{type}{the type of the function (learning, init, update,...)}
@@ -159,10 +135,10 @@ getSnnsRFunctionTable <- function() {
   allFuncs
 }
 
-#' Get a define of the SNNS kernel.
-#'
+#' Get a define of the SNNS kernel from a defines-list.
 #' All defines-lists present can be shown with \code{RSNNS:::SnnsDefines}. 
 #' 
+#' @title Get a define of the SNNS kernel
 #' @param defList the defines-list from which to get the define from
 #' @param defValue the value in the list
 #' @return a string with the name of the define
@@ -176,10 +152,11 @@ getSnnsRDefine <- function(defList, defValue)  {
   return(SnnsDefines[[defList]][defRow,1])
 }
 
-#' Resolve a define of the SNNS kernel.
-#'
+
+#' Resolve a define of the SNNS kernel using a defines-list.
 #' All defines-lists present can be shown with \code{RSNNS:::SnnsDefines}.
 #' 
+#' @title Resolve a define of the SNNS kernel
 #' @param defList the defines-list from which to resolve the define from
 #' @param def the name of the define
 #' @return the value of the define
@@ -197,12 +174,25 @@ resolveSnnsRDefine <- function(defList, def)  {
 #}
 
 #' Set the seed value used in all \code{SnnsR} objects.
-#' 
-#' Set the seed value that will be used in the constructor of 
+#' The seed value is used in the constructor of 
 #' every \code{SnnsCLib} object to set the seed of rand().
 #'
+#' @title Set the SnnsR seed value
 #' @param seed the seed to use. If 0, a seed based on the system time is generated.
 #' @export
 setSnnsRSeedValue <- function(seed) {
   .Call("setCurrentSeedVal", seed, package="RSNNS")  
+}
+
+getKrioTitle <- function(title_num) {
+  .Call("getKrioTitle", title_num, package="RSNNS")  
+}
+
+is.nil <- function(ptr) {
+  
+  if (class(ptr)!="externalptr") stop("argument given is not a pointer")
+  
+  res <- .Call("isnil", ptr)
+  
+  res
 }

@@ -24,18 +24,16 @@
 #############################################################################
 
 
-#' Generic print function for \code{rsnns} objects.
-#'
 #' Print out some characteristics of an \code{\link{rsnns}} object.
 #' 
+#' @title Generic print function for rsnns objects
 #' @param x the \code{\link{rsnns}} object
 #' @param ... additional function parameters (currently not used)
 #' @export
 #' @S3method print rsnns
 #' @method print rsnns
 # @rdname rsnns
-print.rsnns <- function(x, ...)
-{
+print.rsnns <- function(x, ...) {
   if(!inherits(x, "rsnns")) stop("not a legitimate rsnns model")
   
   cat("Class: ", paste(class(x), sep="", collapse="->"), "\n", sep="")
@@ -54,37 +52,86 @@ print.rsnns <- function(x, ...)
   print(x$archParams)
   cat("All members of model:\n",sep="") 
   print(names(x))
+  
+  invisible(x)
 }
 
-#' Generic summary function for \code{rsnns} objects.
-#'
-#' Print out a summary of the network. The function calls the function saveNet of the SNNS kernel to
-#' save the net to a temporary file. Then, it reads this file in, displays its contents and
-#' deletes the temporary file. 
+
+#' This function generates a list of data.frames containing the most important information 
+#' that defines a network, in a format that is easy to use. To get the full definition in 
+#' the original SNNS format, use \code{\link{summary.rsnns}} or \code{\link{exportToSnnsNetFile}} 
+#' instead. 
 #' 
+#' Internally, a call to \code{\link{SnnsRObject$extractNetInfo}} is done, and the results of 
+#' this call are returned.
+#' 
+#' @title Extract information from a network
 #' @param object the \code{\link{rsnns}} object
+#' @return a list containing information extracted from the network (see \code{\link{SnnsRObject$extractNetInfo}}).
+#' @export
+#' @seealso \code{\link{SnnsRObject$extractNetInfo}}
+extractNetInfo <- function(object) {
+  if(!inherits(object, "rsnns")) stop("not a legitimate rsnns model")
+  
+  object$snnsObject$extractNetInfo()
+}
+
+#' Export the net that is present in the \code{\link{rsnns}} object in the 
+#' original (.net) SNNS file format.
+#'
+#' @title Export the net to a file in the original SNNS file format
+#' @param object the \code{\link{rsnns}} object
+#' @param filename path and filename to be written to 
+#' @param netname name that is given to the network in the file
+#' @export
+exportToSnnsNetFile <- function(object, filename, netname="RSNNS_untitled") {
+  if(!inherits(object, "rsnns")) stop("not a legitimate rsnns model")
+  
+  object$snnsObject$saveNet(filename, netname)
+}
+
+
+#' Prints out a summary of the network. The printed information can be either 
+#' all information of the network in the original SNNS file format,
+#' or the information given by \code{\link{extractNetInfo}}.
+#' This behaviour is controlled with the parameter \code{origSnnsFormat}.
+#' 
+#' @title Generic summary function for rsnns objects
+#' @param object the \code{\link{rsnns}} object
+#' @param origSnnsFormat show data in SNNS's original format in which networks are saved, or show output of \code{\link{extractNetInfo}}
 #' @param ... additional function parameters (currently not used)
-#' @return the contents of the .net file that SNNS would generate from the object, as a string.  
+#' @return Either the contents of the .net file that SNNS would generate from 
+#' the object, as a string. Or the output of \code{\link{extractNetInfo}}.  
 #' @export
 #' @S3method summary rsnns
 #' @method summary rsnns
-# @rdname rsnns
-summary.rsnns <- function(object, ...)
-{
+#' @seealso \code{\link{extractNetInfo}} 
+summary.rsnns <- function(object, origSnnsFormat=TRUE, ...) {
   if(!inherits(object, "rsnns")) stop("not a legitimate rsnns model")
-  filename <- tempfile(pattern = "rsnns")
-  object$snnsObject$saveNet(filename, " ")
-  file <- file(filename, "r")
-  s <- readLines(file)
-  close(file)
-  unlink(filename)
-  s
+  
+  if(origSnnsFormat) {
+
+    s <- object$snnsObject$serializeNet("RSNNS_untitled")
+    s <- s$serialization
+#    filename <- tempfile(pattern = "rsnns")
+#    object$snnsObject$saveNet(filename, " ")
+#    file <- file(filename, "r")
+#    s <- readLines(file)
+#    close(file)
+#    unlink(filename)    
+  } else {
+    s <- extractNetInfo(object)
+    
+    if(length(s$fullWeightMatrix) > 20*20)
+      s$fullWeightMatrix <- "omitting full weight matrix as it is bigger than 20*20"
+      
+  }
+  #invisible(s$serialization)
+  cat(s)
+  invisible(s)
 }
 
-# Most of the parameters are directly passed to \code{\link{rsnnsObjectFactory}} or \code{\link{train}}.
 
-#' Object factory for generating \code{rsnns} objects.
-#'
 #' The object factory generates an \code{rsnns} object and initializes its member variables
 #' with the values given as parameters. Furthermore, it generates an object of \code{\link{SnnsR-class}}.
 #' Later, this information is to be used to train the network.
@@ -100,6 +147,7 @@ summary.rsnns <- function(object, ...)
 #' the SSE is computed on the test set, then it is weighted to take care of the different amount of patterns
 #' in the sets.
 #' 
+#' @title Object factory for generating rsnns objects
 #' @param subclass the subclass of rsnns to generate (vector of strings)
 #' @param nInputs the number of inputs the network will have
 #' @param maxit maximum of iterations to learn
@@ -115,7 +163,7 @@ summary.rsnns <- function(object, ...)
 #' @aliases rsnns
 #' @export
 #' @seealso \code{\link{mlp}}, \code{\link{dlvq}}, \code{\link{rbf}}, \code{\link{rbfDDA}}, \code{\link{elman}}, 
-#' \code{\link{jordan}}, \code{\link{som}}, \code{\link{art1}}, \code{\link{art2}}, \code{\link{assoz}}
+#' \code{\link{jordan}}, \code{\link{som}}, \code{\link{art1}}, \code{\link{art2}}, \code{\link{artmap}}, \code{\link{assoz}}
 rsnnsObjectFactory <- function(subclass, nInputs, maxit, 
     initFunc, initFuncParams, 
     learnFunc, learnFuncParams, 
@@ -143,30 +191,33 @@ rsnnsObjectFactory <- function(subclass, nInputs, maxit,
   snns
 }
 
-#' Generic train function.
-#'
+
+#' The function calls \code{\link{SnnsRObject$train}} and saves the result in the
+#' current \code{\link{rsnns}} object. This function is used internally by the 
+#' models (e.g. \code{\link{mlp}}) for training. Unless you are not about to implement
+#' a new model on the S3 layer you most probably don't want to use this function.
+#' 
+#' @title Internal generic train function for rsnns objects
 #' @param object the object to which to apply train
 #' @param ... additional function parameters
 #' @export
 train <- function(object, ...) UseMethod("train")
 
-#' Generic train function for \code{rsnns} objects.
-#'
-#' The function calls \code{\link{SnnsRObject$train}} and saves the result in the
-#' current \code{\link{rsnns}} object
+#' Internal generic train function for \code{rsnns} objects.
 #' 
 #' @param object the \code{\link{rsnns}} object
 #' @param inputsTrain training input
 #' @param targetsTrain training targets
 #' @param inputsTest test input
 #' @param targetsTest test targets
+#' @param serializeTrainedObject parameter passed to \code{\link{SnnsRObject$train}}
 #' @param ... additional function parameters (currently not used)
 #' @return an \code{\link{rsnns}} object, to which the results of training have been added. 
 #' @export
 #' @S3method train rsnns
 #' @method train rsnns
 #' @rdname train
-train.rsnns <- function(object, inputsTrain, targetsTrain=NULL, inputsTest=NULL, targetsTest=NULL, ...) {
+train.rsnns <- function(object, inputsTrain, targetsTrain=NULL, inputsTest=NULL, targetsTest=NULL, serializeTrainedObject=TRUE, ...) {
   
   if(!inherits(object, "rsnns")) stop("not a legitimate rsnns model")
   
@@ -175,7 +226,7 @@ train.rsnns <- function(object, inputsTrain, targetsTrain=NULL, inputsTest=NULL,
       learnFunc=object$learnFunc, learnFuncParams=object$learnFuncParams, updateFunc=object$updateFunc, 
       updateFuncParams=object$updateFuncParams, outputMethod=class(object)[1], maxit=object$maxit, 
       shufflePatterns=object$shufflePatterns, computeError=object$computeIterativeError, 
-      inputsTest=inputsTest, targetsTest=targetsTest)
+      inputsTest=inputsTest, targetsTest=targetsTest, serializeTrainedObject=serializeTrainedObject)
   
   object$IterativeFitError <- trainResult$IterativeFitError
   object$IterativeTestError <- trainResult$IterativeTestError
@@ -187,10 +238,10 @@ train.rsnns <- function(object, inputsTrain, targetsTrain=NULL, inputsTest=NULL,
   object
 }
 
-#' Generic predict function for \code{rsnns} object.
-#' 
+
 #' Predict values using the given network. 
 #'
+#' @title Generic predict function for rsnns object
 #' @param object the \code{\link{rsnns}} object
 #' @param newdata the new input data which is used for prediction
 #' @param ... additional function parameters (currently not used)
@@ -199,8 +250,7 @@ train.rsnns <- function(object, inputsTrain, targetsTrain=NULL, inputsTest=NULL,
 #' @method predict rsnns
 # @rdname rsnns
 #' @export
-predict.rsnns <- function(object, newdata, ...)
-{
+predict.rsnns <- function(object, newdata, ...) {
   if(!inherits(object, "rsnns")) stop("not a legitimate rsnns model")
   #type <- match.arg(type)
   if(missing(newdata)) z <- fitted(object)
@@ -226,4 +276,29 @@ predict.rsnns <- function(object, newdata, ...)
   }
   z
   #predictions
+}
+
+
+#' The function calls \code{\link{SnnsRObject$getCompleteWeightMatrix}} and returns its result.
+#'
+#' @title Function to extract the weight matrix of an rsnns object
+#' @param object the object to which to apply weightMatrix
+#' @param ... additional function parameters
+#' @export
+weightMatrix <- function(object, ...) UseMethod("weightMatrix")
+
+#' Function to extract the weight matrix of an rsnns object.
+#' 
+#' @param object the \code{\link{rsnns}} object
+#' @param ... additional function parameters (currently not used)
+#' @return a matrix with all weights from all neurons present in the net. 
+#' @export
+#' @S3method weightMatrix rsnns
+#' @method weightMatrix rsnns
+#' @rdname weightMatrix
+weightMatrix.rsnns <- function(object, ...) {
+  
+  if(!inherits(object, "rsnns")) stop("not a legitimate rsnns model")
+  
+  object$snnsObject$getCompleteWeightMatrix(setDimNames=TRUE)
 }

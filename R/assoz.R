@@ -24,10 +24,25 @@
 #############################################################################
 
 
-#' Create and train an (auto-)associative memory.
-#'
-#' Similar to the \code{\link{art1}} and \code{\link{art2}} network types.
+#' The autoassociative memory performs clustering by finding a prototype to the given input. 
 #' The implementation assumes two-dimensional input and output (cf. \code{\link{art1}}).
+#' 
+#' The default initialization and update functions are the only ones suitable for this kind of 
+#' network. The update function takes one parameter, which is the number of iterations that will 
+#' be performed. The default of 50 usually does not have to be modified. For learning, \code{RM_delta} 
+#' and \code{Hebbian} functions can be used, though the first one usually performs better.
+#' 
+#' A more detailed description of the theory and the parameters is available from 
+#' the SNNS documentation and the other referenced literature. 
+#' 
+#' @title Create and train an (auto-)associative memory
+#' @references 
+#' Palm, G. (1980), 'On associative memory', Biological Cybernetics 36, 19-31.
+#' 
+#' Rojas, R. (1996), Neural networks :a systematic introduction, Springer-Verlag, Berlin.
+#' 
+#' Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
+#' \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
 #' 
 #' @export
 assoz <- function(x, ...) UseMethod("assoz")
@@ -56,6 +71,17 @@ assoz <- function(x, ...) UseMethod("assoz")
 #' @examples 
 #' \dontrun{demo(assoz_letters)}
 #' \dontrun{demo(assoz_lettersSnnsR)}
+#' 
+#' 
+#' data(snnsData)
+#' patterns <- snnsData$art1_letters.pat
+#' 
+#' model <- assoz(patterns, dimX=7, dimY=5)
+#' 
+#' actMaps <- matrixToActMapList(model$fitted.values, nrow=7)
+#' 
+#' par(mfrow=c(3,3))
+#' for (i in 1:9) plotActMap(actMaps[[i]])
 assoz.default <- function(x, dimX, dimY, maxit=100, 
     initFunc="RM_Random_Weights", initFuncParams=c(1.0, -1.0), 
     learnFunc="RM_delta", learnFuncParams=c(0.01, 100, 0.0, 0.0, 0.0), 
@@ -67,7 +93,7 @@ assoz.default <- function(x, dimX, dimY, maxit=100,
   
   nInputs <- dim(x)[2L]
   
-  snns <- rsnnsObjectFactory(subclass=c("assoz", "association"), nInputs=nInputs, maxit=maxit, 
+  snns <- rsnnsObjectFactory(subclass=c("assoz"), nInputs=nInputs, maxit=maxit, 
       initFunc=initFunc, initFuncParams=initFuncParams, 
       learnFunc=learnFunc, learnFuncParams=learnFuncParams, 
       updateFunc=updateFunc, 
@@ -81,7 +107,7 @@ assoz.default <- function(x, dimX, dimY, maxit=100,
   
   snns <- train(snns, inputsTrain=x)
   
-  snns$fitted.values <- matrixToActMapList(snns$fitted.values, nrow=dimX)
+  #snns$fitted.values <- matrixToActMapList(snns$fitted.values, nrow=dimX)
   
   snns
 }

@@ -24,12 +24,35 @@
 #############################################################################
 
 
-#' Create and train a self-organizing map (som).
-#'
-#' This function creates and trains a self-organizing map. 
-#' As the computation might be slow if many patterns are involved,
+
+#' This function creates and trains a self-organizing map (SOM).
+#' SOMs are neural networks with one hidden layer. 
+#' The network structure is similar to LVQ, but the method is unsupervised 
+#' and uses a notion of neighborhood between the units. 
+#' The general idea is that the map develops by itself a notion of similarity among 
+#' the input and represents this as spatial nearness on the map.
+#' Every hidden unit represents a prototype. The goal of learning is to
+#' distribute the prototypes in the feature space such that the (probability 
+#' density of the) input is represented well.
+#' SOMs are usually built with 1d, 2d quadratic, 2d hexagonal, or 3d 
+#' neighborhood, so that they can be visualized straightforwardly.
+#' The SOM implemented in SNNS has a 2d quadratic neighborhood.
+#'  
+#' As the computation of this function might be slow if many patterns are involved,
 #' much of its output is made switchable (see comments on return values).  
 #' 
+#' Internally, this function uses the initialization function \code{Kohonen_Weights_v3.2},
+#' the learning function \code{Kohonen}, and the update function \code{Kohonen_Order} of
+#' SNNS. 
+#' 
+#' @title Create and train a self-organizing map (SOM)
+#' @references 
+#' Kohonen, T. (1988), Self-organization and associative memory, Vol. 8, Springer-Verlag.
+#' 
+#' Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
+#' \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+#' 
+#' Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)
 #' @export
 som <- function(x, ...) UseMethod("som")
 
@@ -72,6 +95,30 @@ som <- function(x, ...) UseMethod("som")
 #' @examples 
 #' \dontrun{demo(som_iris)}
 #' \dontrun{demo(som_cubeSnnsR)}
+#' 
+#' 
+#' data(iris)
+#' inputs <- normalizeData(iris[,1:4], "norm")
+#' 
+#' model <- som(inputs, mapX=16, mapY=16, maxit=500,  
+#'                 calculateActMaps=TRUE, targets=iris[,5])
+#' 
+#' par(mfrow=c(3,3))
+#' for(i in 1:ncol(inputs)) plotActMap(model$componentMaps[[i]], 
+#'                                        col=rev(topo.colors(12)))
+#' 
+#' plotActMap(model$map, col=rev(heat.colors(12)))
+#' plotActMap(log(model$map+1), col=rev(heat.colors(12)))
+#' persp(1:model$archParams$mapX, 1:model$archParams$mapY, log(model$map+1), 
+#'      theta = 30, phi = 30, expand = 0.5, col = "lightblue")
+#' 
+#' plotActMap(model$labeledMap)
+#' 
+#' model$componentMaps
+#' model$labeledUnits
+#' model$map
+#' 
+#' names(model)
 som.default <- function(x, mapX=16, mapY=16, maxit=100, 
     initFuncParams = c(1.0,  -1.0), 
     learnFuncParams=c(0.5, mapX/2, 0.8, 0.8, mapX), 
@@ -90,7 +137,7 @@ som.default <- function(x, mapX=16, mapY=16, maxit=100,
   nInputs <- dim(x)[2L]
   nOutputs <- mapX*mapY
   
-  snns <- rsnnsObjectFactory(subclass=c("som", "clustering"), nInputs=nInputs, maxit=maxit, 
+  snns <- rsnnsObjectFactory(subclass=c("som"), nInputs=nInputs, maxit=maxit, 
       initFunc=initFunc, initFuncParams=initFuncParams, 
       learnFunc=learnFunc, learnFuncParams=learnFuncParams, 
       updateFunc=updateFunc, 

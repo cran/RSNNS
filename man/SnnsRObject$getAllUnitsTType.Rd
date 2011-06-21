@@ -1,10 +1,13 @@
 \name{SnnsRObject$getAllUnitsTType}
 \alias{SnnsR__getAllUnitsTType}
-\title{Get all units in the net of a certain ttype.}
+\title{Get all units in the net of a certain \code{ttype}.}
 \usage{\S4method{getAllUnitsTType}{SnnsR}(ttype)}
-\description{Get all units in the net of a certain \code{ttype}.}
-\details{Possible \code{ttype} defined by SNNS are, among others:
-"UNIT_OUTPUT", "UNIT_INPUT", and "UNIT_HIDDEN".}
+\description{SnnsR low-level function to get all units in the net of a certain \code{ttype}. 
+Possible \code{ttype} defined by SNNS are, among others:
+"UNIT_OUTPUT", "UNIT_INPUT", and "UNIT_HIDDEN". For a full list, 
+call \code{RSNNS:::SnnsDefines$topologicalUnitTypes}
+As this is an SnnsR low-level function, you may want to have a look 
+at \code{\link{SnnsR-class}} to find out how to properly use it.}
 \value{a vector with integer numbers identifying the units.}
 \alias{getAllUnitsTType,SnnsR-method}
 \alias{SnnsRObject$getAllUnitsTType}

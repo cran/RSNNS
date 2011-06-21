@@ -1,6 +1,6 @@
 \name{plotActMap}
 \alias{plotActMap}
-\title{Plot an activation map as a heatmap.}
+\title{Plot activation map}
 \usage{plotActMap(x, ...)
 }
 \description{Plot an activation map as a heatmap.}

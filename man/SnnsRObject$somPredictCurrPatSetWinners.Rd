@@ -1,10 +1,9 @@
 \name{SnnsRObject$somPredictCurrPatSetWinners}
 \alias{SnnsR__somPredictCurrPatSetWinners}
-\title{Get most of the relevant results from a som.}
+\title{Get most of the relevant results from a som}
 \usage{\S4method{somPredictCurrPatSetWinners}{SnnsR}(updateFuncParams=c(0.0, 0.0, 1.0), 
 saveWinnersPerPattern=TRUE, targets=NULL)}
-\description{Get most of the relevant results from a som.}
-\details{This function is most conveniently used through \code{\link{som}}.}
+\description{SnnsR low-level function to get most of the relevant results from a SOM.}
 \value{a list with three elements:
 \item{nWinnersPerUnit}{For each unit, the amount of patterns where this unit won is given. So, this is a 1d vector representing the normal version of the som.}
 \item{winnersPerPattern}{a vector where for each pattern the number of the winning unit is given. This is an intermediary result

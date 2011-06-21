@@ -1,16 +1,14 @@
 \name{rsnnsObjectFactory}
 \alias{rsnnsObjectFactory}
-\title{Object factory for generating rsnns objects.}
+\title{Object factory for generating rsnns objects}
 \usage{rsnnsObjectFactory(subclass, nInputs, maxit, initFunc, initFuncParams, learnFunc,
     learnFuncParams, updateFunc, updateFuncParams,
     shufflePatterns=TRUE, computeIterativeError=TRUE)
 }
-\description{Object factory for generating \code{rsnns} objects.}
-\details{The object factory generates an \code{rsnns} object and initializes its member variables
+\description{The object factory generates an \code{rsnns} object and initializes its member variables
 with the values given as parameters. Furthermore, it generates an object of \code{\link{SnnsR-class}}.
-Later, this information is to be used to train the network.
-
-The typical procedure implemented in \code{rsnns} subclasses is the following: 
+Later, this information is to be used to train the network.}
+\details{The typical procedure implemented in \code{rsnns} subclasses is the following: 
 \itemize{
 \item generate the \code{rsnns} object with this object factory
 \item generate the network according to the architecture needed
@@ -23,7 +21,7 @@ in the sets.}
 \value{a partly initialized \code{rsnns} object}
 \alias{rsnns}
 \seealso{\code{\link{mlp}}, \code{\link{dlvq}}, \code{\link{rbf}}, \code{\link{rbfDDA}}, \code{\link{elman}}, 
-\code{\link{jordan}}, \code{\link{som}}, \code{\link{art1}}, \code{\link{art2}}, \code{\link{assoz}}}
+\code{\link{jordan}}, \code{\link{som}}, \code{\link{art1}}, \code{\link{art2}}, \code{\link{artmap}}, \code{\link{assoz}}}
 \arguments{\item{subclass}{the subclass of rsnns to generate (vector of strings)}
 \item{nInputs}{the number of inputs the network will have}
 \item{maxit}{maximum of iterations to learn}

@@ -1,14 +1,39 @@
 \name{mlp}
 \alias{mlp}
-\title{Create and train a multi-layer perceptron (mlp).}
+\title{Create and train a multi-layer perceptron (MLP)}
 \usage{mlp(x, ...)
 \method{mlp}{default}(x, y, size=c(5), maxit=100, initFunc="Randomize_Weights",
-    initFuncParams=c(-0.3, 0.3), learnFunc="Quickprop",
-    learnFuncParams=c(0.2), updateFunc="Topological_Order",
+    initFuncParams=c(-0.3, 0.3), learnFunc="Std_Backpropagation",
+    learnFuncParams=c(0.2, 0), updateFunc="Topological_Order",
     updateFuncParams=c(0), hiddenActFunc="Act_Logistic",
     shufflePatterns=TRUE, linOut=FALSE, inputsTest, targetsTest, ...)
 }
-\description{Create and train a multi-layer perceptron (mlp).}
+\description{This function creates a multilayer perceptron (MLP) and trains it.
+MLPs are fully connected feedforward networks, and probably the most 
+common network architecture in use.  
+Training is usually performed by error backpropagation or a related procedure.}
+\details{\code{mlp}: There are a lot of different learning functions present in SNNS that can be 
+used together with this function, e.g., \code{Std_Backpropagation}, \code{BackpropBatch},
+\code{BackpropChunk}, \code{BackpropMomentum}, \code{BackpropWeightDecay}, \code{Rprop},
+\code{Quickprop}, \code{SCG} (scaled conjugate gradient), ...
+
+\code{Std_Backpropagation}, \code{BackpropBatch}, e.g., have two parameters, the learning rate
+and the maximum output difference. The learning rate is usually a value between 0.1 and 1.
+It specifies the gradient descent step width. The maximum difference defines, how much difference between output
+and target value is treated as zero error, and not backpropagated. This parameter is used to prevent overtraining.
+For a complete list of the parameters of all the learning functions, see the SNNS User Manual, pp. 67.
+
+The defaults that are set for initialization and update functions usually don't have to be changed.
+
+}
+\references{Rosenblatt, F. (1958), 'The perceptron: A probabilistic model for information storage and organization in the brain', Psychological Review 65(6), 386--408.
+
+Rumelhart, D. E.; Clelland, J. L. M. & Group, P. R. (1986), Parallel distributed processing :explorations in the microstructure of cognition, Mit, Cambridge, MA etc.
+
+Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
+\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+
+Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)}
 \alias{mlp.default}
 \value{\code{mlp.default}: an \code{\link{rsnns}} object.
 
@@ -32,5 +57,43 @@
 }
 \examples{\dontrun{demo(iris)}
 \dontrun{demo(laser)}
-\dontrun{demo(encoderSnnsCLib)}}
+\dontrun{demo(encoderSnnsCLib)}
+
+
+data(iris)
+
+#shuffle the vector
+iris <- iris[sample(1:nrow(iris),length(1:nrow(iris))),1:ncol(iris)]
+
+irisValues <- iris[,1:4]
+irisTargets <- decodeClassLabels(iris[,5])
+#irisTargets <- decodeClassLabels(iris[,5], valTrue=0.9, valFalse=0.1)
+
+iris <- splitForTrainingAndTest(irisValues, irisTargets, ratio=0.15)
+iris <- normTrainingAndTestSet(iris)
+
+model <- mlp(iris$inputsTrain, iris$targetsTrain, size=5, learnFuncParams=c(0.1), 
+maxit=50, inputsTest=iris$inputsTest, targetsTest=iris$targetsTest)
+
+summary(model)
+model
+weightMatrix(model)
+extractNetInfo(model)
+
+par(mfrow=c(2,2))
+plotIterativeError(model)
+
+predictions <- predict(model,iris$inputsTest)
+
+plotRegressionError(predictions[,2], iris$targetsTest[,2])
+
+confusionMatrix(iris$targetsTrain,fitted.values(model))
+confusionMatrix(iris$targetsTest,predictions)
+
+plotROC(fitted.values(model)[,2], iris$targetsTrain[,2])
+plotROC(predictions[,2], iris$targetsTest[,2])
+
+#confusion matrix with 402040-method
+confusionMatrix(iris$targetsTrain, encodeClassLabels(fitted.values(model),
+method="402040", l=0.4, h=0.6))}
 

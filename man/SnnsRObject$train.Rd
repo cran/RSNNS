@@ -1,13 +1,13 @@
 \name{SnnsRObject$train}
 \alias{SnnsR__train}
-\title{Train a network and test it in every training iteration.}
+\title{Train a network and test it in every training iteration}
 \usage{\S4method{train}{SnnsR}(inputsTrain, targetsTrain=NULL, 
 initFunc="Randomize_Weights", initFuncParams=c(1.0, -1.0), 
-learnFunc="Quickprop", learnFuncParams=c(0.2, 0, 0, 0),
+learnFunc="Std_Backpropagation", learnFuncParams=c(0.2, 0),
 updateFunc="Topological_Order", updateFuncParams=c(0.0), 
 outputMethod="reg_class", maxit=100, shufflePatterns=TRUE, 
 computeError=TRUE, inputsTest=NULL, targetsTest=NULL)}
-\description{Train a network and test it in every training iteration.}
+\description{SnnsR low-level function to train a network and test it in every training iteration.}
 \value{a list containing:
 \item{fitValues}{the fitted values, i.e. outputs of the training inputs}
 \item{IterativeFitError}{The SSE in every iteration/epoch on the training set}

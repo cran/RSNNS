@@ -1,10 +1,9 @@
 \name{predict.rsnns}
 \alias{predict.rsnns}
-\title{Generic predict function for rsnns object.}
+\title{Generic predict function for rsnns object}
 \usage{\method{predict}{rsnns}(object, newdata, ...)
 }
-\description{Generic predict function for \code{rsnns} object.}
-\details{Predict values using the given network.}
+\description{Predict values using the given network.}
 \value{the predicted values}
 \arguments{\item{object}{the \code{\link{rsnns}} object}
 \item{newdata}{the new input data which is used for prediction}

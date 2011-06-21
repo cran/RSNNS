@@ -9,17 +9,24 @@ data(iris)
 #shuffle the vector
 iris <- iris[sample(1:nrow(iris),length(1:nrow(iris))),1:ncol(iris)]
 
-#normalize data
-irisValues <- normalizeData(iris[,1:4], "norm")
-#irisValues <- normalizeData(iris[,1:4], "0_1")
-
+irisValues <- iris[,1:4]
 irisTargets <- decodeClassLabels(iris[,5])
 #irisTargets <- decodeClassLabels(iris[,5], valTrue=0.9, valFalse=0.1)
 
 iris <- splitForTrainingAndTest(irisValues, irisTargets, ratio=0.15)
 
-model <- mlp(iris$inputsTrain, iris$targetsTrain, size=5, learnFuncParams=c(0.1), 
-    maxit=50, inputsTest=iris$inputsTest, targetsTest=iris$targetsTest)
+#normalize data
+iris <- normTrainingAndTestSet(iris)
+
+#model <- mlp(iris$inputsTrain, iris$targetsTrain, size=5, learnFunc="Quickprop", learnFuncParams=c(0.1, 2.0, 0.0001, 0.1), 
+#    maxit=50, inputsTest=iris$inputsTest, targetsTest=iris$targetsTest)
+
+model <- mlp(iris$inputsTrain, iris$targetsTrain, size=5, learnFunc="BackpropBatch", learnFuncParams=c(10, 0.1), 
+    maxit=100, inputsTest=iris$inputsTest, targetsTest=iris$targetsTest)
+
+#model <- mlp(iris$inputsTrain, iris$targetsTrain, size=5, learnFunc="SCG", learnFuncParams=c(0, 0, 0, 0), 
+#    maxit=30, inputsTest=iris$inputsTest, targetsTest=iris$targetsTest)
+
 
 #model <- rbfDDA(iris$inputsTrain, iris$targetsTrain)
 
@@ -56,3 +63,8 @@ confusionMatrix(iris$targetsTrain, encodeClassLabels(fitted.values(model),method
 
 model
 
+weightMatrix(model)
+
+summary(model)
+
+extractNetInfo(model)
