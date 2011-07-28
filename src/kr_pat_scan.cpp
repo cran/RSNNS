@@ -1081,7 +1081,8 @@ case 29:
 YY_RULE_SETUP
 //#line 130 "kr_pat_scan.l"
 //ECHO;
-xx_res_not_used = fwrite( yytext, yyleng, 1, yyout );
+        xx_res_not_used = fwrite( yytext, yyleng, 1, yyout );
+        xx_res_not_used++;
 	YY_BREAK
 //#line 1039 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):

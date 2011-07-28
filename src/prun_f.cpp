@@ -74,6 +74,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include "SnnsCLib.h"
 
@@ -1144,7 +1145,7 @@ krui_err SnnsCLib::PRUNE_Skeletonization (int pattern)
     //static bool PRUNE_Skeletonization_first = TRUE;
 
     register Patterns out_pat;
-    int size, pattern_no, sub_pat_no, no_of_patterns;
+    int size, pattern_no, sub_pat_no;//, no_of_patterns;
 
     if (PRUNE_Skeletonization_first){
       FOR_ALL_UNITS (unit_ptr)
@@ -1167,7 +1168,8 @@ krui_err SnnsCLib::PRUNE_Skeletonization (int pattern)
 	return (KernelErrorCode);
 
     /* calculate total number of subpatterns */
-    no_of_patterns = kr_TotalNoOfSubPatPairs ();
+    //no_of_patterns = 
+    kr_TotalNoOfSubPatPairs ();
 
     while (kr_getSubPatternByOrder (&pattern_no, &sub_pat_no))
     {
