@@ -542,7 +542,7 @@ krui_err SnnsCLib::bn_art2_createNet (int f1Units, int f1Rows, int f2Units, int 
 
    } /*for*/
 
-   printf (" Done.\n");
+   //printf (" Done.\n");
 
 
    /*  set the update function  */
