@@ -8,6 +8,10 @@ functionality to make it available from within R.}
 \details{If you have problems using RSNNS, find a bug, or have suggestions, please contact the package maintainer by email, instead of writing to the general R lists or contacting the 
 authors of the original SNNS software. 
 
+If you use the package, please cite the following work in your publications:
+
+Bergmeir, C. and Benítez, J.M. (2012), Neural Networks in R Using the Stuttgart Neural Network Simulator: RSNNS. Journal of Statistical Software, 46(7), 1-26. \url{http://www.jstatsoft.org/v46/i07/}
+
 The package has a hierarchical architecture with three levels:
 \itemize{
 \item RSNNS high-level api (rsnns)
@@ -58,12 +62,15 @@ Additional information is also available at the project website:
 \docType{package}
 \author{Christoph Bergmeir \email{c.bergmeir@decsai.ugr.es} 
 
-with José M. Benítez \email{j.m.benitez@decsai.ugr.es}
+and José M. Benítez \email{j.m.benitez@decsai.ugr.es}
 
 DiCITS Lab, Sci2s group, DECSAI, University of Granada.
 
 \url{http://dicits.ugr.es}, \url{http://sci2s.ugr.es}}
-\references{\emph{General neural network literature:}
+\references{Bergmeir, C. and Benítez, J.M. (2012), 'Neural Networks in R Using the Stuttgart Neural Network Simulator: RSNNS', Journal of Statistical Software, 46(7), 1-26.
+\url{http://www.jstatsoft.org/v46/i07/}
+
+\emph{General neural network literature:}
 
 Bishop, C. M. (2003), Neural networks for pattern recognition, University Press, Oxford.
 
