@@ -1,17 +1,33 @@
 \name{summary.rsnns}
 \alias{summary.rsnns}
 \title{Generic summary function for rsnns objects}
-\usage{\method{summary}{rsnns}(object, origSnnsFormat=TRUE, ...)
+\usage{
+  \method{summary}{rsnns} (object, origSnnsFormat = TRUE,
+    ...)
 }
-\description{Prints out a summary of the network. The printed information can be either 
-all information of the network in the original SNNS file format,
-or the information given by \code{\link{extractNetInfo}}.
-This behaviour is controlled with the parameter \code{origSnnsFormat}.}
-\value{Either the contents of the .net file that SNNS would generate from 
-the object, as a string. Or the output of \code{\link{extractNetInfo}}.}
-\seealso{\code{\link{extractNetInfo}}}
-\arguments{\item{object}{the \code{\link{rsnns}} object}
-\item{origSnnsFormat}{show data in SNNS's original format in which networks are saved, or show output of \code{\link{extractNetInfo}}}
-\item{...}{additional function parameters (currently not used)}
+\arguments{
+  \item{object}{the \code{\link{rsnns}} object}
+
+  \item{origSnnsFormat}{show data in SNNS's original format
+  in which networks are saved, or show output of
+  \code{\link{extractNetInfo}}}
+
+  \item{...}{additional function parameters (currently not
+  used)}
+}
+\value{
+  Either the contents of the .net file that SNNS would
+  generate from the object, as a string. Or the output of
+  \code{\link{extractNetInfo}}.
+}
+\description{
+  Prints out a summary of the network. The printed
+  information can be either all information of the network
+  in the original SNNS file format, or the information
+  given by \code{\link{extractNetInfo}}. This behaviour is
+  controlled with the parameter \code{origSnnsFormat}.
+}
+\seealso{
+  \code{\link{extractNetInfo}}
 }
 

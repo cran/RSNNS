@@ -248,6 +248,7 @@ krui_err SnnsCLib::bn_art2_make_layer (
    int                  site_no;
    char                 name[10];
 
+   unit_pos.z = 0;
 
    /* Create Units */
    for (row = 1, count = 0; row <= rows; row++) {

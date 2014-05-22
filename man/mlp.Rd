@@ -1,61 +1,104 @@
 \name{mlp}
 \alias{mlp}
-\title{Create and train a multi-layer perceptron (MLP)}
-\usage{mlp(x, ...)
-\method{mlp}{default}(x, y, size=c(5), maxit=100, initFunc="Randomize_Weights",
-    initFuncParams=c(-0.3, 0.3), learnFunc="Std_Backpropagation",
-    learnFuncParams=c(0.2, 0), updateFunc="Topological_Order",
-    updateFuncParams=c(0), hiddenActFunc="Act_Logistic",
-    shufflePatterns=TRUE, linOut=FALSE, inputsTest, targetsTest, ...)
-}
-\description{This function creates a multilayer perceptron (MLP) and trains it.
-MLPs are fully connected feedforward networks, and probably the most 
-common network architecture in use.  
-Training is usually performed by error backpropagation or a related procedure.}
-\details{\code{mlp}: There are a lot of different learning functions present in SNNS that can be 
-used together with this function, e.g., \code{Std_Backpropagation}, \code{BackpropBatch},
-\code{BackpropChunk}, \code{BackpropMomentum}, \code{BackpropWeightDecay}, \code{Rprop},
-\code{Quickprop}, \code{SCG} (scaled conjugate gradient), ...
-
-\code{Std_Backpropagation}, \code{BackpropBatch}, e.g., have two parameters, the learning rate
-and the maximum output difference. The learning rate is usually a value between 0.1 and 1.
-It specifies the gradient descent step width. The maximum difference defines, how much difference between output
-and target value is treated as zero error, and not backpropagated. This parameter is used to prevent overtraining.
-For a complete list of the parameters of all the learning functions, see the SNNS User Manual, pp. 67.
-
-The defaults that are set for initialization and update functions usually don't have to be changed.
-
-}
-\references{Rosenblatt, F. (1958), 'The perceptron: A probabilistic model for information storage and organization in the brain', Psychological Review 65(6), 386--408.
-
-Rumelhart, D. E.; Clelland, J. L. M. & Group, P. R. (1986), Parallel distributed processing :explorations in the microstructure of cognition, Mit, Cambridge, MA etc.
-
-Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
-
-Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)}
 \alias{mlp.default}
-\value{\code{mlp.default}: an \code{\link{rsnns}} object.
+\title{Create and train a multi-layer perceptron (MLP)}
+\usage{
+  mlp(x, ...)
 
+  \method{mlp}{default} (x, y, size = c(5), maxit = 100,
+    initFunc = "Randomize_Weights",
+    initFuncParams = c(-0.3, 0.3),
+    learnFunc = "Std_Backpropagation",
+    learnFuncParams = c(0.2, 0),
+    updateFunc = "Topological_Order",
+    updateFuncParams = c(0),
+    hiddenActFunc = "Act_Logistic", shufflePatterns = TRUE,
+    linOut = FALSE, inputsTest = NULL, targetsTest = NULL,
+    pruneFunc = NULL, pruneFuncParams = NULL, ...)
 }
-\arguments{\item{x}{a matrix with training inputs for the network}
-\item{y}{the corresponding targets values}
-\item{size}{number of units in the hidden layer(s)}
-\item{maxit}{maximum of iterations to learn}
-\item{initFunc}{the initialization function to use}
-\item{initFuncParams}{the parameters for the initialization function}
-\item{learnFunc}{the learning function to use}
-\item{learnFuncParams}{the parameters for the learning function}
-\item{updateFunc}{the update function to use}
-\item{updateFuncParams}{the parameters for the update function}
-\item{hiddenActFunc}{the activation function of all hidden units}
-\item{shufflePatterns}{should the patterns be shuffled?}
-\item{linOut}{sets the activation function of the output units to linear or logistic}
-\item{inputsTest}{a matrix with inputs to test the network}
-\item{targetsTest}{the corresponding targets for the test input}
-\item{...}{additional function parameters (currently not used)}
+\arguments{
+  \item{x}{a matrix with training inputs for the network}
+
+  \item{y}{the corresponding targets values}
+
+  \item{size}{number of units in the hidden layer(s)}
+
+  \item{maxit}{maximum of iterations to learn}
+
+  \item{initFunc}{the initialization function to use}
+
+  \item{initFuncParams}{the parameters for the
+  initialization function}
+
+  \item{learnFunc}{the learning function to use}
+
+  \item{learnFuncParams}{the parameters for the learning
+  function}
+
+  \item{updateFunc}{the update function to use}
+
+  \item{updateFuncParams}{the parameters for the update
+  function}
+
+  \item{hiddenActFunc}{the activation function of all
+  hidden units}
+
+  \item{shufflePatterns}{should the patterns be shuffled?}
+
+  \item{linOut}{sets the activation function of the output
+  units to linear or logistic}
+
+  \item{inputsTest}{a matrix with inputs to test the
+  network}
+
+  \item{targetsTest}{the corresponding targets for the test
+  input}
+
+  \item{pruneFunc}{the pruning function to use}
+
+  \item{pruneFuncParams}{the parameters for the pruning
+  function. Unlike the other functions, these have to be
+  given in a named list. See the pruning demos for further
+  explanation.}
+
+  \item{...}{additional function parameters (currently not
+  used)}
 }
-\examples{\dontrun{demo(iris)}
+\value{
+  an \code{\link{rsnns}} object.
+}
+\description{
+  This function creates a multilayer perceptron (MLP) and
+  trains it. MLPs are fully connected feedforward networks,
+  and probably the most common network architecture in use.
+  Training is usually performed by error backpropagation or
+  a related procedure.
+}
+\details{
+  There are a lot of different learning functions present
+  in SNNS that can be used together with this function,
+  e.g., \code{Std_Backpropagation}, \code{BackpropBatch},
+  \code{BackpropChunk}, \code{BackpropMomentum},
+  \code{BackpropWeightDecay}, \code{Rprop},
+  \code{Quickprop}, \code{SCG} (scaled conjugate gradient),
+  ...
+
+  \code{Std_Backpropagation}, \code{BackpropBatch}, e.g.,
+  have two parameters, the learning rate and the maximum
+  output difference. The learning rate is usually a value
+  between 0.1 and 1. It specifies the gradient descent step
+  width. The maximum difference defines, how much
+  difference between output and target value is treated as
+  zero error, and not backpropagated. This parameter is
+  used to prevent overtraining. For a complete list of the
+  parameters of all the learning functions, see the SNNS
+  User Manual, pp. 67.
+
+  The defaults that are set for initialization and update
+  functions usually don't have to be changed.
+}
+\examples{
+\dontrun{demo(iris)}
 \dontrun{demo(laser)}
 \dontrun{demo(encoderSnnsCLib)}
 
@@ -72,8 +115,8 @@ irisTargets <- decodeClassLabels(iris[,5])
 iris <- splitForTrainingAndTest(irisValues, irisTargets, ratio=0.15)
 iris <- normTrainingAndTestSet(iris)
 
-model <- mlp(iris$inputsTrain, iris$targetsTrain, size=5, learnFuncParams=c(0.1), 
-maxit=50, inputsTest=iris$inputsTest, targetsTest=iris$targetsTest)
+model <- mlp(iris$inputsTrain, iris$targetsTrain, size=5, learnFuncParams=c(0.1),
+              maxit=50, inputsTest=iris$inputsTest, targetsTest=iris$targetsTest)
 
 summary(model)
 model
@@ -95,5 +138,23 @@ plotROC(predictions[,2], iris$targetsTest[,2])
 
 #confusion matrix with 402040-method
 confusionMatrix(iris$targetsTrain, encodeClassLabels(fitted.values(model),
-method="402040", l=0.4, h=0.6))}
+                                                       method="402040", l=0.4, h=0.6))
+}
+\references{
+  Rosenblatt, F. (1958), 'The perceptron: A probabilistic
+  model for information storage and organization in the
+  brain', Psychological Review 65(6), 386--408.
+
+  Rumelhart, D. E.; Clelland, J. L. M. & Group, P. R.
+  (1986), Parallel distributed processing :explorations in
+  the microstructure of cognition, Mit, Cambridge, MA etc.
+
+  Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network
+  Simulator User Manual, Version 4.2', IPVR, University of
+  Stuttgart and WSI, University of Tübingen.
+  \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+
+  Zell, A. (1994), Simulation Neuronaler Netze,
+  Addison-Wesley. (in German)
+}
 

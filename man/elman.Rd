@@ -1,57 +1,91 @@
 \name{elman}
 \alias{elman}
-\title{Create and train an Elman network}
-\usage{elman(x, ...)
-\method{elman}{default}(x, y, size=c(5), maxit=100, initFunc="JE_Weights", initFuncParams=c(1,
-    -1, 0.3, 1, 0.5), learnFunc="JE_BP", learnFuncParams=c(0.2),
-    updateFunc="JE_Order", updateFuncParams=c(0), shufflePatterns=TRUE,
-    linOut=TRUE, outContext=FALSE, inputsTest, targetsTest, ...)
-}
-\description{Elman networks are partially recurrent networks 
-and similar to Jordan networks (function \code{\link{jordan}}). For details, see explanations there.}
-\details{\code{elman}: Learning in Elman networks:
-Same as in Jordan networks (see \code{\link{jordan}}).
-
-Network architecture: The difference between Elman and Jordan networks is that in an Elman
-network the context units get input not from the output units, but from the hidden units. Furthermore,
-there is no direct feedback in the context units. In an Elman net, the number of context units and hidden 
-units has to be the same. The main advantage of Elman nets is that the number of context 
-units is not directly determined by the output dimension (as in Jordan nets), but by the number of
-hidden units, which is more flexible, as it is easy to add/remove hidden units, but not output units.
-
-A detailed description of the theory and the parameters is available, as always, from the SNNS 
-documentation and the other referenced literature.
-
-}
-\references{Elman, J. L. (1990), 'Finding structure in time', Cognitive Science 14(2), 179--211.
-
-Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
-
-Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)}
 \alias{elman.default}
-\value{\code{elman.default}: an \code{\link{rsnns}} object.
+\title{Create and train an Elman network}
+\usage{
+  elman(x, ...)
 
+  \method{elman}{default} (x, y, size = c(5), maxit = 100,
+    initFunc = "JE_Weights",
+    initFuncParams = c(1, -1, 0.3, 1, 0.5),
+    learnFunc = "JE_BP", learnFuncParams = c(0.2),
+    updateFunc = "JE_Order", updateFuncParams = c(0),
+    shufflePatterns = FALSE, linOut = TRUE,
+    outContext = FALSE, inputsTest = NULL,
+    targetsTest = NULL, ...)
 }
-\seealso{\code{\link{jordan}}}
-\arguments{\item{x}{a matrix with training inputs for the network}
-\item{y}{the corresponding targets values}
-\item{size}{number of units in the hidden layer(s)}
-\item{maxit}{maximum of iterations to learn}
-\item{initFunc}{the initialization function to use}
-\item{initFuncParams}{the parameters for the initialization function}
-\item{learnFunc}{the learning function to use}
-\item{learnFuncParams}{the parameters for the learning function}
-\item{updateFunc}{the update function to use}
-\item{updateFuncParams}{the parameters for the update function}
-\item{shufflePatterns}{should the patterns be shuffled?}
-\item{linOut}{sets the activation function of the output units to linear or logistic}
-\item{outContext}{if TRUE, the context units are also output units (untested)}
-\item{inputsTest}{a matrix with inputs to test the network}
-\item{targetsTest}{the corresponding targets for the test input}
-\item{...}{additional function parameters (currently not used)}
+\arguments{
+  \item{x}{a matrix with training inputs for the network}
+
+  \item{y}{the corresponding targets values}
+
+  \item{size}{number of units in the hidden layer(s)}
+
+  \item{maxit}{maximum of iterations to learn}
+
+  \item{initFunc}{the initialization function to use}
+
+  \item{initFuncParams}{the parameters for the
+  initialization function}
+
+  \item{learnFunc}{the learning function to use}
+
+  \item{learnFuncParams}{the parameters for the learning
+  function}
+
+  \item{updateFunc}{the update function to use}
+
+  \item{updateFuncParams}{the parameters for the update
+  function}
+
+  \item{shufflePatterns}{should the patterns be shuffled?}
+
+  \item{linOut}{sets the activation function of the output
+  units to linear or logistic}
+
+  \item{outContext}{if TRUE, the context units are also
+  output units (untested)}
+
+  \item{inputsTest}{a matrix with inputs to test the
+  network}
+
+  \item{targetsTest}{the corresponding targets for the test
+  input}
+
+  \item{...}{additional function parameters (currently not
+  used)}
 }
-\examples{\dontrun{demo(iris)}
+\value{
+  an \code{\link{rsnns}} object.
+}
+\description{
+  Elman networks are partially recurrent networks and
+  similar to Jordan networks (function
+  \code{\link{jordan}}). For details, see explanations
+  there.
+}
+\details{
+  Learning in Elman networks: Same as in Jordan networks
+  (see \code{\link{jordan}}).
+
+  Network architecture: The difference between Elman and
+  Jordan networks is that in an Elman network the context
+  units get input not from the output units, but from the
+  hidden units. Furthermore, there is no direct feedback in
+  the context units. In an Elman net, the number of context
+  units and hidden units has to be the same. The main
+  advantage of Elman nets is that the number of context
+  units is not directly determined by the output dimension
+  (as in Jordan nets), but by the number of hidden units,
+  which is more flexible, as it is easy to add/remove
+  hidden units, but not output units.
+
+  A detailed description of the theory and the parameters
+  is available, as always, from the SNNS documentation and
+  the other referenced literature.
+}
+\examples{
+\dontrun{demo(iris)}
 \dontrun{demo(laser)}
 \dontrun{demo(eight_elman)}
 \dontrun{demo(eight_elmanSnnsR)}
@@ -72,5 +106,21 @@ plotIterativeError(modelElman)
 plotIterativeError(modelJordan)
 
 summary(modelElman)
-summary(modelJordan)}
+summary(modelJordan)
+}
+\references{
+  Elman, J. L. (1990), 'Finding structure in time',
+  Cognitive Science 14(2), 179--211.
+
+  Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network
+  Simulator User Manual, Version 4.2', IPVR, University of
+  Stuttgart and WSI, University of Tübingen.
+  \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+
+  Zell, A. (1994), Simulation Neuronaler Netze,
+  Addison-Wesley. (in German)
+}
+\seealso{
+  \code{\link{jordan}}
+}
 

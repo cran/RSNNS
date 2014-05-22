@@ -1,35 +1,41 @@
 \name{SnnsR-class}
 \alias{SnnsR-class}
-\alias{SnnsR}
 \title{The main class of the package}
-\description{An S4 class that is the main class of RSNNS. Each instance of this class 
-contains a pointer to a C++ object of type SnnsCLib, i.e. an instance 
-of the SNNS kernel.}
-\details{The only slot \code{variables} holds an environment with all member variables. 
-Currently, there are two members (constructed by the object factory):
-\describe{
-\item{snnsCLibPointer}{A pointer to the corresponding C++ object}
-\item{serialization}{a serialization of the C++ object, in SNNS .net format}
+\description{
+  An S4 class that is the main class of RSNNS. Each
+  instance of this class contains a pointer to a C++ object
+  of type SnnsCLib, i.e. an instance of the SNNS kernel.
 }
-The member variables are not directly present as slots but wrapped in an environment
-to allow for changing the serialization (by call by reference). 
+\details{
+  The only slot \code{variables} holds an environment with
+  all member variables. Currently, there are two members
+  (constructed by the object factory): \describe{
+  \item{snnsCLibPointer}{A pointer to the corresponding C++
+  object} \item{serialization}{a serialization of the C++
+  object, in SNNS .net format} } The member variables are
+  not directly present as slots but wrapped in an
+  environment to allow for changing the serialization (by
+  call by reference).
 
-An object of this class is used internally by all the models in the package. 
-The object is always accessible by \code{model$snnsObject$...}
+  An object of this class is used internally by all the
+  models in the package. The object is always accessible by
+  \code{model$snnsObject$...}
 
-To make full use of the SNNS functionalities, you might want to use this class directly.
-Always use the object factory \code{\link{SnnsRObjectFactory}} to construct an object, 
-and the calling mechanism \code{\link{$}} to call functions. Through the calling mechanism,
-many functions of SnnsCLib are present that are not documented here, but in the SNNS User 
-Manual. So, if you choose to use the low-level interface, it is highly recommended to have
-a look at the demos and at the SNNS User Manual.}
-\references{Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}}
-\seealso{\code{\link{$}}, \code{\link{SnnsRObjectFactory}}}
-\examples{\dontrun{demo(encoderSnnsCLib)} 
+  To make full use of the SNNS functionalities, you might
+  want to use this class directly. Always use the object
+  factory \code{\link{SnnsRObjectFactory}} to construct an
+  object, and the calling mechanism \code{\link{$}} to call
+  functions. Through the calling mechanism, many functions
+  of SnnsCLib are present that are not documented here, but
+  in the SNNS User Manual. So, if you choose to use the
+  low-level interface, it is highly recommended to have a
+  look at the demos and at the SNNS User Manual.
+}
+\examples{
+\dontrun{demo(encoderSnnsCLib)}
 \dontrun{demo(art1_lettersSnnsR)}
-\dontrun{demo(art2_tetraSnnsR)} 
-\dontrun{demo(artmap_lettersSnnsR)} 
+\dontrun{demo(art2_tetraSnnsR)}
+\dontrun{demo(artmap_lettersSnnsR)}
 \dontrun{demo(eight_elmanSnnsR)}
 \dontrun{demo(rbf_irisSnnsR)}
 \dontrun{demo(rbf_sinSnnsR)}
@@ -66,23 +72,33 @@ snnsObject$shufflePatterns(TRUE)
 snnsObject$DefTrainSubPat()
 
 snnsObject$saveNet(paste(basePath,"eight_elmanSnnsR_untrained.net",sep=""),
-"eight_elmanSnnsR_untrained")
+                                          "eight_elmanSnnsR_untrained")
 
 parameters <- c(0.2, 0, 0, 0, 0)
 maxit <- 1000
 
 error <- vector()
 for(i in 1:maxit) {
-res <- snnsObject$learnAllPatterns(parameters)
-if(res[[1]] != 0) print(paste("Error at iteration ", i, " : ", res, sep=""))
-error[i] <- res[[2]]
+  res <- snnsObject$learnAllPatterns(parameters)
+  if(res[[1]] != 0) print(paste("Error at iteration ", i, " : ", res, sep=""))
+  error[i] <- res[[2]]
 }
 
 error[1:500]
 plot(error, type="l")
 
 snnsObject$saveNet(paste(basePath,"eight_elmanSnnsR.net",sep=""),
-"eight_elmanSnnsR")
-snnsObject$saveNewPatterns(paste(basePath,"eight_elmanSnnsR.pat",sep=""), 
-patset$set_no)}
+                                             "eight_elmanSnnsR")
+snnsObject$saveNewPatterns(paste(basePath,"eight_elmanSnnsR.pat",sep=""),
+                                                         patset$set_no)
+}
+\references{
+  Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network
+  Simulator User Manual, Version 4.2', IPVR, University of
+  Stuttgart and WSI, University of Tübingen.
+  \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+}
+\seealso{
+  \code{\link{$}}, \code{\link{SnnsRObjectFactory}}
+}
 

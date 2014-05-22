@@ -1,68 +1,103 @@
 \name{jordan}
 \alias{jordan}
-\title{Create and train a Jordan network}
-\usage{jordan(x, ...)
-\method{jordan}{default}(x, y, size=c(5), maxit=100, initFunc="JE_Weights", initFuncParams=c(1,
-    -1, 0.3, 1, 0.5), learnFunc="JE_BP", learnFuncParams=c(0.2),
-    updateFunc="JE_Order", updateFuncParams=c(0), shufflePatterns=TRUE,
-    linOut=TRUE, inputsTest, targetsTest, ...)
-}
-\description{Jordan networks are partially recurrent networks 
-and similar to Elman networks (see \code{\link{elman}}). Partially recurrent networks 
-are useful when working with time series data. I.e., when the output of the 
-network not only should depend on the current pattern, but also on the patterns
-presented before.}
-\details{\code{jordan}: Learning on Jordan networks:
-Backpropagation algorithms for feed-forward networks can be adapted for their use with 
-this type of networks. In SNNS, there exist adapted versions of several backpropagation-type
-algorithms for Jordan and Elman networks.  
-
-Network architecture: A Jordan network can be seen as a feed-forward network with additional
-context units in the input layer. These context units take input from themselves (direct feedback), and from 
-the output units. The context units save the current state of the net. In a Jordan net, the number of context 
-units and output units has to be the same.
-
-Initialization of Jordan and Elman nets should be done with the default init function \code{JE_Weights}, which 
-has five parameters. The first two parameters define an interval from which the forward connections are randomly
-chosen. The third parameter gives the self-excitation weights of the context units. The fourth parameter gives the
-weights of context units between them, and the fifth parameter gives the initial activation of context units.
-
-Learning functions are \code{JE_BP}, \code{JE_BP_Momentum}, \code{JE_Quickprop}, and \code{JE_Rprop}, which are all
-adapted versions of their standard-procedure counterparts.  
-Update functions that can be used are \code{JE_Order} and \code{JE_Special}.
-
-A detailed description of the theory and the parameters is available, as always, from the SNNS 
-documentation and the other referenced literature.
-
-}
-\references{Jordan, M. I. (1986), 'Serial Order: A Parallel, Distributed Processing Approach', Advances in Connectionist Theory Speech 121(ICS-8604), 471-495.
-
-Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
-
-Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)}
 \alias{jordan.default}
-\value{\code{jordan.default}: an \code{\link{rsnns}} object.
+\title{Create and train a Jordan network}
+\usage{
+  jordan(x, ...)
 
+  \method{jordan}{default} (x, y, size = c(5), maxit = 100,
+    initFunc = "JE_Weights",
+    initFuncParams = c(1, -1, 0.3, 1, 0.5),
+    learnFunc = "JE_BP", learnFuncParams = c(0.2),
+    updateFunc = "JE_Order", updateFuncParams = c(0),
+    shufflePatterns = FALSE, linOut = TRUE,
+    inputsTest = NULL, targetsTest = NULL, ...)
 }
-\seealso{\code{\link{elman}}}
-\arguments{\item{x}{a matrix with training inputs for the network}
-\item{y}{the corresponding targets values}
-\item{size}{number of units in the hidden layer(s)}
-\item{maxit}{maximum of iterations to learn}
-\item{initFunc}{the initialization function to use}
-\item{initFuncParams}{the parameters for the initialization function}
-\item{learnFunc}{the learning function to use}
-\item{learnFuncParams}{the parameters for the learning function}
-\item{updateFunc}{the update function to use}
-\item{updateFuncParams}{the parameters for the update function}
-\item{shufflePatterns}{should the patterns be shuffled?}
-\item{linOut}{sets the activation function of the output units to linear or logistic}
-\item{inputsTest}{a matrix with inputs to test the network}
-\item{targetsTest}{the corresponding targets for the test input}
-\item{...}{additional function parameters (currently not used)}
+\arguments{
+  \item{x}{a matrix with training inputs for the network}
+
+  \item{y}{the corresponding targets values}
+
+  \item{size}{number of units in the hidden layer(s)}
+
+  \item{maxit}{maximum of iterations to learn}
+
+  \item{initFunc}{the initialization function to use}
+
+  \item{initFuncParams}{the parameters for the
+  initialization function}
+
+  \item{learnFunc}{the learning function to use}
+
+  \item{learnFuncParams}{the parameters for the learning
+  function}
+
+  \item{updateFunc}{the update function to use}
+
+  \item{updateFuncParams}{the parameters for the update
+  function}
+
+  \item{shufflePatterns}{should the patterns be shuffled?}
+
+  \item{linOut}{sets the activation function of the output
+  units to linear or logistic}
+
+  \item{inputsTest}{a matrix with inputs to test the
+  network}
+
+  \item{targetsTest}{the corresponding targets for the test
+  input}
+
+  \item{...}{additional function parameters (currently not
+  used)}
 }
-\examples{\dontrun{demo(iris)}
+\value{
+  an \code{\link{rsnns}} object.
+}
+\description{
+  Jordan networks are partially recurrent networks and
+  similar to Elman networks (see \code{\link{elman}}).
+  Partially recurrent networks are useful when working with
+  time series data. I.e., when the output of the network
+  not only should depend on the current pattern, but also
+  on the patterns presented before.
+}
+\details{
+  Learning on Jordan networks: Backpropagation algorithms
+  for feed-forward networks can be adapted for their use
+  with this type of networks. In SNNS, there exist adapted
+  versions of several backpropagation-type algorithms for
+  Jordan and Elman networks.
+
+  Network architecture: A Jordan network can be seen as a
+  feed-forward network with additional context units in the
+  input layer. These context units take input from
+  themselves (direct feedback), and from the output units.
+  The context units save the current state of the net. In a
+  Jordan net, the number of context units and output units
+  has to be the same.
+
+  Initialization of Jordan and Elman nets should be done
+  with the default init function \code{JE_Weights}, which
+  has five parameters. The first two parameters define an
+  interval from which the forward connections are randomly
+  chosen. The third parameter gives the self-excitation
+  weights of the context units. The fourth parameter gives
+  the weights of context units between them, and the fifth
+  parameter gives the initial activation of context units.
+
+  Learning functions are \code{JE_BP},
+  \code{JE_BP_Momentum}, \code{JE_Quickprop}, and
+  \code{JE_Rprop}, which are all adapted versions of their
+  standard-procedure counterparts.  Update functions that
+  can be used are \code{JE_Order} and \code{JE_Special}.
+
+  A detailed description of the theory and the parameters
+  is available, as always, from the SNNS documentation and
+  the other referenced literature.
+}
+\examples{
+\dontrun{demo(iris)}
 \dontrun{demo(laser)}
 \dontrun{demo(eight_elman)}
 \dontrun{demo(eight_elmanSnnsR)}
@@ -74,10 +109,10 @@ outputs <- snnsData$laser_1000.pat[,outputColumns(snnsData$laser_1000.pat)]
 
 patterns <- splitForTrainingAndTest(inputs, outputs, ratio=0.15)
 
-modelJordan <- jordan(patterns$inputsTrain, patterns$targetsTrain, 
-size=c(8), learnFuncParams=c(0.1), maxit=100,
-inputsTest=patterns$inputsTest, 
-targetsTest=patterns$targetsTest, linOut=FALSE)
+modelJordan <- jordan(patterns$inputsTrain, patterns$targetsTrain,
+                       size=c(8), learnFuncParams=c(0.1), maxit=100,
+                       inputsTest=patterns$inputsTest,
+                       targetsTest=patterns$targetsTest, linOut=FALSE)
 
 names(modelJordan)
 
@@ -91,5 +126,22 @@ hist(modelJordan$fitted.values - patterns$targetsTrain, col="lightblue")
 plot(inputs, type="l")
 plot(inputs[1:100], type="l")
 lines(outputs[1:100], col="red")
-lines(modelJordan$fitted.values[1:100], col="green")}
+lines(modelJordan$fitted.values[1:100], col="green")
+}
+\references{
+  Jordan, M. I. (1986), 'Serial Order: A Parallel,
+  Distributed Processing Approach', Advances in
+  Connectionist Theory Speech 121(ICS-8604), 471-495.
+
+  Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network
+  Simulator User Manual, Version 4.2', IPVR, University of
+  Stuttgart and WSI, University of Tübingen.
+  \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+
+  Zell, A. (1994), Simulation Neuronaler Netze,
+  Addison-Wesley. (in German)
+}
+\seealso{
+  \code{\link{elman}}
+}
 

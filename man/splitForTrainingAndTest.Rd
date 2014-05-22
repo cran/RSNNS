@@ -1,25 +1,39 @@
 \name{splitForTrainingAndTest}
 \alias{splitForTrainingAndTest}
 \title{Function to split data into training and test set}
-\usage{splitForTrainingAndTest(x, y, ratio=0.15)
+\usage{
+  splitForTrainingAndTest(x, y, ratio = 0.15)
 }
-\description{Split the input and target values to a training and a test set. Test set is taken from the end of the
-data. If the data is to be shuffled, this should be done before calling this function.}
-\value{a named list with the following elements:
-\item{inputsTrain}{a matrix containing the training inputs}
-\item{targetsTrain}{a matrix containing the training targets}
-\item{inputsTest}{a matrix containing the test inputs}
-\item{targetsTest}{a matrix containing the test targets}}
-\arguments{\item{x}{inputs}
-\item{y}{targets}
-\item{ratio}{ratio of training and test sets (default: 15\% of the data is used for testing)}
+\arguments{
+  \item{x}{inputs}
+
+  \item{y}{targets}
+
+  \item{ratio}{ratio of training and test sets (default:
+  15\% of the data is used for testing)}
 }
-\examples{data(iris)
+\value{
+  a named list with the following elements:
+  \item{inputsTrain}{a matrix containing the training
+  inputs} \item{targetsTrain}{a matrix containing the
+  training targets} \item{inputsTest}{a matrix containing
+  the test inputs} \item{targetsTest}{a matrix containing
+  the test targets}
+}
+\description{
+  Split the input and target values to a training and a
+  test set. Test set is taken from the end of the data. If
+  the data is to be shuffled, this should be done before
+  calling this function.
+}
+\examples{
+data(iris)
 #shuffle the vector
 iris <- iris[sample(1:nrow(iris),length(1:nrow(iris))),1:ncol(iris)]
 
 irisValues <- iris[,1:4]
 irisTargets <- decodeClassLabels(iris[,5])
 
-splitForTrainingAndTest(irisValues, irisTargets, ratio=0.15)}
+splitForTrainingAndTest(irisValues, irisTargets, ratio=0.15)
+}
 

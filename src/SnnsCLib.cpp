@@ -49,7 +49,6 @@
 
 SnnsCLib::SnnsCLib() {
 
-
 //------------------------------------------------
 // kr_ui.h
 //------------------------------------------------
@@ -1024,12 +1023,28 @@ krui_setSeedNo(u_getCurrentSeedVal());
 
 }
 
-SnnsCLib::~SnnsCLib() {}
+
+
+//------------------------------------------------
+// Destructor: delete net and pat sets
+//------------------------------------------------
+
+SnnsCLib::~SnnsCLib() {
+
+  krui_err err = 0;
+
+  while (err == 0) {
+    err = krui_deletePatSet(0);
+  }
+  
+  krui_deleteNet();
+
+}
 
 void SnnsCLib::setIntArrayToZero(int* array, int n) {
 
   for(int i=0;i<n;i++) array[i] = 0;
-};
+}
 
 void SnnsCLib::setFuncInfoDescriptorToZero(FuncInfoDescriptor* f) {
 
@@ -1042,5 +1057,5 @@ void SnnsCLib::setFuncInfoDescriptorToZero(FuncInfoDescriptor* f) {
 #ifdef PARAGON_KERNEL
   f->parallelized = 0;
 #endif
-};
+}
 

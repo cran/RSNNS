@@ -1,17 +1,34 @@
 \name{matrixToActMapList}
 \alias{matrixToActMapList}
 \title{Convert matrix of activations to activation map list}
-\usage{matrixToActMapList(m, nrow=0, ncol=0)
+\usage{
+  matrixToActMapList(m, nrow = 0, ncol = 0)
 }
-\description{Organize a matrix containing 1d vectors of network activations as 2d maps.}
-\details{The input to this function is a matrix containing in each row an activation
-pattern/output of a neural network. This function uses \link{vectorToActMap} to 
-reorganize the matrix to a list of matrices, whereby each row of the input matrix 
-is converted to a matrix in the output list.}
-\value{a list containing the activation map matrices}
-\seealso{\link{vectorToActMap} \link{plotActMap}}
-\arguments{\item{m}{the matrix containing one activation pattern in every row}
-\item{nrow}{number of rows the resulting matrices will have}
-\item{ncol}{number of columns the resulting matrices will have}
+\arguments{
+  \item{m}{the matrix containing one activation pattern in
+  every row}
+
+  \item{nrow}{number of rows the resulting matrices will
+  have}
+
+  \item{ncol}{number of columns the resulting matrices will
+  have}
+}
+\value{
+  a list containing the activation map matrices
+}
+\description{
+  Organize a matrix containing 1d vectors of network
+  activations as 2d maps.
+}
+\details{
+  The input to this function is a matrix containing in each
+  row an activation pattern/output of a neural network.
+  This function uses \link{vectorToActMap} to reorganize
+  the matrix to a list of matrices, whereby each row of the
+  input matrix is converted to a matrix in the output list.
+}
+\seealso{
+  \link{vectorToActMap} \link{plotActMap}
 }
 

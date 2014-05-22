@@ -79,7 +79,6 @@
 
 //This define causes a very strange compiler error on Solaris together with stlport4, so renamed, C. Bergmeir 06/05/2013
 #define SNNSCLIB_CC 1
-
 #define TACOMA 3
 
 #define OFF 0

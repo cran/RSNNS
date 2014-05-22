@@ -1,47 +1,71 @@
 \name{rbfDDA}
 \alias{rbfDDA}
-\title{Create and train an RBF network with the DDA algorithm}
-\usage{rbfDDA(x, ...)
-\method{rbfDDA}{default}(x, y, maxit=1, initFunc="Randomize_Weights", initFuncParams=c(-0.3,
-    0.3), learnFunc="RBF-DDA", learnFuncParams=c(0.4, 0.2, 5),
-    updateFunc="Topological_Order", updateFuncParams=c(0),
-    shufflePatterns=TRUE, linOut=FALSE, ...)
-}
-\description{Create and train an RBF network with the dynamic decay adjustment (DDA) algorithm. 
-This type of network can only be used for classification. The training typically begins
-with an empty network, i.e., a network only consisting of input and output units, and
-adds new units successively. It is a lot easier to use than normal RBF, because it only 
-requires two quite uncritical parameters.}
-\details{\code{rbfDDA}: The default functions do not have to be altered. The learning function \code{RBF-DDA} has
-three parameters: a positive threshold, and a negative threshold, that controls adding units to 
-the network, and a parameter for display purposes in the original SNNS. This parameter has 
-no effect in RSNNS. See p 74 of the original SNNS User Manual for details.
-
-}
-\references{Berthold, M. R. & Diamond, J. (1995), Boosting the Performance of RBF Networks with Dynamic Decay Adjustment, in 'Advances in Neural Information Processing Systems', MIT Press, , pp. 521--528.
-
-Hudak, M. (1993), 'RCE classifiers: theory and practice', Cybernetics and Systems 23(5), 483--515.
-
-Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}}
 \alias{rbfDDA.default}
-\value{\code{rbfDDA.default}: an \code{\link{rsnns}} object.
+\title{Create and train an RBF network with the DDA algorithm}
+\usage{
+  rbfDDA(x, ...)
 
+  \method{rbfDDA}{default} (x, y, maxit = 1,
+    initFunc = "Randomize_Weights",
+    initFuncParams = c(-0.3, 0.3), learnFunc = "RBF-DDA",
+    learnFuncParams = c(0.4, 0.2, 5),
+    updateFunc = "Topological_Order",
+    updateFuncParams = c(0), shufflePatterns = TRUE,
+    linOut = FALSE, ...)
 }
-\arguments{\item{x}{a matrix with training inputs for the network}
-\item{y}{the corresponding targets values}
-\item{maxit}{maximum of iterations to learn}
-\item{initFunc}{the initialization function to use}
-\item{initFuncParams}{the parameters for the initialization function}
-\item{learnFunc}{the learning function to use}
-\item{learnFuncParams}{the parameters for the learning function}
-\item{updateFunc}{the update function to use}
-\item{updateFuncParams}{the parameters for the update function}
-\item{shufflePatterns}{should the patterns be shuffled?}
-\item{linOut}{sets the activation function of the output units to linear or logistic}
-\item{...}{additional function parameters (currently not used)}
+\arguments{
+  \item{x}{a matrix with training inputs for the network}
+
+  \item{y}{the corresponding targets values}
+
+  \item{maxit}{maximum of iterations to learn}
+
+  \item{initFunc}{the initialization function to use}
+
+  \item{initFuncParams}{the parameters for the
+  initialization function}
+
+  \item{learnFunc}{the learning function to use}
+
+  \item{learnFuncParams}{the parameters for the learning
+  function}
+
+  \item{updateFunc}{the update function to use}
+
+  \item{updateFuncParams}{the parameters for the update
+  function}
+
+  \item{shufflePatterns}{should the patterns be shuffled?}
+
+  \item{linOut}{sets the activation function of the output
+  units to linear or logistic}
+
+  \item{...}{additional function parameters (currently not
+  used)}
 }
-\examples{\dontrun{demo(iris)}
+\value{
+  an \code{\link{rsnns}} object.
+}
+\description{
+  Create and train an RBF network with the dynamic decay
+  adjustment (DDA) algorithm. This type of network can only
+  be used for classification. The training typically begins
+  with an empty network, i.e., a network only consisting of
+  input and output units, and adds new units successively.
+  It is a lot easier to use than normal RBF, because it
+  only requires two quite uncritical parameters.
+}
+\details{
+  The default functions do not have to be altered. The
+  learning function \code{RBF-DDA} has three parameters: a
+  positive threshold, and a negative threshold, that
+  controls adding units to the network, and a parameter for
+  display purposes in the original SNNS. This parameter has
+  no effect in RSNNS. See p 74 of the original SNNS User
+  Manual for details.
+}
+\examples{
+\dontrun{demo(iris)}
 \dontrun{demo(rbfDDA_spiralsSnnsR)}
 
 
@@ -55,5 +79,20 @@ iris <- normTrainingAndTestSet(iris)
 model <- rbfDDA(iris$inputsTrain, iris$targetsTrain)
 
 summary(model)
-plotIterativeError(model)}
+plotIterativeError(model)
+}
+\references{
+  Berthold, M. R. & Diamond, J. (1995), Boosting the
+  Performance of RBF Networks with Dynamic Decay
+  Adjustment, in 'Advances in Neural Information Processing
+  Systems', MIT Press, , pp. 521--528.
+
+  Hudak, M. (1993), 'RCE classifiers: theory and practice',
+  Cybernetics and Systems 23(5), 483--515.
+
+  Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network
+  Simulator User Manual, Version 4.2', IPVR, University of
+  Stuttgart and WSI, University of Tübingen.
+  \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+}
 

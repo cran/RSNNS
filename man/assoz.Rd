@@ -1,50 +1,71 @@
 \name{assoz}
 \alias{assoz}
-\title{Create and train an (auto-)associative memory}
-\usage{assoz(x, ...)
-\method{assoz}{default}(x, dimX, dimY, maxit=100, initFunc="RM_Random_Weights",
-    initFuncParams=c(1, -1), learnFunc="RM_delta",
-    learnFuncParams=c(0.01, 100, 0, 0, 0),
-    updateFunc="Auto_Synchronous", updateFuncParams=c(50),
-    shufflePatterns=TRUE, ...)
-}
-\description{The autoassociative memory performs clustering by finding a prototype to the given input. 
-The implementation assumes two-dimensional input and output (cf. \code{\link{art1}}).}
-\details{\code{assoz}: The default initialization and update functions are the only ones suitable for this kind of 
-network. The update function takes one parameter, which is the number of iterations that will 
-be performed. The default of 50 usually does not have to be modified. For learning, \code{RM_delta} 
-and \code{Hebbian} functions can be used, though the first one usually performs better.
-
-A more detailed description of the theory and the parameters is available from 
-the SNNS documentation and the other referenced literature.
-
-}
-\references{Palm, G. (1980), 'On associative memory', Biological Cybernetics 36, 19-31.
-
-Rojas, R. (1996), Neural networks :a systematic introduction, Springer-Verlag, Berlin.
-
-Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}}
 \alias{assoz.default}
-\value{\code{assoz.default}: an \code{\link{rsnns}} object. The \code{fitted.values} member contains the 
-activation patterns for all inputs.
+\title{Create and train an (auto-)associative memory}
+\usage{
+  assoz(x, ...)
 
+  \method{assoz}{default} (x, dimX, dimY, maxit = 100,
+    initFunc = "RM_Random_Weights",
+    initFuncParams = c(1, -1), learnFunc = "RM_delta",
+    learnFuncParams = c(0.01, 100, 0, 0, 0),
+    updateFunc = "Auto_Synchronous",
+    updateFuncParams = c(50), shufflePatterns = TRUE, ...)
 }
-\seealso{\code{\link{art1}}, \code{\link{art2}}}
-\arguments{\item{x}{a matrix with training inputs for the network}
-\item{dimX}{x dimension of inputs and outputs}
-\item{dimY}{y dimension of inputs and outputs}
-\item{maxit}{maximum of iterations to learn}
-\item{initFunc}{the initialization function to use}
-\item{initFuncParams}{the parameters for the initialization function}
-\item{learnFunc}{the learning function to use}
-\item{learnFuncParams}{the parameters for the learning function}
-\item{updateFunc}{the update function to use}
-\item{updateFuncParams}{the parameters for the update function}
-\item{shufflePatterns}{should the patterns be shuffled?}
-\item{...}{additional function parameters (currently not used)}
+\arguments{
+  \item{x}{a matrix with training inputs for the network}
+
+  \item{dimX}{x dimension of inputs and outputs}
+
+  \item{dimY}{y dimension of inputs and outputs}
+
+  \item{maxit}{maximum of iterations to learn}
+
+  \item{initFunc}{the initialization function to use}
+
+  \item{initFuncParams}{the parameters for the
+  initialization function}
+
+  \item{learnFunc}{the learning function to use}
+
+  \item{learnFuncParams}{the parameters for the learning
+  function}
+
+  \item{updateFunc}{the update function to use}
+
+  \item{updateFuncParams}{the parameters for the update
+  function}
+
+  \item{shufflePatterns}{should the patterns be shuffled?}
+
+  \item{...}{additional function parameters (currently not
+  used)}
 }
-\examples{\dontrun{demo(assoz_letters)}
+\value{
+  an \code{\link{rsnns}} object. The \code{fitted.values}
+  member contains the activation patterns for all inputs.
+}
+\description{
+  The autoassociative memory performs clustering by finding
+  a prototype to the given input. The implementation
+  assumes two-dimensional input and output (cf.
+  \code{\link{art1}}).
+}
+\details{
+  The default initialization and update functions are the
+  only ones suitable for this kind of network. The update
+  function takes one parameter, which is the number of
+  iterations that will be performed. The default of 50
+  usually does not have to be modified. For learning,
+  \code{RM_delta} and \code{Hebbian} functions can be used,
+  though the first one usually performs better.
+
+  A more detailed description of the theory and the
+  parameters is available from the SNNS documentation and
+  the other referenced literature.
+}
+\examples{
+\dontrun{demo(assoz_letters)}
 \dontrun{demo(assoz_lettersSnnsR)}
 
 
@@ -56,5 +77,21 @@ model <- assoz(patterns, dimX=7, dimY=5)
 actMaps <- matrixToActMapList(model$fitted.values, nrow=7)
 
 par(mfrow=c(3,3))
-for (i in 1:9) plotActMap(actMaps[[i]])}
+for (i in 1:9) plotActMap(actMaps[[i]])
+}
+\references{
+  Palm, G. (1980), 'On associative memory', Biological
+  Cybernetics 36, 19-31.
+
+  Rojas, R. (1996), Neural networks :a systematic
+  introduction, Springer-Verlag, Berlin.
+
+  Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network
+  Simulator User Manual, Version 4.2', IPVR, University of
+  Stuttgart and WSI, University of Tübingen.
+  \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+}
+\seealso{
+  \code{\link{art1}}, \code{\link{art2}}
+}
 

@@ -132,9 +132,10 @@ summary.rsnns <- function(object, origSnnsFormat=TRUE, ...) {
 }
 
 
-#' The object factory generates an \code{rsnns} object and initializes its member variables
-#' with the values given as parameters. Furthermore, it generates an object of \code{\link{SnnsR-class}}.
-#' Later, this information is to be used to train the network.
+#' The object factory generates an \code{rsnns} object and initializes its
+#' member variables with the values given as parameters. Furthermore, it
+#' generates an object of \code{\link{SnnsR-class}}. Later, this information is
+#' to be used to train the network.
 #' 
 #' The typical procedure implemented in \code{rsnns} subclasses is the following: 
 #' \itemize{
@@ -143,9 +144,9 @@ summary.rsnns <- function(object, origSnnsFormat=TRUE, ...) {
 #' \item train the network (with \code{\link{train}})
 #' }
 #'
-#' In every \code{rsnns} object, the iterative error is the summed squared error (SSE) of all patterns. If
-#' the SSE is computed on the test set, then it is weighted to take care of the different amount of patterns
-#' in the sets.
+#' In every \code{rsnns} object, the iterative error is the summed squared error
+#' (SSE) of all patterns. If the SSE is computed on the test set, then it is
+#' weighted to take care of the different amount of patterns in the sets.
 #' 
 #' @title Object factory for generating rsnns objects
 #' @param subclass the subclass of rsnns to generate (vector of strings)
@@ -159,6 +160,9 @@ summary.rsnns <- function(object, origSnnsFormat=TRUE, ...) {
 #' @param updateFuncParams the parameters for the update function
 #' @param shufflePatterns should the patterns be shuffled?
 #' @param computeIterativeError should the error be computed in every iteration? 
+#' @param pruneFunc the pruning function to use
+#' @param pruneFuncParams the parameters for the pruning function. Unlike the other functions, 
+#' these have to be given in a named list. See the pruning demos for further explanation. 
 #' @return a partly initialized \code{rsnns} object 
 #' @aliases rsnns
 #' @export
@@ -168,7 +172,7 @@ rsnnsObjectFactory <- function(subclass, nInputs, maxit,
     initFunc, initFuncParams, 
     learnFunc, learnFuncParams, 
     updateFunc, updateFuncParams, 
-    shufflePatterns=TRUE, computeIterativeError=TRUE) {
+    shufflePatterns=TRUE, computeIterativeError=TRUE, pruneFunc=NULL, pruneFuncParams=NULL) {
   
   snns <- NULL
   
@@ -184,6 +188,9 @@ rsnnsObjectFactory <- function(subclass, nInputs, maxit,
   snns$shufflePatterns <- shufflePatterns
   snns$computeIterativeError <- computeIterativeError
   
+  snns$pruneFunc <- pruneFunc
+  snns$pruneFuncParams <- pruneFuncParams
+  
   snns$snnsObject <- SnnsRObjectFactory()
   
   class(snns) <- c(subclass, "rsnns")
@@ -198,8 +205,8 @@ rsnnsObjectFactory <- function(subclass, nInputs, maxit,
 #' a new model on the S3 layer you most probably don't want to use this function.
 #' 
 #' @title Internal generic train function for rsnns objects
-#' @param object the object to which to apply train
-#' @param ... additional function parameters
+# @param object the object to which to apply train
+# @param ... additional function parameters
 #' @export
 train <- function(object, ...) UseMethod("train")
 
@@ -226,7 +233,8 @@ train.rsnns <- function(object, inputsTrain, targetsTrain=NULL, inputsTest=NULL,
       learnFunc=object$learnFunc, learnFuncParams=object$learnFuncParams, updateFunc=object$updateFunc, 
       updateFuncParams=object$updateFuncParams, outputMethod=class(object)[1], maxit=object$maxit, 
       shufflePatterns=object$shufflePatterns, computeError=object$computeIterativeError, 
-      inputsTest=inputsTest, targetsTest=targetsTest, serializeTrainedObject=serializeTrainedObject)
+      inputsTest=inputsTest, targetsTest=targetsTest, serializeTrainedObject=serializeTrainedObject,
+      pruneFunc=object$pruneFunc, pruneFuncParams=object$pruneFuncParams)
   
   object$IterativeFitError <- trainResult$IterativeFitError
   object$IterativeTestError <- trainResult$IterativeTestError
@@ -282,8 +290,8 @@ predict.rsnns <- function(object, newdata, ...) {
 #' The function calls \code{\link{SnnsRObject$getCompleteWeightMatrix}} and returns its result.
 #'
 #' @title Function to extract the weight matrix of an rsnns object
-#' @param object the object to which to apply weightMatrix
-#' @param ... additional function parameters
+# @param object the object to which to apply weightMatrix
+# @param ... additional function parameters
 #' @export
 weightMatrix <- function(object, ...) UseMethod("weightMatrix")
 

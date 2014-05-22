@@ -24,35 +24,40 @@
 #############################################################################
 
 
-#' Elman networks are partially recurrent networks 
-#' and similar to Jordan networks (function \code{\link{jordan}}). For details, see explanations there. 
+#' Elman networks are partially recurrent networks and similar to Jordan
+#' networks (function \code{\link{jordan}}). For details, see explanations
+#' there.
 #' 
 #' Learning in Elman networks:
 #' Same as in Jordan networks (see \code{\link{jordan}}).
 #' 
-#' Network architecture: The difference between Elman and Jordan networks is that in an Elman
-#' network the context units get input not from the output units, but from the hidden units. Furthermore,
-#' there is no direct feedback in the context units. In an Elman net, the number of context units and hidden 
-#' units has to be the same. The main advantage of Elman nets is that the number of context 
-#' units is not directly determined by the output dimension (as in Jordan nets), but by the number of
-#' hidden units, which is more flexible, as it is easy to add/remove hidden units, but not output units.
+#' Network architecture: The difference between Elman and Jordan networks is
+#' that in an Elman network the context units get input not from the output
+#' units, but from the hidden units. Furthermore, there is no direct feedback in
+#' the context units. In an Elman net, the number of context units and hidden
+#' units has to be the same. The main advantage of Elman nets is that the number
+#' of context units is not directly determined by the output dimension (as in
+#' Jordan nets), but by the number of hidden units, which is more flexible, as
+#' it is easy to add/remove hidden units, but not output units.
 #' 
-#' A detailed description of the theory and the parameters is available, as always, from the SNNS 
-#' documentation and the other referenced literature.
+#' A detailed description of the theory and the parameters is available, as
+#' always, from the SNNS documentation and the other referenced literature.
 #' 
 #' @title Create and train an Elman network
-#' @references 
-#' Elman, J. L. (1990), 'Finding structure in time', Cognitive Science 14(2), 179--211.
+#' @references
+#'
+#' Elman, J. L. (1990), 'Finding structure in time', Cognitive Science 14(2),
+#' 179--211.
 #' 
-#' Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
+#' Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual,
+#' Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
 #' \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
 #' 
 #' Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)
 #' @export
 elman <- function(x, ...) UseMethod("elman")
 
-#' Create and train an elman network. 
-#' 
+
 #' @param x a matrix with training inputs for the network
 #' @param y the corresponding targets values
 #' @param size number of units in the hidden layer(s)
@@ -102,7 +107,7 @@ elman.default <- function(x, y, size=c(5), maxit=100,
     initFunc="JE_Weights", initFuncParams=c(1.0,  -1.0,  0.3,  1.0,  0.5), 
     learnFunc="JE_BP", learnFuncParams=c(0.2), 
     updateFunc="JE_Order", updateFuncParams=c(0.0),    
-    shufflePatterns=TRUE, linOut=TRUE, outContext=FALSE, inputsTest=NULL, targetsTest=NULL, ...) {
+    shufflePatterns=FALSE, linOut=TRUE, outContext=FALSE, inputsTest=NULL, targetsTest=NULL, ...) {
   
 
   x <- as.matrix(x)

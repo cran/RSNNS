@@ -1,12 +1,20 @@
 \name{savePatFile}
 \alias{savePatFile}
 \title{Save data to a pat file}
-\usage{savePatFile(inputs, targets, filename)
+\usage{
+  savePatFile(inputs, targets, filename)
 }
-\description{This function generates an \link{SnnsR-class} object, loads the given data there 
-as a pattern set and then uses the functionality of SNNS to save the data as a .pat file.}
-\arguments{\item{inputs}{a matrix with input values}
-\item{targets}{a matrix with target values}
-\item{filename}{the name of the .pat file}
+\arguments{
+  \item{inputs}{a matrix with input values}
+
+  \item{targets}{a matrix with target values}
+
+  \item{filename}{the name of the .pat file}
+}
+\description{
+  This function generates an \link{SnnsR-class} object,
+  loads the given data there as a pattern set and then uses
+  the functionality of SNNS to save the data as a .pat
+  file.
 }
 
