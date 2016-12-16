@@ -79,6 +79,8 @@
 
 #include "SnnsCLib.h"
 
+//#include <R_ext/Print.h>
+
 #ifndef MAXSHORT
 #define MAXSHORT SHRT_MAX
 #endif
@@ -570,7 +572,7 @@ void  SnnsCLib::krm_unitArrayGC(void)
   RETURNS  :
   UPDATE   : 
 ******************************************************************************/
- void    SnnsCLib::krm_relocateLinkPtrs(int offset)
+ void    SnnsCLib::krm_relocateLinkPtrs(long int offset)
 {
   register struct Link   *link_ptr;
   register struct Site   *site_ptr;
@@ -584,9 +586,12 @@ void  SnnsCLib::krm_unitArrayGC(void)
 	  link_ptr->to = (struct Unit *) ((char *) link_ptr->to + offset);
       else
 	if UNIT_HAS_DIRECT_INPUTS( unit_ptr )
-	  FOR_ALL_LINKS( unit_ptr, link_ptr )
+	  FOR_ALL_LINKS( unit_ptr, link_ptr ) {
+
             link_ptr->to = (struct Unit *) ((char *) link_ptr->to + offset);
+}
     }
+
 }
 
 
@@ -602,7 +607,7 @@ void  SnnsCLib::krm_unitArrayGC(void)
 krui_err  SnnsCLib::krm_allocUnits(int N)
 {
   UnitArray  tmp_ptr;
-  int  offset;
+  long int offset;
 
   if ((NoOfAllocUnits - NoOfUnits) < N)
     {  /*  alloc units	*/
@@ -620,21 +625,39 @@ krui_err  SnnsCLib::krm_allocUnits(int N)
     FreeUnitIndex = 0;
     tmp_ptr[0].Out.nextFreeUnit = 0;   /*  sentinel of free unit list
                                        */
+
+    unit_array = tmp_ptr;
+
   }
   else  {
-    tmp_ptr = (UnitArray) realloc( (char *) unit_array, (unsigned)
+
+    tmp_ptr = (UnitArray) realloc( (char *) unit_array, (unsigned int)
                                    ((NoOfAllocUnits + N + 1 ) * UNIT_SIZE) );
+
     if (tmp_ptr == NULL)
       {  /*  mem alloc failed	 */
       KernelErrorCode = KRERR_INSUFFICIENT_MEM;
       return( KernelErrorCode );
     }
+
     offset = (char *) tmp_ptr - (char *) unit_array;
+
+    unit_array = tmp_ptr;
+
     if (offset != 0)  krm_relocateLinkPtrs( offset );
+
+    if(topo_ptr_array != NULL) {
+
+      for(int i = 0; i < topo_ptr_array_size; i++) {
+
+        if(topo_ptr_array[i] != NULL) {
+          topo_ptr_array[i] = (struct Unit *) ((char *) topo_ptr_array[i] + offset);
+        } 
+      }
+    }
   }
 
   NoOfAllocUnits += N;
-  unit_array = tmp_ptr;
 
   KernelErrorCode = KRERR_NO_ERROR;
   return( KernelErrorCode );
@@ -805,6 +828,7 @@ krui_err  SnnsCLib::krm_allocUnitTopoArray(int N)
   }
 
   if (topo_ptr_array == NULL)  KernelErrorCode = KRERR_INSUFFICIENT_MEM;
+  else topo_ptr_array_size = N;
 
   return( KernelErrorCode );
 }
