@@ -4,7 +4,10 @@
 \alias{SnnsRObjectFactory}
 \title{SnnsR object factory}
 \usage{
-SnnsRObjectFactory()
+SnnsRObjectFactory(x = NULL)
+}
+\arguments{
+\item{x}{(optional) object of class \link{SnnsR-class}, to be deep-copied}
 }
 \description{
 Object factory to create a new object of type \code{\link{SnnsR-class}}.
