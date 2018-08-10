@@ -174,7 +174,7 @@ float SnnsCLib::RbfSquareOfNorm(RbfFloatMatrix *m)
 
 void SnnsCLib::RbfIdempotentMatrix(RbfFloatMatrix *m)
 {
-int     i,j;
+register int     i,j;
 
 for (i = m->rows -1 ; i>=0; i--)
   {
@@ -192,7 +192,7 @@ for (i = m->rows -1 ; i>=0; i--)
 
 void SnnsCLib::RbfMulScalarMatrix(RbfFloatMatrix *m, float a)
 {
-int     i,j;
+register int     i,j;
 
 for (i = m->rows -1 ; i>=0; i--)
   {
@@ -272,12 +272,12 @@ void	SnnsCLib::RbfTranspMatrix(RbfFloatMatrix *m1, RbfFloatMatrix *m2)
 
  int SnnsCLib::RbfLUDcmp(RbfFloatMatrix *m, int *indx)
 {
-	float		sum;
-	float		dum;
-	float		big;
-	int		i, j, k, imax=0;
-	float		temp;
-	float		*vv;
+	register float		sum;
+	register float		dum;
+	register float		big;
+	register int		i, j, k, imax=0;
+	register float		temp;
+	register float		*vv;
 
 	if ((vv = (float *) malloc(m -> rows * sizeof(float))) == NULL)
 	{
@@ -364,8 +364,8 @@ void	SnnsCLib::RbfTranspMatrix(RbfFloatMatrix *m1, RbfFloatMatrix *m2)
 
  void SnnsCLib::RbfLUBksb(RbfFloatMatrix *m, int *indx, float *b)
 {
-	float	sum;
-	int	i, ii=0, ip, j;
+	register float	sum;
+	register int	i, ii=0, ip, j;
 
 	for (i = 0; i < m -> rows; i++)
 	{
@@ -402,10 +402,10 @@ void	SnnsCLib::RbfTranspMatrix(RbfFloatMatrix *m1, RbfFloatMatrix *m2)
 
 int	SnnsCLib::RbfInvMatrix(RbfFloatMatrix *m)
 {
-	int	i, j;
-	int	*indx;
-	float	*b;
-	int	tmp_err;
+	register 	int	i, j;
+	register	int	*indx;
+	register	float	*b;
+	register	int	tmp_err;
 	RbfFloatMatrix	help;
 
 #ifdef	DEBUG_MODE
@@ -586,7 +586,7 @@ void	SnnsCLib::RbfMulTranspMatrix(RbfFloatMatrix *m1, RbfFloatMatrix *m2)
     int	dest_c;
     int	dest_r;
     int	count;
-    float scalar_product;
+    register float scalar_product;
 
 #ifdef	DEBUG_MODE
 	if (m2 -> rows != m1 -> rows ||

@@ -1900,7 +1900,7 @@ GROUP: Kernel I/O Input Functions
 
 bool  SnnsCLib::skipComments(void)
 {
-	int   c;
+	register int   c;
 
 	while (TRUE)  {
 		do  {
@@ -1936,7 +1936,7 @@ bool  SnnsCLib::skipComments(void)
 
 bool  SnnsCLib::skipSpace(void)
 {
-	int  c;
+	register int  c;
 
 	do  {
 		c = getc( file_in );
@@ -1965,7 +1965,7 @@ bool  SnnsCLib::skipSpace(void)
 
 bool  SnnsCLib::comma(void)
 {
-	int  c;
+	register int  c;
 
 	do  {
 		c = getc( file_in );
@@ -2002,7 +2002,7 @@ bool  SnnsCLib::comma(void)
 
 bool  SnnsCLib::get_nl(void)
 {
-	int  c;
+	register int  c;
 
 	do  {
 		c = getc( file_in );
@@ -2031,7 +2031,7 @@ bool  SnnsCLib::get_nl(void)
 
 bool  SnnsCLib::get_pipe(void)
 {
-	int  c;
+	register int  c;
 
 	do  {
 		c = getc( file_in );
@@ -2058,7 +2058,7 @@ bool  SnnsCLib::get_pipe(void)
 
 bool  SnnsCLib::skip_pipe(void)
 {
-	int  c;
+	register int  c;
 
 	do  {
 		c = getc( file_in );
@@ -2090,7 +2090,7 @@ bool  SnnsCLib::skip_pipe(void)
 
 bool  SnnsCLib::get_alpha(void)
 {
-	int  c;
+	register int  c;
 
 	do  {
 		c = getc( file_in );
@@ -2118,8 +2118,8 @@ bool  SnnsCLib::get_alpha(void)
 
 bool  SnnsCLib::getSymbol(char *symbol)
 {
-	int  c;
-	char  *s_ptr;
+	register int  c;
+	register char  *s_ptr;
 
 	do  {
 		c = getc( file_in );
@@ -2211,7 +2211,7 @@ char  *SnnsCLib::getSection(char *line, int *title_no)
 
 bool  SnnsCLib::matchHead(int N)
 {
-	int  c;
+	register int  c;
 	int   i;
 
 
@@ -2278,8 +2278,8 @@ bool  SnnsCLib::matchHead2(int N)
  ******************************************************************************/
 char  *SnnsCLib::my_strstr(char *s, char *find)
 {
-	char c, sc;
-	size_t len;
+	register char c, sc;
+	register size_t len;
 
 	if ((c = *find++) != 0)  {
 		len = strlen(find);

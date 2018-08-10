@@ -286,8 +286,8 @@ float SnnsCLib::cc_getErr (int StartPattern, int EndPattern)
 {
     int p=0, sub, start, end, n,  pat, dummy;
     float sse=0, devit,error;
-    Patterns out_pat;
-    struct Unit *OutputUnitPtr;
+    register Patterns out_pat;
+    register struct Unit *OutputUnitPtr;
     //int Correct;
     //int WhichWin,CorrWin;
     float MaxAct;
@@ -1059,7 +1059,7 @@ krui_err SnnsCLib::cc_topoSort(int topoSortID)
 ******************************************************************************/
 krui_err SnnsCLib::cc_topoSortMain(int topoSortId)
 {
-    struct Unit   *unit_ptr;
+    register struct Unit   *unit_ptr;
     int   io_units,h,counter=0;
   
     KernelErrorCode = KRERR_NO_ERROR;  /*  reset return code  */

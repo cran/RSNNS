@@ -883,8 +883,8 @@ void    SnnsCLib::krui_setUnitPosition(int UnitNo, struct PosType *position)
 ******************************************************************************/
 int   SnnsCLib::krui_getUnitNoAtPosition(struct PosType *position, int subnet_no)
 {
-    int       i;
-    short     x, y, net_no;
+    register int       i;
+    register short     x, y, net_no;
     struct Unit     *unit_ptr;
 
     x = position->x;
@@ -921,8 +921,8 @@ int   SnnsCLib::krui_getUnitNoAtPosition(struct PosType *position, int subnet_no
 ******************************************************************************/
 int  SnnsCLib::krui_getUnitNoNearPosition(struct PosType *position, int subnet_no, int range, int gridWidth)
 {
-    int       i, devit, width;
-    short     x, y, net_no;
+    register int       i, devit, width;
+    register short     x, y, net_no;
     struct Unit        *unit_ptr;
 
     x = position->x;
@@ -2696,9 +2696,9 @@ int  SnnsCLib::krui_getNextSuccUnit(FlintType *weight)
 ******************************************************************************/
 bool  SnnsCLib::krui_areConnected(int sourceNo, int targetNo)
 {
-    struct Link *link_ptr ;
-    struct Unit *s_unit_ptr, *t_unit_ptr ;
-    struct Site *site_ptr ;
+    register struct Link *link_ptr ;
+    register struct Unit *s_unit_ptr, *t_unit_ptr ;
+    register struct Site *site_ptr ;
 
     s_unit_ptr = kr_getUnitPtr (sourceNo) ;
     t_unit_ptr = kr_getUnitPtr (targetNo) ;
@@ -3059,10 +3059,10 @@ GROUP: Functions for network propagation
 ******************************************************************************/
 float SnnsCLib::krui_getVariance (void)
 {
-    struct Unit   *unit_ptr;
+    register struct Unit   *unit_ptr;
     int   pattern_no=0, o, noOfOutputUnits, size, noOfPatternPairs, sub_pat_no;
     Patterns  out_pat;
-    float *OutputUnitSumVariance, *OutputUnitVariance,Variance=0;
+    register float *OutputUnitSumVariance, *OutputUnitVariance,Variance=0;
 
     noOfOutputUnits=krui_getNoOfOutputUnits();
     noOfPatternPairs=kr_np_pattern( PATTERN_GET_NUMBER,0, 0 );
@@ -3120,9 +3120,9 @@ float SnnsCLib::krui_getVariance (void)
 ******************************************************************************/
 int SnnsCLib::krui_countLinks(void)
 {
-  struct Unit   *unit_ptr;
-  struct Link   *link_ptr;
-  int i=0;
+  register struct Unit   *unit_ptr;
+  register struct Link   *link_ptr;
+  register int i=0;
 
   FOR_ALL_UNITS( unit_ptr )
     if ((IS_OUTPUT_UNIT(unit_ptr) || IS_HIDDEN_UNIT(unit_ptr))) {
@@ -3145,7 +3145,7 @@ int SnnsCLib::krui_countLinks(void)
 ******************************************************************************/
 krui_err   SnnsCLib::krui_updateSingleUnit(int unit_no)
 {
-    struct Unit   *unit_ptr;
+    register struct Unit   *unit_ptr;
 
 
 #ifdef MASPAR_KERNEL
@@ -3380,7 +3380,7 @@ int SnnsCLib::krui_checkPruning ()
 ******************************************************************************/
 krui_err SnnsCLib::krui_trainNetwork(NetLearnParameters *parameters)
 {
-    int i;
+    register int i;
     krui_err error;
     float parameterInArray[NO_OF_LEARN_PARAMS];
     float *parameterOutArray;
@@ -4567,8 +4567,8 @@ krui_err  SnnsCLib::krui_setUnitDefaults(FlintTypeParam act, FlintTypeParam bias
 ******************************************************************************/
 void  SnnsCLib::krui_resetNet(void)
 {
-    int   i;
-    struct Unit   *unit_ptr;
+    register int   i;
+    register struct Unit   *unit_ptr;
 
     if ( (unit_array == NULL) || (NoOfUnits == 0) )
         return;

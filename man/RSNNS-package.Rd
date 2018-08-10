@@ -87,10 +87,6 @@ visualize and analyse the networks generated with RSNNS.
 
 Most of the example data included in SNNS is also present in this package, see \code{\link{snnsData}}.
 
-Additional information is also available at the project website:
-
-\url{http://sci2s.ugr.es/dicits/software/RSNNS}
-
 A comprehensive report with many examples showing the usage of RSNNS, 
 developed by Seymour Shlien, is available here:
 

@@ -139,8 +139,8 @@ int SnnsCLib::kr_initInversion(void)
 void  SnnsCLib::kr_inv_forwardPass(struct UnitList *inputs)
 {
 
-   struct Unit   *unit_ptr;
-   TopoPtrArray  topo_ptr;    /* points to a topological sorted    */
+   register struct Unit   *unit_ptr;
+   register TopoPtrArray  topo_ptr;    /* points to a topological sorted    */
 				       /* unit stucture (input units first) */
    struct UnitList        *IUnit;      /* working list of input units       */
 
@@ -216,17 +216,17 @@ double SnnsCLib::kr_inv_backwardPass(float learn, float delta_max, int *err_unit
 			   float ratio, struct UnitList *inputs, 
 			   struct UnitList *outputs)
 {
-   struct Link   *link_ptr;
-   struct Site   *site_ptr;
-   struct Unit   *unit_ptr;
-   float         error,  sum_error,  eta,  devit;
-   TopoPtrArray  topo_ptr;
+   register struct Link   *link_ptr;
+   register struct Site   *site_ptr;
+   register struct Unit   *unit_ptr;
+   register float         error,  sum_error,  eta,  devit;
+   register TopoPtrArray  topo_ptr;
    struct UnitList        *IUnit, *OUnit;
 
 
    sum_error = 0.0;    /*  reset network error  */
    *err_units = 0;     /*  reset error units */
-   eta = learn;        /*  store learn_parameter in CPU  */
+   eta = learn;        /*  store learn_parameter in CPU register  */
 
 
    /* add 3 to no_of_topo_units because topologic array contains 4 NULL 
