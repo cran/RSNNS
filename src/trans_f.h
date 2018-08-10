@@ -74,10 +74,10 @@
 
 /* begin global definition section */
 
-FlintType  OUTP_Identity(register FlintType activation);
-FlintType  OUT_Clip_01(register FlintType activation);
-FlintType  OUT_Clip_11(register FlintType activation);
-FlintType  OUT_Threshold05(register FlintType activation);
+FlintType  OUTP_Identity(FlintType activation);
+FlintType  OUT_Clip_01(FlintType activation);
+FlintType  OUT_Clip_11(FlintType activation);
+FlintType  OUT_Threshold05(FlintType activation);
 FlintType   ACT_Linear(struct Unit *unit_ptr);
 FlintType   ACT_BSBFunction(struct Unit *unit_ptr);
 FlintType   ACT_MinOutPlusWeight(struct Unit *unit_ptr);

@@ -74,7 +74,7 @@
 
 /* begin global definition section */
 
-FlintType  OUT_ART2_Noise_PLin (register FlintType activation);
+FlintType  OUT_ART2_Noise_PLin (FlintType activation);
 FlintType  OUT_ART2_Noise_ContDiff (FlintType activation);
 FlintType  ACT_ART1_NC  (struct Unit *unit_ptr);
 FlintType ACT_ART2_Linear (struct Unit *unit_ptr);
