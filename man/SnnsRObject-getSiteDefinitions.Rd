@@ -14,4 +14,3 @@ a data frame containing information about all sites present in the network.
 \description{
 Get the sites definitions of the network.
 }
-

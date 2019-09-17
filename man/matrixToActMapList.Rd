@@ -28,4 +28,3 @@ is converted to a matrix in the output list.
 \seealso{
 \link{vectorToActMap} \link{plotActMap}
 }
-

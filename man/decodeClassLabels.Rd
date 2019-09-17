@@ -34,11 +34,10 @@ decodeClassLabels(c("r","b","b","r", "g", "g"))
 data(iris)
 decodeClassLabels(iris[,5])
 }
+\references{
+Venables, W. N. and Ripley, B. D. (2002), 'Modern Applied Statistics with S', Springer-Verlag.
+}
 \author{
 The implementation is a slightly modified version of the function
 \code{class.ind} from the \code{nnet} package of Brian Ripley.
 }
-\references{
-Venables, W. N. and Ripley, B. D. (2002), 'Modern Applied Statistics with S', Springer-Verlag.
-}
-

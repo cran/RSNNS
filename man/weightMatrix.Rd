@@ -19,7 +19,4 @@ a matrix with all weights from all neurons present in the net.
 }
 \description{
 The function calls \code{\link{SnnsRObject$getCompleteWeightMatrix}} and returns its result.
-
-Function to extract the weight matrix of an rsnns object.
 }
-

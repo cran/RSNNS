@@ -17,4 +17,3 @@ a vector with integer numbers identifying the units.
 \description{
 Find all units whose name begins with a given prefix.
 }
-

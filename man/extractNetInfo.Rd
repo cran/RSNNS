@@ -25,4 +25,3 @@ this call are returned.
 \seealso{
 \code{\link{SnnsRObject$extractNetInfo}}
 }
-

@@ -18,4 +18,3 @@ This function calls \code{\link{SnnsRObject$getAllUnitsTType}} with the paramete
 \seealso{
 \code{\link{SnnsRObject$getAllUnitsTType}}
 }
-

@@ -24,4 +24,3 @@ resolveSnnsRDefine("topologicalUnitTypes","UNIT_HIDDEN")
 \seealso{
 \code{\link{getSnnsRDefine}}
 }
-

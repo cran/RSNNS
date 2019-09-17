@@ -7,13 +7,14 @@
 \usage{
 artmap(x, ...)
 
-\method{artmap}{default}(x, nInputsTrain, nInputsTargets, nUnitsRecLayerTrain,
-  nUnitsRecLayerTargets, maxit = 1, nRowInputsTrain = 1,
-  nRowInputsTargets = 1, nRowUnitsRecLayerTrain = 1,
-  nRowUnitsRecLayerTargets = 1, initFunc = "ARTMAP_Weights",
-  initFuncParams = c(1, 1, 1, 1, 0), learnFunc = "ARTMAP",
-  learnFuncParams = c(0.8, 1, 1, 0, 0), updateFunc = "ARTMAP_Stable",
-  updateFuncParams = c(0.8, 1, 1, 0, 0), shufflePatterns = TRUE, ...)
+\method{artmap}{default}(x, nInputsTrain, nInputsTargets,
+  nUnitsRecLayerTrain, nUnitsRecLayerTargets, maxit = 1,
+  nRowInputsTrain = 1, nRowInputsTargets = 1,
+  nRowUnitsRecLayerTrain = 1, nRowUnitsRecLayerTargets = 1,
+  initFunc = "ARTMAP_Weights", initFuncParams = c(1, 1, 1, 1, 0),
+  learnFunc = "ARTMAP", learnFuncParams = c(0.8, 1, 1, 0, 0),
+  updateFunc = "ARTMAP_Stable", updateFuncParams = c(0.8, 1, 1, 0, 0),
+  shufflePatterns = TRUE, ...)
 }
 \arguments{
 \item{x}{a matrix with training inputs and targets for the network}
@@ -102,11 +103,10 @@ Grossberg, S. (1988), Adaptive pattern classification and universal recoding. I.
 Herrmann, K.-U. (1992), 'ART -- Adaptive Resonance Theory -- Architekturen, Implementierung und Anwendung', Master's thesis, IPVR, University of Stuttgart. (in German)
 
 Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+\url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 
 Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)
 }
 \seealso{
 \code{\link{art1}}, \code{\link{art2}}
 }
-

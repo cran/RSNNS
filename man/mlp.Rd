@@ -11,10 +11,10 @@ mlp(x, ...)
   initFunc = "Randomize_Weights", initFuncParams = c(-0.3, 0.3),
   learnFunc = "Std_Backpropagation", learnFuncParams = c(0.2, 0),
   updateFunc = "Topological_Order", updateFuncParams = c(0),
-  hiddenActFunc = "Act_Logistic", shufflePatterns = TRUE, linOut = FALSE,
-  outputActFunc = if (linOut) "Act_Identity" else "Act_Logistic",
-  inputsTest = NULL, targetsTest = NULL, pruneFunc = NULL,
-  pruneFuncParams = NULL, ...)
+  hiddenActFunc = "Act_Logistic", shufflePatterns = TRUE,
+  linOut = FALSE, outputActFunc = if (linOut) "Act_Identity" else
+  "Act_Logistic", inputsTest = NULL, targetsTest = NULL,
+  pruneFunc = NULL, pruneFuncParams = NULL, ...)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}
@@ -133,8 +133,7 @@ information storage and organization in the brain', Psychological Review
 Rumelhart, D. E.; Clelland, J. L. M. & Group, P. R. (1986), Parallel distributed processing :explorations in the microstructure of cognition, Mit, Cambridge, MA etc.
  
 Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+\url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 
 Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)
 }
-

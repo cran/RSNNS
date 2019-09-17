@@ -24,4 +24,3 @@ mySnnsObject$setUpdateFunc('Topological_Order')
 \seealso{
 \code{\link{$}}, \code{\link{SnnsR-class}}
 }
-

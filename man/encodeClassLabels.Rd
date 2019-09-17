@@ -30,4 +30,3 @@ encodeClassLabels(labels)
 \seealso{
 \code{\link{analyzeClassification}}
 }
-

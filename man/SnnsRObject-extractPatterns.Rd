@@ -15,4 +15,3 @@ a matrix containing the patterns of the currently loaded patern set.
 SnnsR low-level function that extracts all patterns of the current pattern set and
 returns them as a matrix. Columns are named with the prefix "in" or "out", respectively.
 }
-

@@ -16,11 +16,8 @@ plotIterativeError(object, ...)
 }
 \description{
 Plot the iterative training and test error of the net of this \code{\link{rsnns}} object.
-
-Plot the iterative training and test error of the net of this rsnns object.
 }
 \details{
 Plots (if present) the class members \code{IterativeFitError} (as black line) and 
 \code{IterativeTestError} (as red line).
 }
-

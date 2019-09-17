@@ -17,4 +17,3 @@ savePatFile(inputs, targets, filename)
 This function generates an \link{SnnsR-class} object, loads the given data there 
 as a pattern set and then uses the functionality of SNNS to save the data as a .pat file.
 }
-

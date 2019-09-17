@@ -24,4 +24,3 @@ are errors of the method.
 If the class labels are not already encoded, they are encoded using \code{\link{encodeClassLabels}} 
 (with default values).
 }
-

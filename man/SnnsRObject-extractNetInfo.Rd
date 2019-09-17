@@ -19,4 +19,3 @@ The returned list has three members:
 \item fullWeightMatrix weight matrix of the connections
 }
 }
-

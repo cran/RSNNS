@@ -76,9 +76,8 @@ Palm, G. (1980), 'On associative memory', Biological Cybernetics 36, 19-31.
 Rojas, R. (1996), Neural networks :a systematic introduction, Springer-Verlag, Berlin.
 
 Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+\url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 }
 \seealso{
 \code{\link{art1}}, \code{\link{art2}}
 }
-

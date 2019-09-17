@@ -18,4 +18,3 @@ This SnnsR low-level function masks the SNNS kernel function of the same name
 to allow for both giving the initialization function
 directly in the call or to use the one that is currently set.
 }
-

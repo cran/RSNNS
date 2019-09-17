@@ -163,7 +163,7 @@
 #' \emph{Literature on the original SNNS software:}
 #' 
 #' Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
-#' \url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+#' \url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 #'
 #' javaNNS, the sucessor of the original SNNS with a Java GUI: 
 #' \url{http://www.ra.cs.uni-tuebingen.de/software/JavaNNS}
@@ -180,7 +180,7 @@
 #' @keywords package neural networks SNNS
 #' @seealso \code{\link{mlp}}, \code{\link{dlvq}}, \code{\link{rbf}}, \code{\link{rbfDDA}}, \code{\link{elman}}, 
 #' \code{\link{jordan}}, \code{\link{som}}, \code{\link{art1}}, \code{\link{art2}}, \code{\link{artmap}}, \code{\link{assoz}}
-#' @useDynLib RSNNS .registration=TRUE
+#' @useDynLib RSNNS, .registration=TRUE
 #' @import methods
 #' @import Rcpp
 #' @importFrom graphics abline image lines plot

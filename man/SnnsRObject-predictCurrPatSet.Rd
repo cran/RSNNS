@@ -24,4 +24,3 @@ This function has to be used embedded in a step of loading and afterwards
 removing the patterns into the \code{\link{SnnsR-class}} object. As SNNS only supports 2 pattern sets
 in parallel, removing unneeded pattern sets is quite important.
 }
-

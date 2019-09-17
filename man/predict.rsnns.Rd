@@ -19,4 +19,3 @@ the predicted values
 \description{
 Predict values using the given network.
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/RSNNS-package.R
 \docType{package}
 \name{RSNNS-package}
-\alias{RSNNS}
 \alias{RSNNS-package}
+\alias{RSNNS}
 \title{Getting started with the RSNNS package}
 \description{
 The Stuttgart Neural Network Simulator (SNNS) is a library containing many 
@@ -92,15 +92,6 @@ developed by Seymour Shlien, is available here:
 
 \url{http://ifdo.ca/~seymour/R/}
 }
-\author{
-Christoph Bergmeir \email{c.bergmeir@decsai.ugr.es} 
-
-and José M. Benítez \email{j.m.benitez@decsai.ugr.es}
-
-DiCITS Lab, Sci2s group, DECSAI, University of Granada.
-
-\url{http://dicits.ugr.es}, \url{http://sci2s.ugr.es}
-}
 \references{
 Bergmeir, C. and Benítez, J.M. (2012), 'Neural Networks in R Using the Stuttgart Neural Network Simulator: RSNNS', Journal of Statistical Software, 46(7), 1-26.
 \url{http://www.jstatsoft.org/v46/i07/}
@@ -126,7 +117,7 @@ Cambridge, MA etc..
 \emph{Literature on the original SNNS software:}
 
 Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+\url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 
 javaNNS, the sucessor of the original SNNS with a Java GUI: 
 \url{http://www.ra.cs.uni-tuebingen.de/software/JavaNNS}
@@ -142,8 +133,16 @@ A function to plot networks from the \code{\link{mlp}} function:
 \code{\link{mlp}}, \code{\link{dlvq}}, \code{\link{rbf}}, \code{\link{rbfDDA}}, \code{\link{elman}}, 
 \code{\link{jordan}}, \code{\link{som}}, \code{\link{art1}}, \code{\link{art2}}, \code{\link{artmap}}, \code{\link{assoz}}
 }
+\author{
+Christoph Bergmeir \email{c.bergmeir@decsai.ugr.es} 
+
+and José M. Benítez \email{j.m.benitez@decsai.ugr.es}
+
+DiCITS Lab, Sci2s group, DECSAI, University of Granada.
+
+\url{http://dicits.ugr.es}, \url{http://sci2s.ugr.es}
+}
 \keyword{SNNS}
 \keyword{networks}
 \keyword{neural}
 \keyword{package}
-

@@ -2,9 +2,9 @@
 % Please edit documentation in R/SnnsRObjectFactory.R
 \docType{methods}
 \name{SnnsRObjectMethodCaller}
-\alias{$}
-\alias{$,SnnsR-method}
 \alias{SnnsRObjectMethodCaller}
+\alias{$,SnnsR-method}
+\alias{$}
 \title{Method caller for SnnsR objects}
 \usage{
 \S4method{$}{SnnsR}(x, name)
@@ -44,4 +44,3 @@ For the models implemented, this is done in \code{\link{SnnsRObject$train}}. If 
 the calling mechanism will notice on the next use of a function that the pointer to the C++ SnnsCLib object is \code{nil}, 
 and if a serialization is present, the object is restored from this serialization before the method is called.
 }
-

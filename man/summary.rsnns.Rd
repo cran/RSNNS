@@ -26,4 +26,3 @@ This behaviour is controlled with the parameter \code{origSnnsFormat}.
 \seealso{
 \code{\link{extractNetInfo}}
 }
-

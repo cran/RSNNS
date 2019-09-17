@@ -30,4 +30,3 @@ If the second parameter, \code{bias}, is missing, it is assumed
 that the first parameter should be interpreted as a vector containing
 all parameters.
 }
-

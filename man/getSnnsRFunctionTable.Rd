@@ -16,4 +16,3 @@ a data.frame with columns:
 \description{
 Get the function table of available SNNS functions.
 }
-

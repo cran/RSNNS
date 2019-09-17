@@ -12,4 +12,3 @@ setSnnsRSeedValue(seed)
 \description{
 DEPRECATED, now just calls R's set.seed(), that should be used instead.
 }
-

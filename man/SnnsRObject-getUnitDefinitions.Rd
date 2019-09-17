@@ -14,4 +14,3 @@ a data frame containing information about all units present in the network.
 \description{
 Get the unit definitions of the network.
 }
-

@@ -35,4 +35,3 @@ obj2$getUnitDefinitions()
 \seealso{
 \code{\link{SnnsR-class}}
 }
-

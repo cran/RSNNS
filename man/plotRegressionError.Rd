@@ -19,4 +19,3 @@ The optimal fit would yield a line through zero with gradient one.
 This optimal line is shown in black color. A linear fit to the actual data
 is shown in red color.
 }
-

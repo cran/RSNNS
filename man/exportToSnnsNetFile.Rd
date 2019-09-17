@@ -17,4 +17,3 @@ exportToSnnsNetFile(object, filename, netname = "RSNNS_untitled")
 Export the net that is present in the \code{\link{rsnns}} object in the 
 original (.net) SNNS file format.
 }
-

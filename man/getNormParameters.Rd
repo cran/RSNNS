@@ -22,4 +22,3 @@ This function is equivalent to calling \code{attr(x, "normParams")}.
 \seealso{
 \code{\link{normalizeData}}, \code{\link{denormalizeData}}
 }
-

@@ -7,10 +7,11 @@
 \usage{
 rbfDDA(x, ...)
 
-\method{rbfDDA}{default}(x, y, maxit = 1, initFunc = "Randomize_Weights",
-  initFuncParams = c(-0.3, 0.3), learnFunc = "RBF-DDA",
-  learnFuncParams = c(0.4, 0.2, 5), updateFunc = "Topological_Order",
-  updateFuncParams = c(0), shufflePatterns = TRUE, linOut = FALSE, ...)
+\method{rbfDDA}{default}(x, y, maxit = 1,
+  initFunc = "Randomize_Weights", initFuncParams = c(-0.3, 0.3),
+  learnFunc = "RBF-DDA", learnFuncParams = c(0.4, 0.2, 5),
+  updateFunc = "Topological_Order", updateFuncParams = c(0),
+  shufflePatterns = TRUE, linOut = FALSE, ...)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}
@@ -76,6 +77,5 @@ Berthold, M. R. & Diamond, J. (1995), Boosting the Performance of RBF Networks w
 Hudak, M. (1993), 'RCE classifiers: theory and practice', Cybernetics and Systems 23(5), 483--515.
 
 Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+\url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 }
-

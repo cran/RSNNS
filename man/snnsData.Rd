@@ -15,4 +15,3 @@ data(snnsData)
 names(snnsData)
 }
 \keyword{data}
-

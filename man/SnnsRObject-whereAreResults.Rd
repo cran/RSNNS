@@ -24,4 +24,3 @@ name prefix in SNNS. This function finds the output units according to
 certain network types. The type is specified by \code{outputMethod}. If the
 given \code{outputMethod} is unknown, the function defaults to "output".
 }
-

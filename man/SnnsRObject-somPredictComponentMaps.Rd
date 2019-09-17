@@ -20,4 +20,3 @@ SnnsR low-level function to calculate the som component maps.
 \seealso{
 \code{\link{som}}
 }
-

@@ -23,4 +23,3 @@ The function uses the function \code{\link{SnnsRObject$getAllUnitsTType}} to fin
 \seealso{
 \code{\link{SnnsRObject$getAllUnitsTType}}
 }
-

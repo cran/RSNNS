@@ -19,4 +19,3 @@ This function converts a vector (of class labels) to a numeric vector.
 data(iris)
 toNumericClassLabels(iris[,5])
 }
-

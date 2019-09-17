@@ -22,4 +22,3 @@ the output.
 \seealso{
 \code{\link{som}}
 }
-

@@ -16,10 +16,9 @@ plotROC(T, D, ...)
 \description{
 This function plots a receiver operating characteristic (ROC) curve.
 }
-\author{
-Code is taken from R news Volume 4/1, June 2004.
-}
 \references{
 R news Volume 4/1, June 2004
 }
-
+\author{
+Code is taken from R news Volume 4/1, June 2004.
+}

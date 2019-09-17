@@ -25,4 +25,3 @@ getSnnsRDefine("errorCodes",-50)
 \seealso{
 \code{\link{resolveSnnsRDefine}}
 }
-

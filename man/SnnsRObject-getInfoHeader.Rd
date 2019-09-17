@@ -14,4 +14,3 @@ a data frame containing some general characteristics of the network.
 \description{
 Get an info header of the network.
 }
-

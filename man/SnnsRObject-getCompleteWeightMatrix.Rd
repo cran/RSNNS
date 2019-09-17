@@ -17,4 +17,3 @@ the complete weight matrix
 \description{
 Get a weight matrix containing all weights of all neurons present in the net.
 }
-

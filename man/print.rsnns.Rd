@@ -14,4 +14,3 @@
 \description{
 Print out some characteristics of an \code{\link{rsnns}} object.
 }
-

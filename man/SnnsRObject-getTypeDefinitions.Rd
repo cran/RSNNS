@@ -14,4 +14,3 @@ a data frame containing information about FType units present in the network.
 \description{
 Get the FType definitions of the network.
 }
-

@@ -12,4 +12,3 @@
 SnnsR low-level function to delete all pattern sets and 
 delete the current net in the \code{\link{SnnsR-class}} object.
 }
-

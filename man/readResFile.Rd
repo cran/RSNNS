@@ -16,4 +16,3 @@ a matrix containing the predicted values that were found in the .res file
 This function contains a rudimentary parser for SNNS .res files. It
 is completely implemented in R and doesn't make use of SNNS functionality.
 }
-

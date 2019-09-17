@@ -17,4 +17,3 @@ This function generates an \link{SnnsR-class} object, loads the given .pat file
 there as a pattern set and then extracts the patterns to a matrix, 
 using \link{SnnsRObject$extractPatterns}.
 }
-

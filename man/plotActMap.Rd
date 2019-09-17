@@ -17,4 +17,3 @@ Plot an activation map as a heatmap.
 \seealso{
 \link{vectorToActMap} \link{matrixToActMapList}
 }
-

@@ -13,4 +13,3 @@ inputColumns(patterns)
 This function extracts all columns from a matrix whose column names begin with "in".
 The example data of this package follows this naming convention.
 }
-

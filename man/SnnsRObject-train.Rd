@@ -58,4 +58,3 @@ a list containing:
 \description{
 SnnsR low-level function to train a network and test it in every training iteration.
 }
-

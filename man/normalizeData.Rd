@@ -37,4 +37,3 @@ The parameter \code{type} specifies, how normalization takes place:
 \seealso{
 \code{\link{denormalizeData}}, \code{\link{getNormParameters}}
 }
-

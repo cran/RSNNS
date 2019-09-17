@@ -8,8 +8,8 @@
 train(object, ...)
 
 \method{train}{rsnns}(object, inputsTrain, targetsTrain = NULL,
-  inputsTest = NULL, targetsTest = NULL, serializeTrainedObject = TRUE,
-  ...)
+  inputsTest = NULL, targetsTest = NULL,
+  serializeTrainedObject = TRUE, ...)
 }
 \arguments{
 \item{object}{the \code{\link{rsnns}} object}
@@ -34,7 +34,4 @@ The function calls \code{\link{SnnsRObject$train}} and saves the result in the
 current \code{\link{rsnns}} object. This function is used internally by the 
 models (e.g. \code{\link{mlp}}) for training. Unless you are not about to implement
 a new model on the S3 layer you most probably don't want to use this function.
-
-Internal generic train function for \code{rsnns} objects.
 }
-

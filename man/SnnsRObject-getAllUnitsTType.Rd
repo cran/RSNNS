@@ -25,4 +25,3 @@ at \code{\link{SnnsR-class}} to find out how to properly use it.
 \seealso{
 \link{SnnsRObject$getAllOutputUnits}, \link{SnnsRObject$getAllInputUnits}, \link{SnnsRObject$getAllHiddenUnits}
 }
-

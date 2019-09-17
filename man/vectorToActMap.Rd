@@ -27,4 +27,3 @@ a matrix. Normally, only the number of rows \code{nrow} will be used.
 \seealso{
 \link{matrixToActMapList} \link{plotActMap}
 }
-

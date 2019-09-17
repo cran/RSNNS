@@ -10,8 +10,8 @@ art2(x, ...)
 \method{art2}{default}(x, f2Units = 5, maxit = 100,
   initFunc = "ART2_Weights", initFuncParams = c(0.9, 2),
   learnFunc = "ART2", learnFuncParams = c(0.98, 10, 10, 0.1, 0),
-  updateFunc = "ART2_Stable", updateFuncParams = c(0.98, 10, 10, 0.1, 0),
-  shufflePatterns = TRUE, ...)
+  updateFunc = "ART2_Stable", updateFuncParams = c(0.98, 10, 10, 0.1,
+  0), shufflePatterns = TRUE, ...)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}
@@ -85,11 +85,10 @@ Grossberg, S. (1988), Adaptive pattern classification and universal recoding. I.
 Herrmann, K.-U. (1992), 'ART -- Adaptive Resonance Theory -- Architekturen, Implementierung und Anwendung', Master's thesis, IPVR, University of Stuttgart. (in German)
 
 Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+\url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 
 Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)
 }
 \seealso{
 \code{\link{art1}}, \code{\link{artmap}}
 }
-

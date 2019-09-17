@@ -14,4 +14,3 @@ a vector with integer numbers identifying the units.
 \description{
 Get all units present in the net.
 }
-

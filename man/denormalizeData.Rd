@@ -30,4 +30,3 @@ denormalizeData(values, getNormParameters(values))
 \seealso{
 \code{\link{normalizeData}}, \code{\link{getNormParameters}}
 }
-

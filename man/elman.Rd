@@ -9,9 +9,10 @@ elman(x, ...)
 
 \method{elman}{default}(x, y, size = c(5), maxit = 100,
   initFunc = "JE_Weights", initFuncParams = c(1, -1, 0.3, 1, 0.5),
-  learnFunc = "JE_BP", learnFuncParams = c(0.2), updateFunc = "JE_Order",
-  updateFuncParams = c(0), shufflePatterns = FALSE, linOut = TRUE,
-  outContext = FALSE, inputsTest = NULL, targetsTest = NULL, ...)
+  learnFunc = "JE_BP", learnFuncParams = c(0.2),
+  updateFunc = "JE_Order", updateFuncParams = c(0),
+  shufflePatterns = FALSE, linOut = TRUE, outContext = FALSE,
+  inputsTest = NULL, targetsTest = NULL, ...)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}
@@ -100,11 +101,10 @@ Elman, J. L. (1990), 'Finding structure in time', Cognitive Science 14(2),
 
 Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual,
 Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/}
+\url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 
 Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)
 }
 \seealso{
 \code{\link{jordan}}
 }
-

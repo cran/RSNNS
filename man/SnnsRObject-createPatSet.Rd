@@ -20,4 +20,3 @@ a list with elements \code{err} and \code{set_no}. The latter one identifies the
 SnnsR low-level function to create a pattern set in the SNNS kernel from 
 the values given, so that they are available in the SNNS kernel for use.
 }
-

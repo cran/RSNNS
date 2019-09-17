@@ -34,4 +34,3 @@ irisTargets <- decodeClassLabels(iris[,5])
 
 splitForTrainingAndTest(irisValues, irisTargets, ratio=0.15)
 }
-

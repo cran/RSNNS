@@ -40,4 +40,3 @@ normTrainingAndTestSet(iris)
 \code{\link{splitForTrainingAndTest}}, \code{\link{normalizeData}}, \code{\link{denormalizeData}}, 
 \code{\link{getNormParameters}}
 }
-

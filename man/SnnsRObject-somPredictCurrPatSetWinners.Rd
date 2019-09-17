@@ -31,4 +31,3 @@ SnnsR low-level function to get most of the relevant results from a SOM.
 \seealso{
 \code{\link{som}}
 }
-

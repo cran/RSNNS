@@ -24,4 +24,3 @@ SnnsR low-level function to get the weight matrix between two sets of units.
 \seealso{
 \link{SnnsRObject$getAllUnitsTType}
 }
-
