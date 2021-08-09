@@ -7,11 +7,19 @@
 \usage{
 art2(x, ...)
 
-\method{art2}{default}(x, f2Units = 5, maxit = 100,
-  initFunc = "ART2_Weights", initFuncParams = c(0.9, 2),
-  learnFunc = "ART2", learnFuncParams = c(0.98, 10, 10, 0.1, 0),
-  updateFunc = "ART2_Stable", updateFuncParams = c(0.98, 10, 10, 0.1,
-  0), shufflePatterns = TRUE, ...)
+\method{art2}{default}(
+  x,
+  f2Units = 5,
+  maxit = 100,
+  initFunc = "ART2_Weights",
+  initFuncParams = c(0.9, 2),
+  learnFunc = "ART2",
+  learnFuncParams = c(0.98, 10, 10, 0.1, 0),
+  updateFunc = "ART2_Stable",
+  updateFuncParams = c(0.98, 10, 10, 0.1, 0),
+  shufflePatterns = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}
@@ -50,7 +58,7 @@ As comparison of real-valued vectors is more difficult than comparison of binary
 the comparison layer is more complex in ART2, and actually consists of three layers. With a more
 complex comparison layer, also other parts of the network enhance their complexity.
 In SNNS, this enhanced complexity is reflected by the presence of more parameters in initialization-, learning-,
-and update function.
+and update function.  
 
 In analogy to the implementation of ART1, there are one initialization function, one learning function and two 
 update functions suitable for ART2.  The learning and update functions have five parameters, the initialization function has two 

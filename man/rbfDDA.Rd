@@ -7,11 +7,20 @@
 \usage{
 rbfDDA(x, ...)
 
-\method{rbfDDA}{default}(x, y, maxit = 1,
-  initFunc = "Randomize_Weights", initFuncParams = c(-0.3, 0.3),
-  learnFunc = "RBF-DDA", learnFuncParams = c(0.4, 0.2, 5),
-  updateFunc = "Topological_Order", updateFuncParams = c(0),
-  shufflePatterns = TRUE, linOut = FALSE, ...)
+\method{rbfDDA}{default}(
+  x,
+  y,
+  maxit = 1,
+  initFunc = "Randomize_Weights",
+  initFuncParams = c(-0.3, 0.3),
+  learnFunc = "RBF-DDA",
+  learnFuncParams = c(0.4, 0.2, 5),
+  updateFunc = "Topological_Order",
+  updateFuncParams = c(0),
+  shufflePatterns = TRUE,
+  linOut = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}

@@ -48,7 +48,7 @@ of the pattern (> 0) (iv) the output of all other units is < a - l.
 A pattern is recognized as classified incorrectly, if (i), (ii), and (iv) hold as above, but for (iii) holds that the teaching output of this 
 unit is \emph{not} the maximum teaching output of the pattern or there is no teaching output > 0.
  
-A pattern is recognized as unclassified in all other cases.
+A pattern is recognized as unclassified in all other cases. 
 
 Commonly used default values for this method are: l = 0.0, h = 0.0.
 }

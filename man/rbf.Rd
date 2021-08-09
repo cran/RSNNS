@@ -7,12 +7,23 @@
 \usage{
 rbf(x, ...)
 
-\method{rbf}{default}(x, y, size = c(5), maxit = 100,
-  initFunc = "RBF_Weights", initFuncParams = c(0, 1, 0, 0.02, 0.04),
-  learnFunc = "RadialBasisLearning", learnFuncParams = c(1e-05, 0,
-  1e-05, 0.1, 0.8), updateFunc = "Topological_Order",
-  updateFuncParams = c(0), shufflePatterns = TRUE, linOut = TRUE,
-  inputsTest = NULL, targetsTest = NULL, ...)
+\method{rbf}{default}(
+  x,
+  y,
+  size = c(5),
+  maxit = 100,
+  initFunc = "RBF_Weights",
+  initFuncParams = c(0, 1, 0, 0.02, 0.04),
+  learnFunc = "RadialBasisLearning",
+  learnFuncParams = c(1e-05, 0, 1e-05, 0.1, 0.8),
+  updateFunc = "Topological_Order",
+  updateFuncParams = c(0),
+  shufflePatterns = TRUE,
+  linOut = TRUE,
+  inputsTest = NULL,
+  targetsTest = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}

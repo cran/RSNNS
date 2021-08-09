@@ -7,10 +7,18 @@
 \usage{
 dlvq(x, ...)
 
-\method{dlvq}{default}(x, y, initFunc = "DLVQ_Weights",
-  initFuncParams = c(1, -1), learnFunc = "Dynamic_LVQ",
-  learnFuncParams = c(0.03, 0.03, 10), updateFunc = "Dynamic_LVQ",
-  updateFuncParams = c(0), shufflePatterns = TRUE, ...)
+\method{dlvq}{default}(
+  x,
+  y,
+  initFunc = "DLVQ_Weights",
+  initFuncParams = c(1, -1),
+  learnFunc = "Dynamic_LVQ",
+  learnFuncParams = c(0.03, 0.03, 10),
+  updateFunc = "Dynamic_LVQ",
+  updateFuncParams = c(0),
+  shufflePatterns = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}

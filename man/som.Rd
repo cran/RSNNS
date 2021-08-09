@@ -7,12 +7,22 @@
 \usage{
 som(x, ...)
 
-\method{som}{default}(x, mapX = 16, mapY = 16, maxit = 100,
-  initFuncParams = c(1, -1), learnFuncParams = c(0.5, mapX/2, 0.8, 0.8,
-  mapX), updateFuncParams = c(0, 0, 1), shufflePatterns = TRUE,
-  calculateMap = TRUE, calculateActMaps = FALSE,
-  calculateSpanningTree = FALSE, saveWinnersPerPattern = FALSE,
-  targets = NULL, ...)
+\method{som}{default}(
+  x,
+  mapX = 16,
+  mapY = 16,
+  maxit = 100,
+  initFuncParams = c(1, -1),
+  learnFuncParams = c(0.5, mapX/2, 0.8, 0.8, mapX),
+  updateFuncParams = c(0, 0, 1),
+  shufflePatterns = TRUE,
+  calculateMap = TRUE,
+  calculateActMaps = FALSE,
+  calculateSpanningTree = FALSE,
+  saveWinnersPerPattern = FALSE,
+  targets = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}

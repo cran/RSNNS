@@ -7,14 +7,27 @@
 \usage{
 mlp(x, ...)
 
-\method{mlp}{default}(x, y, size = c(5), maxit = 100,
-  initFunc = "Randomize_Weights", initFuncParams = c(-0.3, 0.3),
-  learnFunc = "Std_Backpropagation", learnFuncParams = c(0.2, 0),
-  updateFunc = "Topological_Order", updateFuncParams = c(0),
-  hiddenActFunc = "Act_Logistic", shufflePatterns = TRUE,
-  linOut = FALSE, outputActFunc = if (linOut) "Act_Identity" else
-  "Act_Logistic", inputsTest = NULL, targetsTest = NULL,
-  pruneFunc = NULL, pruneFuncParams = NULL, ...)
+\method{mlp}{default}(
+  x,
+  y,
+  size = c(5),
+  maxit = 100,
+  initFunc = "Randomize_Weights",
+  initFuncParams = c(-0.3, 0.3),
+  learnFunc = "Std_Backpropagation",
+  learnFuncParams = c(0.2, 0),
+  updateFunc = "Topological_Order",
+  updateFuncParams = c(0),
+  hiddenActFunc = "Act_Logistic",
+  shufflePatterns = TRUE,
+  linOut = FALSE,
+  outputActFunc = if (linOut) "Act_Identity" else "Act_Logistic",
+  inputsTest = NULL,
+  targetsTest = NULL,
+  pruneFunc = NULL,
+  pruneFuncParams = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}

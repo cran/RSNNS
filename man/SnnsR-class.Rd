@@ -17,7 +17,7 @@ Currently, there are two members (constructed by the object factory):
 \item{serialization}{a serialization of the C++ object, in SNNS .net format}
 }
 The member variables are not directly present as slots but wrapped in an environment
-to allow for changing the serialization (by call by reference).
+to allow for changing the serialization (by call by reference). 
 
 An object of this class is used internally by all the models in the package. 
 The object is always accessible by \code{model$snnsObject$...}

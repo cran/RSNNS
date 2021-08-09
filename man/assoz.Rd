@@ -7,11 +7,20 @@
 \usage{
 assoz(x, ...)
 
-\method{assoz}{default}(x, dimX, dimY, maxit = 100,
-  initFunc = "RM_Random_Weights", initFuncParams = c(1, -1),
-  learnFunc = "RM_delta", learnFuncParams = c(0.01, 100, 0, 0, 0),
-  updateFunc = "Auto_Synchronous", updateFuncParams = c(50),
-  shufflePatterns = TRUE, ...)
+\method{assoz}{default}(
+  x,
+  dimX,
+  dimY,
+  maxit = 100,
+  initFunc = "RM_Random_Weights",
+  initFuncParams = c(1, -1),
+  learnFunc = "RM_delta",
+  learnFuncParams = c(0.01, 100, 0, 0, 0),
+  updateFunc = "Auto_Synchronous",
+  updateFuncParams = c(50),
+  shufflePatterns = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}

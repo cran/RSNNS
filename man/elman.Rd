@@ -7,12 +7,24 @@
 \usage{
 elman(x, ...)
 
-\method{elman}{default}(x, y, size = c(5), maxit = 100,
-  initFunc = "JE_Weights", initFuncParams = c(1, -1, 0.3, 1, 0.5),
-  learnFunc = "JE_BP", learnFuncParams = c(0.2),
-  updateFunc = "JE_Order", updateFuncParams = c(0),
-  shufflePatterns = FALSE, linOut = TRUE, outContext = FALSE,
-  inputsTest = NULL, targetsTest = NULL, ...)
+\method{elman}{default}(
+  x,
+  y,
+  size = c(5),
+  maxit = 100,
+  initFunc = "JE_Weights",
+  initFuncParams = c(1, -1, 0.3, 1, 0.5),
+  learnFunc = "JE_BP",
+  learnFuncParams = c(0.2),
+  updateFunc = "JE_Order",
+  updateFuncParams = c(0),
+  shufflePatterns = FALSE,
+  linOut = TRUE,
+  outContext = FALSE,
+  inputsTest = NULL,
+  targetsTest = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}

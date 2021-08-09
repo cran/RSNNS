@@ -7,9 +7,15 @@
 \usage{
 train(object, ...)
 
-\method{train}{rsnns}(object, inputsTrain, targetsTrain = NULL,
-  inputsTest = NULL, targetsTest = NULL,
-  serializeTrainedObject = TRUE, ...)
+\method{train}{rsnns}(
+  object,
+  inputsTrain,
+  targetsTrain = NULL,
+  inputsTest = NULL,
+  targetsTest = NULL,
+  serializeTrainedObject = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{the \code{\link{rsnns}} object}

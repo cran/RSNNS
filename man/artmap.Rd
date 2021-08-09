@@ -7,14 +7,26 @@
 \usage{
 artmap(x, ...)
 
-\method{artmap}{default}(x, nInputsTrain, nInputsTargets,
-  nUnitsRecLayerTrain, nUnitsRecLayerTargets, maxit = 1,
-  nRowInputsTrain = 1, nRowInputsTargets = 1,
-  nRowUnitsRecLayerTrain = 1, nRowUnitsRecLayerTargets = 1,
-  initFunc = "ARTMAP_Weights", initFuncParams = c(1, 1, 1, 1, 0),
-  learnFunc = "ARTMAP", learnFuncParams = c(0.8, 1, 1, 0, 0),
-  updateFunc = "ARTMAP_Stable", updateFuncParams = c(0.8, 1, 1, 0, 0),
-  shufflePatterns = TRUE, ...)
+\method{artmap}{default}(
+  x,
+  nInputsTrain,
+  nInputsTargets,
+  nUnitsRecLayerTrain,
+  nUnitsRecLayerTargets,
+  maxit = 1,
+  nRowInputsTrain = 1,
+  nRowInputsTargets = 1,
+  nRowUnitsRecLayerTrain = 1,
+  nRowUnitsRecLayerTargets = 1,
+  initFunc = "ARTMAP_Weights",
+  initFuncParams = c(1, 1, 1, 1, 0),
+  learnFunc = "ARTMAP",
+  learnFuncParams = c(0.8, 1, 1, 0, 0),
+  updateFunc = "ARTMAP_Stable",
+  updateFuncParams = c(0.8, 1, 1, 0, 0),
+  shufflePatterns = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a matrix with training inputs and targets for the network}
@@ -69,7 +81,7 @@ that guarantees stability.
 See also the details section of \code{\link{art1}}. The two ART1 networks are connected by a \emph{map field}.
 The input of the first ART1 network is the training input, the input of the second network are the target values, 
 the teacher signals. The two networks are often called ARTa and ARTb, we call them here training data network 
-and target data network.
+and target data network.  
 
 In analogy to the ART1 and ART2 implementations, there are one initialization function, one learning function, 
 and two update functions present that are suitable for ARTMAP. The parameters are basically as in ART1, but for 

@@ -16,11 +16,11 @@ do not write to the general R lists or contact the authors of the original
 SNNS software. Instead, you should: File an issue on github (bugs/suggestions),
 Ask your question on Stackoverflow under the tag RSNNS, or write to the mailing list
 (rsnns@googlegroups.com). If all that fails, then you can also contact the maintainer 
-directly by email.
+directly by email. 
 
 If you use the package, please cite the following work in your publications:
 
-Bergmeir, C. and Benítez, J.M. (2012), Neural Networks in R Using the Stuttgart Neural Network Simulator: RSNNS. Journal of Statistical Software, 46(7), 1-26. \url{http://www.jstatsoft.org/v46/i07/}
+Bergmeir, C. and Benítez, J.M. (2012), Neural Networks in R Using the Stuttgart Neural Network Simulator: RSNNS. Journal of Statistical Software, 46(7), 1-26. \url{https://www.jstatsoft.org/v46/i07/}
 
 The package has a hierarchical architecture with three levels:
 \itemize{
@@ -44,7 +44,7 @@ type:
  
 or for the laser regression demo type:
 
-\code{demo(laser)}
+\code{demo(laser)} 
 
 As the high-level api is already quite powerful and flexible, you'll most
 probably normally end up using one of the functions: \code{\link{mlp}},
@@ -90,11 +90,11 @@ Most of the example data included in SNNS is also present in this package, see \
 A comprehensive report with many examples showing the usage of RSNNS, 
 developed by Seymour Shlien, is available here:
 
-\url{http://ifdo.ca/~seymour/R/}
+\url{https://ifdo.ca/~seymour/R/}
 }
 \references{
 Bergmeir, C. and Benítez, J.M. (2012), 'Neural Networks in R Using the Stuttgart Neural Network Simulator: RSNNS', Journal of Statistical Software, 46(7), 1-26.
-\url{http://www.jstatsoft.org/v46/i07/}
+\url{https://www.jstatsoft.org/v46/i07/}
 
 \emph{General neural network literature:}
 
@@ -120,7 +120,7 @@ Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Ve
 \url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 
 javaNNS, the sucessor of the original SNNS with a Java GUI: 
-\url{http://www.ra.cs.uni-tuebingen.de/software/JavaNNS}
+\url{http://www.ra.cs.uni-tuebingen.de/software/JavaNNS/}
 
 Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley.
 
@@ -140,7 +140,7 @@ and José M. Benítez \email{j.m.benitez@decsai.ugr.es}
 
 DiCITS Lab, Sci2s group, DECSAI, University of Granada.
 
-\url{http://dicits.ugr.es}, \url{http://sci2s.ugr.es}
+\url{http://dicits.ugr.es}, \url{https://sci2s.ugr.es}
 }
 \keyword{SNNS}
 \keyword{networks}

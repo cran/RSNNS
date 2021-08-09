@@ -5,10 +5,21 @@
 \alias{rsnns}
 \title{Object factory for generating rsnns objects}
 \usage{
-rsnnsObjectFactory(subclass, nInputs, maxit, initFunc, initFuncParams,
-  learnFunc, learnFuncParams, updateFunc, updateFuncParams,
-  shufflePatterns = TRUE, computeIterativeError = TRUE,
-  pruneFunc = NULL, pruneFuncParams = NULL)
+rsnnsObjectFactory(
+  subclass,
+  nInputs,
+  maxit,
+  initFunc,
+  initFuncParams,
+  learnFunc,
+  learnFuncParams,
+  updateFunc,
+  updateFuncParams,
+  shufflePatterns = TRUE,
+  computeIterativeError = TRUE,
+  pruneFunc = NULL,
+  pruneFuncParams = NULL
+)
 }
 \arguments{
 \item{subclass}{the subclass of rsnns to generate (vector of strings)}

@@ -7,11 +7,21 @@
 \usage{
 art1(x, ...)
 
-\method{art1}{default}(x, dimX, dimY, f2Units = nrow(x), maxit = 100,
-  initFunc = "ART1_Weights", initFuncParams = c(1, 1),
-  learnFunc = "ART1", learnFuncParams = c(0.9, 0, 0),
-  updateFunc = "ART1_Stable", updateFuncParams = c(0),
-  shufflePatterns = TRUE, ...)
+\method{art1}{default}(
+  x,
+  dimX,
+  dimY,
+  f2Units = nrow(x),
+  maxit = 100,
+  initFunc = "ART1_Weights",
+  initFuncParams = c(1, 1),
+  learnFunc = "ART1",
+  learnFuncParams = c(0.9, 0, 0),
+  updateFunc = "ART1_Stable",
+  updateFuncParams = c(0),
+  shufflePatterns = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a matrix with training inputs for the network}
@@ -71,7 +81,7 @@ They propagate activation back and forth (resonance). The units in the recogniti
 inhibition, so that they show a winner-takes-all behaviour, i.e., the unit that has the highest activation
 inhibits activation of other units, so that after a few cycles its activation will converge to one, whereas
 the other units activations converge to zero. ART stabilizes this general learning mechanism by the presence
-of some special units. For details refer to the referenced literature.
+of some special units. For details refer to the referenced literature. 
 
 The default initialization function, \code{ART1_Weights}, is the only one suitable for ART1 networks. It has 
 two parameters, which are explained in the SNNS User Manual pp.189. A default of 1.0 for both is usually fine.
@@ -84,7 +94,7 @@ In its current implementation, the network has two-dimensional input. The matrix
 (one dimensional) input patterns. Internally, every one of these patterns
 is converted to a two-dimensional pattern using parameters \code{dimX} and \code{dimY}.
 The parameter \code{f2Units} controls the number of units in the recognition layer, and therewith the maximal amount of clusters 
-that are assumed to be present in the input patterns.
+that are assumed to be present in the input patterns. 
 
 A detailed description of the theory and the parameters is available from the SNNS documentation and the other referenced literature.
 }
