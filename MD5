@@ -1,5 +1,5 @@
-a8ca42ecbcffd00b658c46a83519fc0c *ChangeLog
-f52faa9a631ffb732125054c56767ac5 *DESCRIPTION
+f59ae2f2a96a4546b702a3d9ebb531e3 *ChangeLog
+768784e6219dcbe223d3f71aeec9ce2b *DESCRIPTION
 e0dd151e3509b3668faaeb7fc39a24fe *LICENSE
 e5c75000dbdba8f9a63803bd95bac9db *NAMESPACE
 b4abc92fafb25dafd9bf5349bbc6e377 *R/RSNNS-package.R
@@ -217,7 +217,7 @@ fdae603ab9a49b5053f4af0132cec9aa *src/kr_newpattern.cpp
 8b98a132affc35cef0a3000629edf53b *src/kr_newpattern.h
 f6da4be182fe2e2df6343f24b042465f *src/kr_pat_parse.cpp
 14df2fe96b70a94e0b47ee19a1749263 *src/kr_pat_parse.h
-051cbef677ec68bf036a4f496abbd2c6 *src/kr_pat_scan.cpp
+9c1a26c8bfb5ce67cfeda645ff33c692 *src/kr_pat_scan.cpp
 4f153054942d8c202e7f1794419055cd *src/kr_pat_scan.h
 4dcb5db6c7770a4ab7b181177a92e58f *src/kr_td.cpp
 47a72db111bd9a7ced4cd8e4d2f46fd0 *src/kr_td.h
