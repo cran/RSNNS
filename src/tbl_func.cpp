@@ -93,11 +93,11 @@ FlintType   SnnsCLib::ACT_LogisticTbl(struct Unit *unit_ptr)
 #include "sigmoid_tbl.h"	/*  m,b value tables for linear approximation  */
 
   ACT_FUNC_DEFS
-  register FlintType  sum, x;
-  register int	index;
+   FlintType  sum, x;
+   int	index;
 
 
-  sum =  0.0;
+  sum =  0.0f;
   if (GET_FIRST_SITE( unit_ptr ))
     do
       sum += GET_SITE_VALUE;

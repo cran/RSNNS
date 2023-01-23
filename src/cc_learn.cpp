@@ -110,7 +110,7 @@ krui_err SnnsCLib::cc_initVariables(float* ParameterInArray,
 	cc_Parameter[i]=ParameterInArray[22+i];
     } 
     cc_fastmode=(int)ParameterInArray[27];
-    cc_fse=((LEARNING_FUNCTION==BACKPROP)? PARAM3 : 0.1);
+    cc_fse=((LEARNING_FUNCTION==BACKPROP)? PARAM3 : 0.1f);
 
     KernelErrorCode=cc_InitModificationVariables();
     ERROR_CHECK;
@@ -153,19 +153,19 @@ float SnnsCLib::cc_calculateCorrelation(int StartPattern, int EndPattern, int co
 {
 
     int s,o,n;
-    double highScore, unchangedhighScore, scoreBuffer;
-    float bestSpecialUnitScore = -0.1 ,
-	bestSpecialUnitUnchangedScore=0.0;
+    float highScore, unchangedhighScore, scoreBuffer;
+    float bestSpecialUnitScore = -0.1f ,
+	bestSpecialUnitUnchangedScore=0.0f;
     struct Unit *SpecialUnitPtr = NULL,*OutputUnitPtr;
     int start, end;
 
     cc_getPatternParameter(StartPattern,EndPattern,&start,&end,&n);
-    ERROR_CHECK;
+    ERROR_CHECK_FLOAT;
 
     //if(cc_printOnOff)  printf("Cycle %d ",counter);
 
     FOR_ALL_SPECIAL_UNITS(SpecialUnitPtr,s) {
-	unchangedhighScore = 0.0;
+	unchangedhighScore = 0.0f;
 	FOR_ALL_OUTPUT_UNITS(OutputUnitPtr,o) {
 	    scoreBuffer = (CorBetweenSpecialActAndOutError[s][o] - 
 			   (MeanOutputUnitError[o] * SpecialUnitSumAct[s] )) / 
@@ -174,7 +174,7 @@ float SnnsCLib::cc_calculateCorrelation(int StartPattern, int EndPattern, int co
 	    SIGN_OF_THE_CORRELATION[s][o] = SIGN(scoreBuffer);
 	}
     
-	highScore = cc_modifyHighScore(SpecialUnitPtr,s,unchangedhighScore);
+	highScore = (float) cc_modifyHighScore(SpecialUnitPtr,s, unchangedhighScore);
 
 	cc_actualizeGroupHighscores(highScore,s,SpecialUnitPtr);
 
@@ -258,10 +258,10 @@ void SnnsCLib::cc_trainSpecialUnits(int maxNoOfCovarianceUpdateCycles,
 
     cc_printHeadline(const_cast<char*>("Training of the candidates"),LENGTH_HEADLINE);
     cc_calculateOutputUnitError(StartPattern,EndPattern);
-    if (SumSqError==0.0){
+    if (SumSqError==0.0f){
 	//Error = 
         cc_getErr(StartPattern,EndPattern); /* calc SumSqError */
-	if (SumSqError==0.0)
+	if (SumSqError==0.0f)
 	    return;
     }
     for (counter=0;counter<maxNoOfCovarianceUpdateCycles;counter++){
@@ -321,7 +321,7 @@ void SnnsCLib::cc_trainOutputUnits(int maxNoOfErrorUpdateCycles, int backfittPat
 {
 
     int p,pat,sub,counter=0;
-    float oldNetError=FLOAT_MAX;
+    float oldNetError= MAXFLOAT;
     int start,end,n;
     struct Unit* UnitPtr;
     struct Link* LinkPtr;
@@ -393,14 +393,14 @@ void SnnsCLib::cc_trainOutputUnits(int maxNoOfErrorUpdateCycles, int backfittPat
 void SnnsCLib::cc_calculateOutputUnitError(int StartPattern,int EndPattern)
 {
 
-    register struct Unit *UnitPtr;
-    register Patterns  out_pat;
-    //register TopoPtrArray     topo_ptr;
-    register int o,p;
+     struct Unit *UnitPtr;
+     Patterns  out_pat;
+    // TopoPtrArray     topo_ptr;
+     int o,p;
     int start, end,pat,sub,n;
   
     FOR_ALL_OUTPUT_UNITS(UnitPtr,o) 
-       OUTPUT_UNIT_SUM_ERROR[o] = 0.0;
+       OUTPUT_UNIT_SUM_ERROR[o] = 0.0f;
 
     cc_getPatternParameter(StartPattern,EndPattern,&start,&end,&n);
     ERROR_CHECK_WRC;
@@ -421,7 +421,7 @@ void SnnsCLib::cc_calculateOutputUnitError(int StartPattern,int EndPattern)
     }
 
     FOR_ALL_OUTPUT_UNITS(UnitPtr,o)
-       MeanOutputUnitError[o] = (OUTPUT_UNIT_SUM_ERROR[o] / n);
+       MeanOutputUnitError[o] = (OUTPUT_UNIT_SUM_ERROR[o] / (float) n);
 
     cc_actualNetSaved=TRUE;
 }
@@ -441,8 +441,8 @@ void SnnsCLib::cc_calculateOutputUnitError(int StartPattern,int EndPattern)
 void SnnsCLib::cc_calculateSpecialUnitActivation(int StartPattern, int EndPattern)
 { 
 
-    register struct Unit  *specialUnitPtr,*outputUnitPtr;
-    register int o,s,p;
+     struct Unit  *specialUnitPtr,*outputUnitPtr;
+     int o,s,p;
     int pat,sub;
     int start,end,n;
 
@@ -487,7 +487,7 @@ float SnnsCLib::cc_propagateOutput(int PatternNo, int sub_pat_no, float param1,
     int           dummy;
 
     out_pat = kr_getSubPatData(PatternNo,sub_pat_no,OUTPUT,NULL);
-    ERROR_CHECK;
+    ERROR_CHECK_FLOAT;
 
     FOR_ALL_OUTPUT_UNITS(OutputUnitPtr,dummy){
 	devit =  OutputUnitPtr->Out.output - *(out_pat++);
@@ -530,9 +530,9 @@ float SnnsCLib::cc_propagateOutputOnlineCase(int PatternNo, int sub_pat_no,
     int           dummy;
     float         lastChange;
 
-    sum_error = 0.0; 
+    sum_error = 0.0f; 
     out_pat = kr_getSubPatData(PatternNo,sub_pat_no,OUTPUT,NULL);
-    ERROR_CHECK;
+    ERROR_CHECK_FLOAT;
     FOR_ALL_OUTPUT_UNITS(OutputUnitPtr,dummy){
 	devit =  OutputUnitPtr->Out.output - *(out_pat++);
 
@@ -585,7 +585,7 @@ krui_err SnnsCLib::cc_propagateSpecial(int start,int end,int n,int counter,
         cc_getActivationsForActualPattern(p,start,&pat,&sub);
 
 	FOR_ALL_SPECIAL_UNITS(SpecialUnitPtr,s) {
-	    change = 0.0;
+	    change = 0.0f;
 	    SpecialUnitPtr->act = SpecialUnitAct[p][s];
 	    actPrime = (this->*SpecialUnitPtr->act_deriv_func)(SpecialUnitPtr);
 	    FOR_ALL_OUTPUT_UNITS(OutputUnitPtr,o) 
@@ -628,7 +628,7 @@ krui_err SnnsCLib::cc_propagateSpecialOnlineCase(int start,int end,int n,int cou
         cc_getActivationsForActualPattern(p,start,&pat,&sub);
 
 	FOR_ALL_SPECIAL_UNITS(SpecialUnitPtr,s) {
-	    change = 0.0;
+	    change = 0.0f;
 	    SpecialUnitPtr->act = SpecialUnitAct[p][s];
 	    actPrime = (this->*SpecialUnitPtr->act_deriv_func)(SpecialUnitPtr);
 	    FOR_ALL_OUTPUT_UNITS(OutputUnitPtr,o) 
@@ -925,7 +925,7 @@ krui_err SnnsCLib::cc_generateHiddenUnit(int GroupNo)
 	KernelErrorCode = krui_setCurrentUnit(CurrentUnit); 
 	ERROR_CHECK;
 
-	KernelErrorCode = krui_createLink(NewHiddenUnit,0.0);
+	KernelErrorCode = krui_createLink(NewHiddenUnit,0.0f);
 	ERROR_CHECK; 
     }       /* and change its Layer if necessary */
     KernelErrorCode = kr_topoSort(TOPOLOGICAL_CC);

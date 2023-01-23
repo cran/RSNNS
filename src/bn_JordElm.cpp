@@ -99,7 +99,7 @@
     if (no_of_units < 1) return (KRERR_NO_UNITS) ;
 
     for (i = 1 ; i <= no_of_units ; i++){
-	sprintf (name, "%s%d", unit_name, i) ;
+	snprintf (name, sizeof(name), "%s%d", unit_name, i) ;
 
 	unit_no = krui_createUnit (name, out_func_name, act_func_name, 0, 0) ; 
 	if (unit_no < 0) IF_ERROR_RETURN (unit_no) ;
@@ -278,19 +278,19 @@
 
   /* ---------------------------   create links  ----------------------------*/
 
-  error_code = connectFull     (i_unit, IUnits, h_unit, HUnits, 0.0) ;
+  error_code = connectFull     (i_unit, IUnits, h_unit, HUnits, 0.0f) ;
   IF_ERROR_RETURN (error_code) ;
 
-  error_code = connectFull     (h_unit, HUnits, o_unit, OUnits, 0.0) ;
+  error_code = connectFull     (h_unit, HUnits, o_unit, OUnits, 0.0f) ;
   IF_ERROR_RETURN (error_code) ;
 
-  error_code = connectFull     (s_unit, OUnits, h_unit, HUnits, 0.0) ;
+  error_code = connectFull     (s_unit, OUnits, h_unit, HUnits, 0.0f) ;
   IF_ERROR_RETURN (error_code) ;
 
-  error_code = connectOneToOne (o_unit, s_unit, OUnits, 0.0) ;
+  error_code = connectOneToOne (o_unit, s_unit, OUnits, 0.0f) ;
   IF_ERROR_RETURN (error_code) ;
 
-  error_code = connectSelfRec  (s_unit, OUnits, 0.0) ; 
+  error_code = connectSelfRec  (s_unit, OUnits, 0.0f) ; 
   IF_ERROR_RETURN (error_code) ;
 
 
@@ -368,7 +368,7 @@ Parameters:
   strcpy (name, "hid") ;
   for (i = 1 ; i <= no_of_hidden_layers ; i++)
   {
-    if (no_of_hidden_layers > 1) sprintf (name, "hid%d", i) ;  
+    if (no_of_hidden_layers > 1) snprintf (name, sizeof(name), "hid%d", i) ;  
     h_unit[i] = createUnitLayer(layer[i], HIDDEN, const_cast<char*>("Act_Logistic"), 
                                 const_cast<char*>("Out_Identity"), name) ;
     if (h_unit[i] < 0) IF_ERROR_RETURN (h_unit[i]) ;
@@ -389,7 +389,7 @@ Parameters:
   strcpy (name, "con") ;
   for (i = 1 ; i <= no_of_context_layers ; i++)
   {
-    if (no_of_context_layers > 1) sprintf (name, "con%d", i) ;  
+    if (no_of_context_layers > 1) snprintf (name, sizeof(name), "con%d", i) ;  
     c_unit[i] = createUnitLayer (layer[i], SPECIAL_H, const_cast<char*>("Act_Identity"), 
                                  const_cast<char*>("Out_Identity"), name ) ;
     if (c_unit[i] < 0) IF_ERROR_RETURN (c_unit[i]) ;
@@ -398,7 +398,7 @@ Parameters:
 
   /* ---------------------------   create links  ----------------------------*/
 
-  error_code = connectFull (i_unit, layer[0], h_unit[1], layer[1], 0.0) ;
+  error_code = connectFull (i_unit, layer[0], h_unit[1], layer[1], 0.0f) ;
   IF_ERROR_RETURN (error_code) ;
 
   for (i = 1 ; i < no_of_hidden_layers ; i++)

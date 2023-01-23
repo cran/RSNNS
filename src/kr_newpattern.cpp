@@ -581,7 +581,7 @@ krui_err SnnsCLib::kr_npui_loadNewPatterns(char *filename, int *set_no)
 	buf = (char *) malloc(strlen(filename)+strlen("zcat ")+1);
 	if (buf == (char *) NULL)
 	    { TRACE_RETURN(KRERR_INSUFFICIENT_MEM); }
-	sprintf(buf, "zcat %s", filename);
+	snprintf(buf, strlen(filename)+strlen("zcat "), "zcat %s", filename);
 	infile = popen(buf,"r");
 	read_from_pipe = 1;
     }
@@ -590,7 +590,7 @@ krui_err SnnsCLib::kr_npui_loadNewPatterns(char *filename, int *set_no)
 	buf = (char *) malloc(strlen(filename)+strlen("gunzip -c ")+1);
 	if (buf == (char *) NULL)
 	    { TRACE_RETURN(KRERR_INSUFFICIENT_MEM); }
-	sprintf(buf, "gunzip -c %s", filename);
+	snprintf(buf, strlen(filename)+strlen("gunzip -c "), "gunzip -c %s", filename);
 	infile = popen(buf,"r");
 	read_from_pipe = 1;
     }
@@ -1488,9 +1488,9 @@ bool SnnsCLib::kr_getSubPatternByOrder(int *pattern, int *sub)
 ******************************************************************************/
 bool SnnsCLib::kr_getSubPatternByNo(int *pattern, int *sub, int n)
 {
-    register int ts;
-    register int tp;
-    register int low, high, mid;
+     int ts;
+     int tp;
+     int low, high, mid;
 
     TRACE_IN();
 
@@ -1612,7 +1612,7 @@ int SnnsCLib::kr_TotalNoOfSubPatPairs(void)
 ******************************************************************************/
 int SnnsCLib::kr_NoOfSubPatPairs(int pattern)
 {
-    register int ps;
+     int ps;
 
     TRACE_IN();
 
@@ -1710,7 +1710,7 @@ Patterns SnnsCLib::kr_getSubPatData(int pat_no, int sub_no, int io_type, int *si
     int subpos[MAX_NO_OF_VAR_DIM];
     float *data;
     krui_err err;
-    //static float kr_getSubPatData_dummy_data = 0.0;
+    //static float kr_getSubPatData_dummy_data = 0.0f;
     int intsize;
 
     TRACE_IN();
@@ -2323,7 +2323,7 @@ krui_err SnnsCLib::kr_np_lookupSym(int pat_set, char *symbol, struct np_symtab *
     }
 
     *((int *) ptr) = page->firstfree;
-    page->firstfree = (ptr - page->data);
+    page->firstfree = (int) (ptr - page->data);
     page->no_of_free_slots++;
 
     if (page->no_of_free_slots == page->no_of_slots)
@@ -3614,8 +3614,8 @@ The parameter entries returns the number of entries in the data field.
 				int *sstep, int *spos)
 {
     int ns[MAX_NO_OF_VAR_DIM];
-    register int i;
-    register int ts = 0;
+     int i;
+     int ts = 0;
 
     TRACE_IN();
 
@@ -3820,11 +3820,11 @@ The parameter entries returns the number of entries in the data field.
     //static int kr_np_order_pat_entries_c_start;
     //static int kr_np_order_pat_entries_c_end;
 
-    register int i;
-    register int *fp;
-    register int h;
-    register int s;
-    register int n;
+     int i;
+     int *fp;
+     int h;
+     int s;
+     int n;
 
     TRACE_IN();
 
@@ -3876,11 +3876,11 @@ The parameter entries returns the number of entries in the data field.
     //static int kr_np_order_sub_pat_entries_c_start;
     //static int kr_np_order_sub_pat_entries_c_end;
 
-    register int i;
-    register int *fp;
-    register int h;
-    register int s;
-    register int n;
+     int i;
+     int *fp;
+     int h;
+     int s;
+     int n;
 
     TRACE_IN();
 
@@ -3953,7 +3953,7 @@ The parameter entries returns the number of entries in the data field.
     int no_of_pattern;
     int i;
     int sc, ps;
-    int total = 0;
+    //int total = 0;
 
     TRACE_IN();
 
@@ -4008,7 +4008,7 @@ The parameter entries returns the number of entries in the data field.
 			     list->pat_nums, ps * sizeof(int));
 		  }
 		
-		total += list->global_chunks * list->chunk_amount;
+		//total += list->global_chunks * list->chunk_amount;
 	    }
 	    list = list->next;
 	}
@@ -4444,7 +4444,7 @@ The parameter entries returns the number of entries in the data field.
 ******************************************************************************/
  krui_err SnnsCLib::kr_np_showPatternSTD(int mode)
 {
-    register struct Unit *unit_ptr;
+     struct Unit *unit_ptr;
     float *in_pat, *out_pat;
     np_pattern_descriptor *pattern;
     int in_pat_size, out_pat_size;
@@ -4539,7 +4539,7 @@ The parameter entries returns the number of entries in the data field.
 ******************************************************************************/
  krui_err SnnsCLib::kr_np_modifyPattern(void)
 {
-    register struct Unit *unit_ptr;
+     struct Unit *unit_ptr;
     float *in_pat, *out_pat;
     float *ip, *op;
     np_pattern_descriptor *pattern;

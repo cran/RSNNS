@@ -93,7 +93,7 @@ GROUP: Update Functions
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_syncPropagate(float *parameterArray, int NoOfParams)
 {
-    register struct Unit   *unit_ptr;
+     struct Unit   *unit_ptr;
 
 
     /*    update unit activations first  */
@@ -130,7 +130,7 @@ krui_err  SnnsCLib::UPDATE_syncPropagate(float *parameterArray, int NoOfParams)
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_serialPropagate(float *parameterArray, int NoOfParams)
 {
-    register struct Unit   *unit_ptr;
+     struct Unit   *unit_ptr;
 
 
     /*    update unit activations and outputs */
@@ -166,8 +166,8 @@ krui_err  SnnsCLib::UPDATE_serialPropagate(float *parameterArray, int NoOfParams
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_randomOrderPropagate(float *parameterArray, int NoOfParams)
 {
-    register struct Unit   *unit_ptr, *u_array;
-    register int   no_of_units;
+     struct Unit   *unit_ptr, *u_array;
+     int   no_of_units;
     int   n;
 
 
@@ -207,8 +207,8 @@ krui_err  SnnsCLib::UPDATE_randomOrderPropagate(float *parameterArray, int NoOfP
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_randomPermutPropagate(float *parameterArray, int NoOfParams)
 {
-    register struct Unit	 *unit_ptr;
-    register TopoPtrArray  topo_ptr;
+     struct Unit	 *unit_ptr;
+     TopoPtrArray  topo_ptr;
     int  ret_code;
 
 
@@ -252,8 +252,8 @@ krui_err  SnnsCLib::UPDATE_randomPermutPropagate(float *parameterArray, int NoOf
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_topologicalPropagate(float *parameterArray, int NoOfParams)
 {
-    register struct Unit  *unit_ptr;
-    register TopoPtrArray  topo_ptr;
+     struct Unit  *unit_ptr;
+     TopoPtrArray  topo_ptr;
     int  ret_code;
 
 
@@ -321,8 +321,8 @@ krui_err  SnnsCLib::UPDATE_topologicalPropagate(float *parameterArray, int NoOfP
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_KohonenPropagate(float *parameterArray, int NoOfParams)
 {
-    register struct Unit  *unit_ptr;
-    register TopoPtrArray  topo_ptr;
+     struct Unit  *unit_ptr;
+     TopoPtrArray  topo_ptr;
     int  ret_code;
 
 
@@ -374,11 +374,11 @@ krui_err  SnnsCLib::UPDATE_KohonenPropagate(float *parameterArray, int NoOfParam
 ******************************************************************************/
  void SnnsCLib::update_f_normalize_inputvector(float sum)
 {
-    register struct Unit *unit_ptr;
-    register float amount;
+     struct Unit *unit_ptr;
+     float amount;
 
 
-    amount = 1.0 / sqrt( sum );
+    amount = 1.0f / sqrt( sum );
 
     FOR_ALL_UNITS( unit_ptr )
 	if (IS_INPUT_UNIT( unit_ptr ) && UNIT_IN_USE( unit_ptr ))
@@ -399,10 +399,10 @@ krui_err  SnnsCLib::UPDATE_KohonenPropagate(float *parameterArray, int NoOfParam
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_CPNPropagate(float *parameterArray, int NoOfParams)
 {
-    register struct Unit   *unit_ptr, *winner_ptr;
-    register struct Site   *site_ptr;
-    register struct Link   *link_ptr;
-    register TopoPtrArray  topo_ptr;
+     struct Unit   *unit_ptr, *winner_ptr;
+     struct Site   *site_ptr;
+     struct Link   *link_ptr;
+     TopoPtrArray  topo_ptr;
 
     float maximum, unit_ptr_net, sum; 
     int  ret_code;
@@ -418,7 +418,7 @@ krui_err  SnnsCLib::UPDATE_CPNPropagate(float *parameterArray, int NoOfParams)
     }
 
     topo_ptr = topo_ptr_array;
-    sum = 0.0;
+    sum = 0.0f;
 
     /*  propagagate all input units  */
     while ((unit_ptr = *++topo_ptr) != NULL){
@@ -427,7 +427,7 @@ krui_err  SnnsCLib::UPDATE_CPNPropagate(float *parameterArray, int NoOfParams)
 	sum += unit_ptr->Out.output * unit_ptr->Out.output;
     }
   
-    if (sum != 0.0)
+    if (sum != 0.0f)
 	/* normalize the inputvector */
 	update_f_normalize_inputvector( sum );
 
@@ -438,12 +438,12 @@ krui_err  SnnsCLib::UPDATE_CPNPropagate(float *parameterArray, int NoOfParams)
        of the hidden units (Kohonen Layer) */
 
     winner_ptr = NULL;
-    maximum = -1.0e30;		/* contains the maximum of the activations */
+    maximum = -1.0e30f;		/* contains the maximum of the activations */
 
     /*  propagagate all hidden units  */
     while ((unit_ptr = *++topo_ptr) != NULL){
 	/* this is a hidden unit */
-	unit_ptr_net = 0.0;
+	unit_ptr_net = 0.0f;
 
 	if (unit_ptr->flags & UFLAG_SITES){
 	    /* the unit has sites */
@@ -491,8 +491,8 @@ krui_err  SnnsCLib::UPDATE_CPNPropagate(float *parameterArray, int NoOfParams)
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_TimeDelayPropagate(float parameterArray[], int NoOfParams )
 {
-    register struct Unit    *unit_ptr;
-    register TopoPtrArray   topo_ptr;
+     struct Unit    *unit_ptr;
+     TopoPtrArray   topo_ptr;
     int                     ret_code;
 
     /* initialization if necessary */
@@ -599,7 +599,7 @@ krui_err  SnnsCLib::UPDATE_ART1_syncPropagate(float *parameterArray, int NoOfPar
 
     UPDATE_ART1_syncPropagate_rho = parameterArray[0];
 
-    if ((UPDATE_ART1_syncPropagate_rho < 0.0) || (UPDATE_ART1_syncPropagate_rho > 1.0)) {
+    if ((UPDATE_ART1_syncPropagate_rho < 0.0f) || (UPDATE_ART1_syncPropagate_rho > 1.0f)) {
 	ret_code = KRERR_PARAMETERS;
 	return (ret_code);
     }
@@ -674,7 +674,7 @@ krui_err  SnnsCLib::UPDATE_ART1_syncPropagate(float *parameterArray, int NoOfPar
        returns a NULL pointer if all recognition units have
        activation 0.0 */
     //winner_ptr = 
-    krart_get_winner (topo_layer[2],1.0);
+    krart_get_winner (topo_layer[2],1.0f);
 
     return (ret_code);
 
@@ -718,7 +718,7 @@ krui_err  SnnsCLib::UPDATE_ART1_Propagate(float *parameterArray, int NoOfParams)
 
     rho = parameterArray[0];
 
-    if ((rho < 0.0) || (rho > 1.0)) {
+    if ((rho < 0.0f) || (rho > 1.0f)) {
 	ret_code = KRERR_PARAMETERS;
 	return (ret_code);
     }
@@ -770,7 +770,7 @@ krui_err  SnnsCLib::UPDATE_ART1_Propagate(float *parameterArray, int NoOfParams)
 	   returns a NULL pointer if all recognition units have
 	   activation 0.0 */
 	//winner_ptr = 
-        krart_get_winner (topo_layer[2],1.0);
+        krart_get_winner (topo_layer[2],1.0f);
 
     } while (!(ART1_CLASSIFIED) && !(ART1_NOT_CLASSIFIABLE));
 
@@ -893,8 +893,8 @@ krui_err  SnnsCLib::UPDATE_ART2_syncPropagate(float *parameterArray, int NoOfPar
 
     /* Check values of the parameters */
 
-    if ((UPDATE_ART2_syncPropagate_rho < 0.0) || (UPDATE_ART2_syncPropagate_rho > 1.0) || (UPDATE_ART2_syncPropagate_param_a <= 0.0) || (UPDATE_ART2_syncPropagate_param_b <= 0.0) ||
-	((UPDATE_ART2_syncPropagate_param_c*UPDATE_ART2_syncPropagate_param_d)/(1-UPDATE_ART2_syncPropagate_param_d) > 1.0) ||(UPDATE_ART2_syncPropagate_theta < 0.0) || (UPDATE_ART2_syncPropagate_theta > 1.0)){
+    if ((UPDATE_ART2_syncPropagate_rho < 0.0f) || (UPDATE_ART2_syncPropagate_rho > 1.0f) || (UPDATE_ART2_syncPropagate_param_a <= 0.0f) || (UPDATE_ART2_syncPropagate_param_b <= 0.0f) ||
+	((UPDATE_ART2_syncPropagate_param_c*UPDATE_ART2_syncPropagate_param_d)/(1-UPDATE_ART2_syncPropagate_param_d) > 1.0f) ||(UPDATE_ART2_syncPropagate_theta < 0.0f) || (UPDATE_ART2_syncPropagate_theta > 1.0f)){
 	ret_code = KRERR_PARAMETERS;
 	return (ret_code);
     } 
@@ -1027,8 +1027,8 @@ krui_err  SnnsCLib::UPDATE_ART2_Propagate(float *parameterArray, int NoOfParams)
 
     /* Check values of the parameters */
 
-    if ((rho < 0.0) || (rho > 1.0) ||(param_a <= 0.0) || (param_b <= 0.0) ||
-	((param_c*param_d)/(1-param_d)>1.0) || (theta<0.0) || (theta>1.0)){
+    if ((rho < 0.0f) || (rho > 1.0f) ||(param_a <= 0.0f) || (param_b <= 0.0f) ||
+	((param_c*param_d)/(1-param_d)>1.0f) || (theta<0.0f) || (theta>1.0f)){
 	ret_code = KRERR_PARAMETERS;
 	return (ret_code);
     }
@@ -1127,9 +1127,9 @@ krui_err  SnnsCLib::UPDATE_ARTMAP_syncPropagate(float *parameterArray, int NoOfP
                                     topo_layer[12]: *first map unit
 				    topo_layer[13]: *first special map unit */
     TopoPtrArray topo_ptr;
-    //static float UPDATE_ARTMAP_syncPropagate_rho_a = -1.0;
-    //static float UPDATE_ARTMAP_syncPropagate_rho_b = -1.0;
-    //static float UPDATE_ARTMAP_syncPropagate_rho   = -1.0;
+    //static float UPDATE_ARTMAP_syncPropagate_rho_a = -1.0f;
+    //static float UPDATE_ARTMAP_syncPropagate_rho_b = -1.0f;
+    //static float UPDATE_ARTMAP_syncPropagate_rho   = -1.0f;
     bool         inp_pat_changed   = FALSE;
     bool         rho_has_changed   = FALSE;
 
@@ -1151,8 +1151,8 @@ krui_err  SnnsCLib::UPDATE_ARTMAP_syncPropagate(float *parameterArray, int NoOfP
     UPDATE_ARTMAP_syncPropagate_rho   = parameterArray[2];
 
 
-    if((UPDATE_ARTMAP_syncPropagate_rho_a<0.0) || (UPDATE_ARTMAP_syncPropagate_rho_a>1.0) || (UPDATE_ARTMAP_syncPropagate_rho_b<0.0) || (UPDATE_ARTMAP_syncPropagate_rho_b>1.0) ||
-       (UPDATE_ARTMAP_syncPropagate_rho<0.0) || (UPDATE_ARTMAP_syncPropagate_rho>1.0)){
+    if((UPDATE_ARTMAP_syncPropagate_rho_a<0.0f) || (UPDATE_ARTMAP_syncPropagate_rho_a>1.0f) || (UPDATE_ARTMAP_syncPropagate_rho_b<0.0f) || (UPDATE_ARTMAP_syncPropagate_rho_b>1.0f) ||
+       (UPDATE_ARTMAP_syncPropagate_rho<0.0f) || (UPDATE_ARTMAP_syncPropagate_rho>1.0f)){
 	ret_code = KRERR_PARAMETERS;
 	return (ret_code);
     }
@@ -1235,9 +1235,9 @@ krui_err  SnnsCLib::UPDATE_ARTMAP_syncPropagate(float *parameterArray, int NoOfP
     /* look for the recognition unit with the highest activation returns a 
        NULL pointer if all recognition units have activation 0.0 */
     //winner_ptr_a = 
-    krart_get_winner (topo_layer[2],1.0);
+    krart_get_winner (topo_layer[2],1.0f);
     //winner_ptr_b = 
-    krart_get_winner (topo_layer[8],1.0);
+    krart_get_winner (topo_layer[8],1.0f);
 
     return (ret_code);
 
@@ -1294,8 +1294,8 @@ krui_err  SnnsCLib::UPDATE_ARTMAP_Propagate(float *parameterArray, int NoOfParam
     rho_b = parameterArray[1];
     rho   = parameterArray[2];
 
-    if ((rho_a < 0.0) || (rho_a > 1.0) || (rho_b < 0.0) ||
-	(rho_b > 1.0) || (rho   < 0.0) || (rho   > 1.0)){
+    if ((rho_a < 0.0f) || (rho_a > 1.0f) || (rho_b < 0.0f) ||
+	(rho_b > 1.0f) || (rho   < 0.0f) || (rho   > 1.0f)){
 	ret_code = KRERR_PARAMETERS;
 	return (ret_code);
     } 
@@ -1342,9 +1342,9 @@ krui_err  SnnsCLib::UPDATE_ARTMAP_Propagate(float *parameterArray, int NoOfParam
 	   returns a NULL pointer if all recognition units have
 	   activation 0.0 */
 	//winner_ptr_a = 
-        krart_get_winner (topo_layer[2],1.0);
+        krart_get_winner (topo_layer[2],1.0f);
 	//winner_ptr_b = 
-        krart_get_winner (topo_layer[8],1.0);
+        krart_get_winner (topo_layer[8],1.0f);
 
     } while (!(ARTMAP_CLASSIFIED) && !(ARTMAP_NOT_CLASSIFIABLE));
 
@@ -1365,8 +1365,8 @@ krui_err  SnnsCLib::UPDATE_ARTMAP_Propagate(float *parameterArray, int NoOfParam
 ******************************************************************************/
 krui_err SnnsCLib::UPDATE_CC_Propagate(float parameterArray[],  int NoOfParams)
 {
-    register struct Unit  *inputUnitPtr,*outputUnitPtr,*hiddenUnitPtr,*unitPtr;
-    register int dummy,o;
+     struct Unit  *inputUnitPtr,*outputUnitPtr,*hiddenUnitPtr,*unitPtr;
+     int dummy,o;
   
     if(NetModified || LearnFuncHasChanged) {
     
@@ -1440,7 +1440,7 @@ krui_err SnnsCLib::UPDATE_CC_Propagate(float parameterArray[],  int NoOfParams)
 krui_err SnnsCLib::UPDATE_DLVQ_Propagate(float parameterArray[], int NoOfParams)
 {
     struct Unit *inputUnitPtr,*hiddenUnitPtr,*maxActivatedUnitPtr=NULL;
-    double maxAct,act;
+    float maxAct,act;
     int i,h,startPattern,endPattern,d1,d2,d3,generatedNewUnit,noOfLinks;
 
     if(newPatternsLoaded){
@@ -1496,10 +1496,10 @@ krui_err SnnsCLib::UPDATE_DLVQ_Propagate(float parameterArray[], int NoOfParams)
 	inputUnitPtr->Out.output = inputUnitPtr->act;
     }
   
-    maxAct = -1.0;
+    maxAct = -1.0f;
  
     FOR_ALL_HIDDEN_UNITS(hiddenUnitPtr,h) {
-	hiddenUnitPtr->Out.output = hiddenUnitPtr->act = act = 0.0;
+	hiddenUnitPtr->Out.output = hiddenUnitPtr->act = act = 0.0f;
 	FOR_ALL_LINKS(hiddenUnitPtr,linkPtr) {
 	    act += linkPtr->weight * linkPtr->to->Out.output;
 	}
@@ -1509,7 +1509,7 @@ krui_err SnnsCLib::UPDATE_DLVQ_Propagate(float parameterArray[], int NoOfParams)
 	}
     }
 
-    maxActivatedUnitPtr->Out.output = maxActivatedUnitPtr->act = 1.0;
+    maxActivatedUnitPtr->Out.output = maxActivatedUnitPtr->act = 1.0f;
     (*FirstOutputUnitPtr)->Out.output = 
 	(*FirstOutputUnitPtr)->act = maxActivatedUnitPtr->bias;
     return(KRERR_NO_ERROR);
@@ -1539,9 +1539,9 @@ krui_err SnnsCLib::UPDATE_DLVQ_Propagate(float parameterArray[], int NoOfParams)
 krui_err  SnnsCLib::UPDATE_BPTT(float *parameterArray, int NoOfParams)
 {
     krui_err ret_code;
-    register struct Unit   *unit_ptr;
-    register TopoPtrArray  topo_ptr;
-    register TopoPtrArray  first_hidden_ptr;
+     struct Unit   *unit_ptr;
+     TopoPtrArray  topo_ptr;
+     TopoPtrArray  first_hidden_ptr;
     int all_zero_input=1;	/* flag to reset net-copies */
     int done_hidden;
 
@@ -1573,7 +1573,7 @@ krui_err  SnnsCLib::UPDATE_BPTT(float *parameterArray, int NoOfParams)
     first_hidden_ptr = topo_ptr;
 
     if (all_zero_input) {	/* clear netact-copies */
-	FOR_ALL_UNITS( unit_ptr ) unit_ptr->i_act = 0.0;
+	FOR_ALL_UNITS( unit_ptr ) unit_ptr->i_act = 0.0f;
     }
 
     /* copy last unit_ptr->i_act to unit_ptr->Out.output */
@@ -1635,9 +1635,9 @@ krui_err  SnnsCLib::UPDATE_BPTT(float *parameterArray, int NoOfParams)
 krui_err  SnnsCLib::UPDATE_BAM(float *parameterArray, int NoOfParams)
 {
     krui_err ret_code;
-    register struct Unit   *unit_ptr;
-    register TopoPtrArray  topo_ptr;
-    register TopoPtrArray  first_hidden_ptr;
+     struct Unit   *unit_ptr;
+     TopoPtrArray  topo_ptr;
+     TopoPtrArray  first_hidden_ptr;
     int done_hidden;
     FlintType new_output;
 
@@ -1715,8 +1715,8 @@ krui_err  SnnsCLib::UPDATE_BAM(float *parameterArray, int NoOfParams)
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_JE_Propagate (float *parameterArray, int NoOfParams)
 {
-    register struct Unit  *unit_ptr ;
-    register TopoPtrArray  topo_ptr, help_ptr ;
+     struct Unit  *unit_ptr ;
+     TopoPtrArray  topo_ptr, help_ptr ;
     int      ret_code, i ;
 
 
@@ -1790,8 +1790,8 @@ krui_err  SnnsCLib::UPDATE_JE_Propagate (float *parameterArray, int NoOfParams)
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_JE_Special (float *parameterArray, int NoOfParams)
 {
-    register struct Unit  *unit_ptr  ;
-    register TopoPtrArray  topo_ptr, help_ptr ;
+     struct Unit  *unit_ptr  ;
+     TopoPtrArray  topo_ptr, help_ptr ;
     int      ret_code, i ;
 
 
@@ -1882,7 +1882,7 @@ krui_err  SnnsCLib::UPDATE_JE_Special (float *parameterArray, int NoOfParams)
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_syncPropagateHop(float *parameterArray, int NoOfParams)
 {
-    register struct Unit   *unit_ptr; 
+     struct Unit   *unit_ptr; 
 
     /* update unit outputs first, because the patterns set only          */
     /* the activations of the input units, and they would be overwritten */
@@ -1955,24 +1955,24 @@ krui_err  SnnsCLib::UPDATE_syncPropagateHop(float *parameterArray, int NoOfParam
 ******************************************************************************/
 krui_err  SnnsCLib::UPDATE_FixAct_Hop(float *parameterArray, int NoOfParams)
 {
-    register struct Unit   *unit_ptr; 
+     struct Unit   *unit_ptr; 
     FlintType               sum, min; //aux,
     //ACT_FUNC_DEFS    /* defines link- and site-pointer */
-    register struct Link  *__link_ptr;
-    register int            i;
+     struct Link  *__link_ptr;
+     int            i;
     int                     NoOfOnes, where;
     struct Unit            **unitsToUpdate;
     FlintType              *netInputArray;
    
 
-    NoOfOnes = parameterArray[0]; /* the fixed Number of 1 */
+    NoOfOnes = (int) parameterArray[0]; /* the fixed Number of 1 */
 
     /* init netInputArray and unitsToUpdate */
     netInputArray = (FlintType *) calloc(NoOfOnes, sizeof(FlintType));
     unitsToUpdate = (struct Unit * *) calloc(NoOfOnes, sizeof( struct Unit *)); 
     for(i=0; i<= NoOfOnes-1; i++) {
 	unitsToUpdate[i] = NULL;
-	netInputArray[i] = -9e37;
+	netInputArray[i] = -9e37f;
     }
 
     FOR_ALL_UNITS(unit_ptr) { 
@@ -1993,7 +1993,7 @@ krui_err  SnnsCLib::UPDATE_FixAct_Hop(float *parameterArray, int NoOfParams)
  
     FOR_ALL_UNITS(unit_ptr) {
 	/* get the netInput of this unit */
-	sum =  0.0; //aux = 0.0;
+	sum =  0.0f; //aux = 0.0f;
 	if (GET_FIRST_UNIT_LINK( unit_ptr )){
 	    do
 		sum += GET_WEIGHTED_OUTPUT;
@@ -2023,11 +2023,11 @@ krui_err  SnnsCLib::UPDATE_FixAct_Hop(float *parameterArray, int NoOfParams)
 
     /*    update unit activations    */
     FOR_ALL_UNITS(unit_ptr){
-	unit_ptr->act =  0.0;
+	unit_ptr->act =  0.0f;
     }
     for(i=0; i<= NoOfOnes-1; i++){
 	unit_ptr = unitsToUpdate[i];
-	unit_ptr->act =  1.0;
+	unit_ptr->act =  1.0f;
     }
 
     /* output update for resultfile */
@@ -2058,10 +2058,10 @@ krui_err  SnnsCLib::UPDATE_FixAct_Hop(float *parameterArray, int NoOfParams)
 ******************************************************************************/
 krui_err SnnsCLib::UPDATE_RM_Propagate (float *parameterArray, int NoOfParams)
 {
-  register struct Unit   *unit_ptr;
+   struct Unit   *unit_ptr;
   int t, NoTimes; 
 
-  NoTimes = parameterArray[0];
+  NoTimes = (int) parameterArray[0];
 
   for (t=0; t < NoTimes; ++t){ 
 
@@ -2108,10 +2108,10 @@ GROUP: Update Functions for the use with the GA tool Enzo
 ******************************************************************************/
  krui_err  SnnsCLib::ENZO_PROPAGATE_error_back(void)
 {
-  register struct Link *link_ptr;
-  register struct Site *site_ptr;
-  register struct Unit *unit_ptr;
-  register float error;                    /*  error  */
+   struct Link *link_ptr;
+   struct Site *site_ptr;
+   struct Unit *unit_ptr;
+   float error;                    /*  error  */
   TopoPtrArray topo_ptr;
   int ret_code;
 
@@ -2208,8 +2208,8 @@ GROUP: Update Functions for the use with the GA tool Enzo
 ******************************************************************************/
  krui_err SnnsCLib::ENZO_PROPAGATE_ff(void)
 {
-  register struct Unit   *unit_ptr;
-  register TopoPtrArray     topo_ptr;
+   struct Unit   *unit_ptr;
+   TopoPtrArray     topo_ptr;
   int ret_code;
 
   if (NetModified || (TopoSortID != TOPOLOGICAL_FF))
@@ -2251,7 +2251,7 @@ GROUP: Update Functions for the use with the GA tool Enzo
   while ((unit_ptr = *++topo_ptr) != NULL)
     {  /*  topo_ptr points to a (topological sorted) unit stucture */
     /*  clear error values  */
-    unit_ptr->Aux.flint_no = 0.0;
+    unit_ptr->Aux.flint_no = 0.0f;
 
     /*  calculate the activation value of the unit: 
 	call the activation function if needed  */
@@ -2269,7 +2269,7 @@ GROUP: Update Functions for the use with the GA tool Enzo
   while ((unit_ptr = *++topo_ptr) != NULL)
     {  /*  topo_ptr points to a (topological sorted) unit stucture */
     /*  clear error values  */
-    unit_ptr->Aux.flint_no = 0.0;
+    unit_ptr->Aux.flint_no = 0.0f;
 
     /*  calculate the activation value of the unit: 
 	call the activation function if needed  */
@@ -2303,7 +2303,7 @@ krui_err  SnnsCLib::ENZO_propagate( float *parameterArray, int NoOfParams )
   if (NoOfParams < 1)    
     return( KRERR_PARAMETERS );       /*  not enough input parameters  */
 
-  if (UPDATE_PARAM1 (parameterArray)) 
+  if ((int) UPDATE_PARAM1 (parameterArray)) 
     return (ENZO_PROPAGATE_error_back());  /* rueckwaerts-Propagieren */
   else
     return (ENZO_PROPAGATE_ff());          /* vorwaerts-Propagieren */

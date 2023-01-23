@@ -286,21 +286,21 @@ float SnnsCLib::cc_getErr (int StartPattern, int EndPattern)
 {
     int p=0, sub, start, end, n,  pat, dummy;
     float sse=0, devit,error;
-    register Patterns out_pat;
-    register struct Unit *OutputUnitPtr;
+     Patterns out_pat;
+     struct Unit *OutputUnitPtr;
     //int Correct;
     //int WhichWin,CorrWin;
     float MaxAct;
 
     KernelErrorCode = kr_initSubPatternOrder(StartPattern,EndPattern);
-    ERROR_CHECK;
+    ERROR_CHECK_FLOAT;
     cc_getPatternParameter(StartPattern,EndPattern,&start,&end,&n);
-    ERROR_CHECK;
-    SumSqError = 0.0;
+    ERROR_CHECK_FLOAT;
+    SumSqError = 0.0f;
 
     for(p=start; p<=end;p++){
 	//Correct=TRUE;
-	MaxAct=0.0;
+	MaxAct=0.0f;
 	cc_getActivationsForActualPattern(p,start,&pat,&sub);
 	PROPAGATE_THROUGH_OUTPUT_LAYER(OutputUnitPtr,dummy,p);
 
@@ -377,7 +377,7 @@ void SnnsCLib::cc_LayerCorrectnessTest(float* ParameterInArray,
 	LastInsertedHiddenUnit=0;
     }
 
-    SumSqError=0.0;  /* Recalc SumSqEror later */
+    SumSqError=0.0f;  /* Recalc SumSqEror later */
 }
 
 /*****************************************************************************
@@ -510,12 +510,12 @@ void SnnsCLib::cc_initActivationArrays(void)
     struct Unit *outputUnitPtr,*specialUnitPtr;
 
     FOR_ALL_SPECIAL_UNITS(specialUnitPtr,s) {
-	SpecialUnitSumAct[s] = 0.0;
+	SpecialUnitSumAct[s] = 0.0f;
     }
 
     FOR_ALL_SPECIAL_UNITS(specialUnitPtr,s) {
 	FOR_ALL_OUTPUT_UNITS(outputUnitPtr,o) {
-	    CorBetweenSpecialActAndOutError[s][o] = 0.0;
+	    CorBetweenSpecialActAndOutError[s][o] = 0.0f;
 	}
     } 
 }
@@ -662,15 +662,15 @@ krui_err SnnsCLib::cc_initSpecialUnitLinks(void)
     struct Link *LinkPtr;
 
     FOR_ALL_SPECIAL_UNITS(SpecialUnitPtr,s) {
-	SpecialUnitPtr->bias = 0.0;
-	BIAS_CURRENT_SLOPE(SpecialUnitPtr) = 0.0; 
-	BIAS_PREVIOUS_SLOPE(SpecialUnitPtr) = 0.0; 
-	BIAS_LAST_WEIGHT_CHANGE(SpecialUnitPtr) = 0.0;
+	SpecialUnitPtr->bias = 0.0f;
+	BIAS_CURRENT_SLOPE(SpecialUnitPtr) = 0.0f; 
+	BIAS_PREVIOUS_SLOPE(SpecialUnitPtr) = 0.0f; 
+	BIAS_LAST_WEIGHT_CHANGE(SpecialUnitPtr) = 0.0f;
 	FOR_ALL_LINKS(SpecialUnitPtr,LinkPtr) {
 	    LinkPtr->weight = cc_generateRandomNo(CC_MAX_VALUE);
-	    LN_CURRENT_SLOPE(LinkPtr) = 0.0;
-	    LN_PREVIOUS_SLOPE(LinkPtr) = 0.0;
-	    LN_LAST_WEIGHT_CHANGE(LinkPtr) = 0.0;
+	    LN_CURRENT_SLOPE(LinkPtr) = 0.0f;
+	    LN_PREVIOUS_SLOPE(LinkPtr) = 0.0f;
+	    LN_LAST_WEIGHT_CHANGE(LinkPtr) = 0.0f;
 	}
     }
     return(KRERR_NO_ERROR);
@@ -718,7 +718,7 @@ float SnnsCLib::QuickPropOfflinePart(float oldValue, float* previousSlope,
     float current,change;
 
     current = *currentSlope + decay * oldValue;
-    if(*previousSlope == 0.0){
+    if(*previousSlope == 0.0f){
 	change = -epsilon*current;
     }else{
 	if(current*(SGN(*previousSlope)) >= (mu/(mu+1))*fabs(*previousSlope)){
@@ -731,7 +731,7 @@ float SnnsCLib::QuickPropOfflinePart(float oldValue, float* previousSlope,
 	}
     }
     *previousSlope =  current;
-    *currentSlope  =  0.0;
+    *currentSlope  =  0.0f;
     return (*LastChange = change);
 }
 
@@ -751,22 +751,22 @@ float SnnsCLib::RPropOfflinePart(float oldValue,float* previousSlope, float* cur
     float change,lastChange;
 
     change = 0;
-    lastChange = (*LastChange == 0.0) ? 1.0 : *LastChange;
-    if (*currentSlope != 0.0){ 
-	if (*previousSlope == 0.0){
+    lastChange = (*LastChange == 0.0f) ? 1.0 : *LastChange;
+    if (*currentSlope != 0.0f){ 
+	if (*previousSlope == 0.0f){
 	    change = fabs(lastChange) * SIGN(*currentSlope);
-	}else if (*previousSlope > 0.0){
+	}else if (*previousSlope > 0.0f){
 	    change = 
-		((*currentSlope>0.0)? epsilonPlus : -epsilonMinus) * lastChange;
+		((*currentSlope>0.0f)? epsilonPlus : -epsilonMinus) * lastChange;
 	}else{
 	    change = 
-		((*currentSlope<0.0)? epsilonPlus : -epsilonMinus) * lastChange;
+		((*currentSlope<0.0f)? epsilonPlus : -epsilonMinus) * lastChange;
 	}
-	if (fabs(change) < 0.00001) change = 0.00001 * SIGN(change);
-	if (fabs(change) > 10.0   ) change = 10.0    * SIGN(change);
+	if (fabs(change) < 0.00001f) change = 0.00001f * SIGN(change);
+	if (fabs(change) > 10.0f   ) change = 10.0f    * SIGN(change);
     }
     *previousSlope = *currentSlope;
-    *currentSlope  =  0.0;
+    *currentSlope  =  0.0f;
     *LastChange = change;
     return (-change);
 }
@@ -788,7 +788,7 @@ float SnnsCLib::BackPropOfflinePart(float oldValue, float* previousSlope,
     *LastChange = change = -(*currentSlope * eta + *LastChange * mu);
 
     *previousSlope = *currentSlope;
-    *currentSlope = 0.0;
+    *currentSlope = 0.0f;
     return(change);
 
 }
@@ -805,7 +805,7 @@ float SnnsCLib::OnlineBackPropOfflinePart(float oldValue, float* previousSlope,
 				float* currentSlope, float* LastChange,
 				float eta, float mu, float dummy)
 {  
-    return(0.0);
+    return(0.0f);
 }
           
 
@@ -1059,7 +1059,7 @@ krui_err SnnsCLib::cc_topoSort(int topoSortID)
 ******************************************************************************/
 krui_err SnnsCLib::cc_topoSortMain(int topoSortId)
 {
-    register struct Unit   *unit_ptr;
+     struct Unit   *unit_ptr;
     int   io_units,h,counter=0;
   
     KernelErrorCode = KRERR_NO_ERROR;  /*  reset return code  */
@@ -1143,7 +1143,7 @@ krui_err SnnsCLib::cc_topoSortMain(int topoSortId)
     *global_topo_ptr++ = NULL;
 
     /*  calc. no. of sorted units  */
-    no_of_topo_units = (global_topo_ptr - topo_ptr_array) - 5;
+    no_of_topo_units = (int) (global_topo_ptr - topo_ptr_array) - 5;
 
     /*  search for dead units i.e. units without inputs  */
     FOR_ALL_UNITS( unit_ptr )
@@ -1164,12 +1164,12 @@ krui_err SnnsCLib::cc_topoSortMain(int topoSortId)
 		case TOPOLOGICAL_CC : 
 		    break;
 		case TOPOLOGICAL_BCC : 
-		    if((LINKS_LEAVING(unit_ptr)+LINKS_ARRIVEING(unit_ptr)+1) !=
+		    if((int)(LINKS_LEAVING(unit_ptr)+LINKS_ARRIVEING(unit_ptr)+1) !=
 		       NoOfHiddenUnits) {
 			KernelErrorCode = KRERR_CC_ERROR6;
 			return(KernelErrorCode);
 		    }
-		    if(LINKS_ARRIVEING(unit_ptr) != counter++) {
+		    if((int)LINKS_ARRIVEING(unit_ptr) != counter++) {
 			KernelErrorCode = KRERR_CC_ERROR6;
 			return(KernelErrorCode);
 		    }

@@ -265,13 +265,13 @@ krui_err SnnsCLib::pr_calcMeanDeviation (int pattern, float *sum_error)
 
 {
 
-    register struct Unit *unit_ptr;
-    register TopoPtrArray topo_ptr;
-    register Patterns out_pat;
+     struct Unit *unit_ptr;
+     TopoPtrArray topo_ptr;
+     Patterns out_pat;
     int size, pattern_no, sub_pat_no, no_of_patterns;
     
     /* initialize sum error */
-    *sum_error = 0.0;
+    *sum_error = 0.0f;
 
     /* initialize value_a of each unit */
     FOR_ALL_UNITS (unit_ptr)
@@ -313,7 +313,7 @@ krui_err SnnsCLib::pr_calcMeanDeviation (int pattern, float *sum_error)
 	 unit_ptr = *(topo_ptr--))
     {
 	*sum_error += unit_ptr->value_a;
-	unit_ptr->value_a /= no_of_patterns;
+	unit_ptr->value_a /= (float) no_of_patterns;
     }
 
     return (KernelErrorCode);
@@ -373,9 +373,9 @@ krui_err SnnsCLib::PRUNE_Mag (int pattern)
 
 {
 
-    register struct Unit *unit_ptr;
-    register struct Site *site_ptr;
-    register struct Link *link_ptr;
+     struct Unit *unit_ptr;
+     struct Site *site_ptr;
+     struct Link *link_ptr;
 
     FOR_ALL_UNITS (unit_ptr)
 	/* process links to all units */
@@ -473,28 +473,28 @@ krui_err SnnsCLib::PRUNE_OBD (int pattern)
 
 {
 
-    register struct Unit *unit_ptr;
-    register struct Site *site_ptr;
-    register struct Link *link_ptr;
-    register TopoPtrArray topo_ptr;
-    register Patterns out_pat;
-    register float deriv, delta, delta2, devit;
+     struct Unit *unit_ptr;
+     struct Site *site_ptr;
+     struct Link *link_ptr;
+     TopoPtrArray topo_ptr;
+     Patterns out_pat;
+     float deriv, delta, delta2, devit;
     int size, pattern_no, sub_pat_no;
 
     /* reset auxiliary variables in unit array */
     FOR_ALL_UNITS (unit_ptr)
     {
-	unit_ptr->value_a = 0.0;
-	unit_ptr->value_b = 0.0;
+	unit_ptr->value_a = 0.0f;
+	unit_ptr->value_b = 0.0f;
 
 	if UNIT_HAS_DIRECT_INPUTS (unit_ptr)
 	    /* unit has direct inputs */
 	    FOR_ALL_LINKS (unit_ptr, link_ptr)
-		link_ptr->value_a = 0.0;
+		link_ptr->value_a = 0.0f;
 	else
 	    /* unit has sites */
 	    FOR_ALL_SITES_AND_LINKS (unit_ptr, site_ptr, link_ptr)
-		link_ptr->value_a = 0.0;
+		link_ptr->value_a = 0.0f;
     }
 
     /* compute the necessary sub patterns */
@@ -621,9 +621,9 @@ void SnnsCLib::pr_obs_setInitParameter (float param)
 
 {
 
-    register struct Unit *unit_ptr;
-    register struct Site *site_ptr;
-    register struct Link *link_ptr;
+     struct Unit *unit_ptr;
+     struct Site *site_ptr;
+     struct Link *link_ptr;
 
     /* initialize global variable */
     pr_noOfLinks = 0;
@@ -681,16 +681,16 @@ void SnnsCLib::pr_obs_setInitParameter (float param)
 
 {
 
-    register struct Unit *unit_ptr;
-    register struct Site *site_ptr;
-    register struct Link *link_ptr;
-    register TopoPtrArray topo_ptr;
+     struct Unit *unit_ptr;
+     struct Site *site_ptr;
+     struct Link *link_ptr;
+     TopoPtrArray topo_ptr;
     float help;
     int weight_no = 0;
 
     /* initialize units */
     FOR_ALL_UNITS (unit_ptr)
-	unit_ptr->value_a = 0.0;
+	unit_ptr->value_a = 0.0f;
 
     /* process output units */
     for (topo_ptr = topo_ptr_array + no_of_topo_units + 2,
@@ -760,8 +760,8 @@ void SnnsCLib::pr_obs_setInitParameter (float param)
     denominator = (float) no_of_patterns;
     for (i = 0; i < pr_noOfLinks; i++)
     {
-	hx = 0.0;
-	xh = 0.0;
+	hx = 0.0f;
+	xh = 0.0f;
 
 	for (j = 0 ; j < pr_noOfLinks; j++)
 	{
@@ -807,12 +807,12 @@ void SnnsCLib::pr_obs_setInitParameter (float param)
 
 {
 
-    register struct Unit *unit_ptr;
-    register TopoPtrArray topo_ptr;
+     struct Unit *unit_ptr;
+     TopoPtrArray topo_ptr;
     int no_of_patterns, pattern_no, sub_pat_no, i;
 
     /* initialize matrix */
-    RbfClearMatrix (&pr_inverseHessian, 0.0);
+    RbfClearMatrix (&pr_inverseHessian, 0.0f);
     for (i = 0; i < pr_noOfLinks; i++)
 	/* diagonal elements are set */
 	RbfMatrixSetValue (&pr_inverseHessian, i, i, 1/pr_obs_initParameter);
@@ -932,10 +932,10 @@ void SnnsCLib::pr_obs_setInitParameter (float param)
 krui_err SnnsCLib::PRUNE_OBS (int pattern)
 {
 
-    register struct Unit *unit_ptr;
-    register struct Site *site_ptr;
-    register struct Link *link_ptr;
-    register TopoPtrArray topo_ptr;
+     struct Unit *unit_ptr;
+     struct Site *site_ptr;
+     struct Link *link_ptr;
+     TopoPtrArray topo_ptr;
     float update_const;
     int err, link_no;
 
@@ -1114,9 +1114,9 @@ krui_err SnnsCLib::PRUNE_OBS (int pattern)
     float saliency;
 
     /* calculate saliency of unit */
-    unit_ptr->actbuf[0] = 0.8 * unit_ptr->actbuf[0] + 0.2 * unit_ptr->value_b;
+    unit_ptr->actbuf[0] = 0.8f * unit_ptr->actbuf[0] + 0.2f * unit_ptr->value_b;
     saliency = unit_ptr->actbuf[0];
-    if (saliency != 0.0)   /* is it the initial-value? (for already pruned input units)*/ 
+    if (saliency != 0.0f)   /* is it the initial-value? (for already pruned input units)*/ 
       if ((pr_candidateUnit == NULL) ||
 	  (fabs(saliency) < pr_candidateSaliency))
 	/* found first or least important unit so far */
@@ -1142,23 +1142,23 @@ krui_err SnnsCLib::PRUNE_Skeletonization (int pattern)
 
 {
 
-    register struct Unit *unit_ptr;
-    register struct Site *site_ptr;
-    register struct Link *link_ptr;
-    register TopoPtrArray topo_ptr;
+     struct Unit *unit_ptr;
+     struct Site *site_ptr;
+     struct Link *link_ptr;
+     TopoPtrArray topo_ptr;
     //static bool PRUNE_Skeletonization_first = TRUE;
 
-    register Patterns out_pat;
+     Patterns out_pat;
     int size, pattern_no, sub_pat_no;//, no_of_patterns;
 
     if (PRUNE_Skeletonization_first){
       FOR_ALL_UNITS (unit_ptr)
-	unit_ptr->actbuf[0] = 0.0;
+	unit_ptr->actbuf[0] = 0.0f;
       PRUNE_Skeletonization_first = FALSE;
     }
 
     FOR_ALL_UNITS (unit_ptr)
-	unit_ptr->value_b = 0.0;
+	unit_ptr->value_b = 0.0f;
     
     /* compute the necessary sub patterns */
     if (pattern == PR_ALL_PATTERNS)
@@ -1179,7 +1179,7 @@ krui_err SnnsCLib::PRUNE_Skeletonization (int pattern)
     {
       /* initialize value_a of each unit */
       FOR_ALL_UNITS (unit_ptr)
-	unit_ptr->value_a = 0.0;
+	unit_ptr->value_a = 0.0f;
 
 
       /* calculate address of the output pattern */
@@ -1277,7 +1277,7 @@ krui_err SnnsCLib::PRUNE_Skeletonization (int pattern)
 
 
     if (pr_candidateUnit != NULL){
-      pr_candidateUnit->actbuf[0] = 0.0;
+      pr_candidateUnit->actbuf[0] = 0.0f;
     }
       
     return (KRERR_NO_ERROR);
@@ -1366,16 +1366,16 @@ krui_err SnnsCLib::PRUNE_Skeletonization (int pattern)
                                              - this_unit_ptr->Out.output);
                 } else {
                     unit_ptr->value_c += (unit_ptr->Out.output 
-                                             + this_unit_ptr->Out.output - 1.0)
+                                             + this_unit_ptr->Out.output - 1.0f)
                                          * (unit_ptr->Out.output 
-                                             + this_unit_ptr->Out.output - 1.0);
+                                             + this_unit_ptr->Out.output - 1.0f);
                 } 
             }
     }
 
     FOR_ALL_UNITS (unit_ptr)
         if (! IS_SPECIAL_UNIT (unit_ptr)) {
-            unit_ptr->value_c = sqrt ((double) unit_ptr->value_c 
+            unit_ptr->value_c = (float) sqrt ((double) unit_ptr->value_c 
                                       / (double) no_of_patterns);
         }        
 
@@ -1434,13 +1434,13 @@ krui_err SnnsCLib::PRUNE_Skeletonization (int pattern)
     int       unit_no, target_unit_no;
 
     if (unit_ptr == NULL) return (KRERR_UNIT_MISSING);
-    unit_no = unit_ptr - unit_array;
+    unit_no = (int) (unit_ptr - unit_array);
     w = link_ptr->weight;
 
     if (pr_candidatePass == PR_CONST) {
         unit_ptr->bias += w * pr_candidateUnit->value_b;
     } else {
-        target_unit_no = pr_candidateTargetUnit - unit_array;
+        target_unit_no = (int) (pr_candidateTargetUnit - unit_array);
 
         if (pr_candidatePass == PR_REVERSE) w = -w;
 
@@ -1734,7 +1734,7 @@ krui_err SnnsCLib::pr_callPrunFunc (int pattern)
         unitPtr = pr_candidateTargetUnit;
         unitNo = unitPtr - unit_array;
         pr_candidateSourceUnitNo =
-            pr_candidateLink->to - unit_array;
+            (int) (pr_candidateLink->to - unit_array);
         kr_isConnected (pr_candidateSourceUnitNo, &dummy);
         kr_deleteLink ();
     }

@@ -139,8 +139,8 @@ int SnnsCLib::kr_initInversion(void)
 void  SnnsCLib::kr_inv_forwardPass(struct UnitList *inputs)
 {
 
-   register struct Unit   *unit_ptr;
-   register TopoPtrArray  topo_ptr;    /* points to a topological sorted    */
+   struct Unit   *unit_ptr;
+   TopoPtrArray  topo_ptr;    /* points to a topological sorted    */
 				       /* unit stucture (input units first) */
    struct UnitList        *IUnit;      /* working list of input units       */
 
@@ -156,7 +156,7 @@ void  SnnsCLib::kr_inv_forwardPass(struct UnitList *inputs)
    while((unit_ptr = *++topo_ptr) != NULL){
 
      /*  clear error values  */
-     unit_ptr->Aux.flint_no = 0.0;
+     unit_ptr->Aux.flint_no = 0.0f;
 
      if(unit_ptr->out_func == OUT_IDENTITY)
         unit_ptr->Out.output = unit_ptr->act = IUnit->act;
@@ -171,7 +171,7 @@ void  SnnsCLib::kr_inv_forwardPass(struct UnitList *inputs)
    while((unit_ptr = *++topo_ptr) != NULL){
 
      /*  clear error values  */
-     unit_ptr->Aux.flint_no = 0.0;
+     unit_ptr->Aux.flint_no = 0.0f;
 
      /*  calculate the activation value of the unit: 
 	 call the activation function if needed  */
@@ -190,7 +190,7 @@ void  SnnsCLib::kr_inv_forwardPass(struct UnitList *inputs)
    while((unit_ptr = *++topo_ptr) != NULL){
 
      /*  clear error values  */
-     unit_ptr->Aux.flint_no = 0.0;
+     unit_ptr->Aux.flint_no = 0.0f;
 
      /*  calculate the activation value of the unit: 
 	 call the activation function if needed  */
@@ -216,15 +216,15 @@ double SnnsCLib::kr_inv_backwardPass(float learn, float delta_max, int *err_unit
 			   float ratio, struct UnitList *inputs, 
 			   struct UnitList *outputs)
 {
-   register struct Link   *link_ptr;
-   register struct Site   *site_ptr;
-   register struct Unit   *unit_ptr;
-   register float         error,  sum_error,  eta,  devit;
-   register TopoPtrArray  topo_ptr;
+   struct Link   *link_ptr;
+   struct Site   *site_ptr;
+   struct Unit   *unit_ptr;
+   float         error,  sum_error,  eta,  devit;
+   TopoPtrArray  topo_ptr;
    struct UnitList        *IUnit, *OUnit;
 
 
-   sum_error = 0.0;    /*  reset network error  */
+   sum_error = 0.0f;    /*  reset network error  */
    *err_units = 0;     /*  reset error units */
    eta = learn;        /*  store learn_parameter in CPU register  */
 
@@ -302,7 +302,7 @@ double SnnsCLib::kr_inv_backwardPass(float learn, float delta_max, int *err_unit
 
      /* Calculate the new activation for the input units */
      IUnit->im_act += eta * error + ratio*(IUnit->i_act - (float)unit_ptr->act);
-     unit_ptr->act = 1.0 / (1.0 + exp((double)(-IUnit->im_act)));
+     unit_ptr->act = (float) (1.0 / (1.0 + exp((double)(-IUnit->im_act))));
      IUnit->act = unit_ptr->act;
      IUnit = IUnit->prev;
    }
@@ -310,7 +310,7 @@ double SnnsCLib::kr_inv_backwardPass(float learn, float delta_max, int *err_unit
 
    /*  return the error of the network */
 
-   sum_error *= 0.5;
+   sum_error *= 0.5f;
    return( sum_error ); 
 
 

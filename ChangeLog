@@ -1,12 +1,20 @@
+version 0.4-15 (22-01-2023):
+
+- replaced sprintf with snprintf
+- removed "register" keyword, as it has no effect in modern compilers but the solution before with a "define" could lead to a warning on some systems.
+- user everywhere the same MAXFLOAT definition, and use a custom one as the one from float.h can lead to a warning on MAC.
+- fixed many many clang-14 warnings. Some functionality is now effectively untested. If things don't work for you, revert to the previous version (and please let me know).
+- fixed a class comparison to use "inherits"
+
 version 0.4-14 (13-08-2021):
--   Clang: kr_pat_scan.cpp:1472:12: warning: function 'yyinput' is not needed and will not be emitted [-Wunneeded-internal-declaration] 
+
 
 version 0.4-13 (08-08-2021):
 
 - fixed warnings:
+  Clang: kr_pat_scan.cpp:1472:12: warning: function 'yyinput' is not needed and will not be emitted [-Wunneeded-internal-declaration] 
   kr_io.cpp:891:9: warning: 'char* strcat(char*, const char*)' accessing 631 or more bytes at offsets 6719 and 7349 may overlap 1 byte at offset 7349 [-Wrestrict]
   kr_io.cpp:868:9: warning: 'char* strcat(char*, const char*)' accessing 631 or more bytes at offsets 6719 and 7349 may overlap 1 byte at offset 7349 [-Wrestrict]
-- fixed webpage links (http --> https)
 
 version 0.4-12 (16-09-2019):
 

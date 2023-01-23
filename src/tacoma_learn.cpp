@@ -106,9 +106,9 @@
       tests correctness of additional parameters. Correct values are :
       [0] TAC_KOHONEN             [0    .. inf)
       [1] TAC_XI_RI_ETA           [0.0  .. inf)
-      [2] TAC_THRESHOLD           (-inf .. 1.0)
+      [2] TAC_THRESHOLD           (-inf .. 1.0f)
       [3] TAC_LAMBDA              (-inf .. inf)
-      [4] TAC_BETA                (0.0  .. 1.0)
+      [4] TAC_BETA                (0.0  .. 1.0f)
 
   NOTES    :
 
@@ -119,8 +119,8 @@
 ******************************************************************************/
 krui_err SnnsCLib::tac_testCorrectnessOfAddParameters(void)
 {
-   if ((TAC_KOHONEN < 0) || (TAC_XI_RI_ETA < 0.0 ) || (TAC_THRESHOLD >= 1.0) ||
-       (TAC_BETA<=0.0) || (TAC_BETA>=1.0))
+   if ((TAC_KOHONEN < 0) || (TAC_XI_RI_ETA < 0.0 ) || (TAC_THRESHOLD >= 1.0f) ||
+       (TAC_BETA<=0.0f) || (TAC_BETA>=1.0f))
         return (KRERR_CC_INVALID_ADD_PARAMETERS);
 
    return(KRERR_NO_ERROR);
@@ -307,9 +307,9 @@ krui_err SnnsCLib::tac_initVariables(float* ParameterInArray,
 ******************************************************************************/
  krui_err SnnsCLib::tac_calculateOutputUnitError(int StartPattern,int EndPattern)
 {
-    register struct Unit *UnitPtr;
-    register Patterns  out_pat;
-    register int o,p;
+     struct Unit *UnitPtr;
+     Patterns  out_pat;
+     int o,p;
     int start, end,pat,sub,n;
     float devit;
   
@@ -317,7 +317,7 @@ krui_err SnnsCLib::tac_initVariables(float* ParameterInArray,
     ERROR_CHECK;     
 
     for(p=start; p<=end;p++){
-	PatternSumError[p] = 0.0;
+	PatternSumError[p] = 0.0f;
 	cc_getActivationsForActualPattern(p,start,&pat,&sub);
 	      /* propagate through in and hidden-Layers */
 	out_pat = kr_getSubPatData(pat,sub,OUTPUT,NULL);
@@ -334,12 +334,12 @@ krui_err SnnsCLib::tac_initVariables(float* ParameterInArray,
 	      /* And calculate the summed Error for this Pattern */
 	}
     }
-    WholeSummedError=0.0;
+    WholeSummedError=0.0f;
     for(p=start;p<=end;p++)
         WholeSummedError += PatternSumError[p];
 
     FOR_ALL_OUTPUT_UNITS(UnitPtr,o){
-	MeanOutputUnitError[o] = (OUTPUT_UNIT_SUM_ERROR[o] / n);
+	MeanOutputUnitError[o] = (OUTPUT_UNIT_SUM_ERROR[o] / (float) n);
     }
     cc_actualNetSaved=TRUE;
   return(KRERR_NO_ERROR);
@@ -378,12 +378,12 @@ krui_err SnnsCLib::tac_initVariables(float* ParameterInArray,
       return 0;
   }
 
-  SumFirst = SumSecond = SumZaehler = 0.0;
+  SumFirst = SumSecond = SumZaehler = 0.0f;
 
   for(p=start;p<=end;p++){
      kr_getSubPatternByNo(&pat,&sub,p);
      in_pat =  kr_getSubPatData(pat,sub,INPUT,NULL);
-     First = Second = Zaehler = 0.0; 
+     First = Second = Zaehler = 0.0f; 
      FOR_ALL_LINKS(OldUnit,LinkPtr) {
 	if (IS_INPUT_UNIT(LinkPtr->to)){
            UnitNo=GET_UNIT_NO(LinkPtr->to);
@@ -399,7 +399,7 @@ krui_err SnnsCLib::tac_initVariables(float* ParameterInArray,
      SumZaehler += (TAC_EXP(-First) *TAC_EXP(-Second));
   }     
 
-  *Correlation = ((SumSecond>0.0) ? SumZaehler/sqrt(SumFirst*SumSecond) : 0.0 );
+  *Correlation = ((SumSecond>0.0f) ? SumZaehler/sqrt(SumFirst*SumSecond) : 0.0 );
 
   return(*Correlation>TAC_LAMBDA);
 }
@@ -423,7 +423,7 @@ krui_err SnnsCLib::tac_initVariables(float* ParameterInArray,
             RI_OF_LINK(LinkPtr) = SpecialUnitData[UnitNo].Ri[InpUnitNo];
       }
       else{
-	 XI_OF_LINK(LinkPtr) = RI_OF_LINK(LinkPtr) = 0.0;
+	 XI_OF_LINK(LinkPtr) = RI_OF_LINK(LinkPtr) = 0.0f;
       }
    }
 }
@@ -479,7 +479,7 @@ krui_err SnnsCLib::tac_generateNewUnit(int UnitNo,int LayerNo,int StartPattern,i
             ERROR_CHECK;
             //NewLink=
             kr_createLinkWithAdditionalParameters(GET_UNIT_NO(UnitPtr),
-	      cc_generateRandomNo(TAC_MAX_VALUE), 0.0, 0.0, 0.0); 
+	      cc_generateRandomNo(TAC_MAX_VALUE), 0.0, 0.0, 0.0f); 
             ERROR_CHECK;
             if(!IS_INPUT_UNIT(UnitPtr)){
                /*PRINTF(
@@ -524,7 +524,7 @@ krui_err SnnsCLib::tac_initXiAndRis(int StartPattern, int EndPattern)
  
   for(i=0;i<NoOfInputUnits;i++)
   {
-     MaxXI[i]=-100000.0; MinXI[i]=10000.0; SumXI[i]=0.0;
+     MaxXI[i]=-100000.0f; MinXI[i]=10000.0f; SumXI[i]=0.0f;
   }
 
   cc_getPatternParameter(StartPattern,EndPattern,&start,&end,&n);
@@ -541,9 +541,9 @@ krui_err SnnsCLib::tac_initXiAndRis(int StartPattern, int EndPattern)
   for(p=0;p<cc_MaxSpecialUnitNo;p++){
      for(i=0;i<NoOfInputUnits;i++)
      { 
-        Xi=SumXI[i]/n +  cc_generateRandomNo((MaxXI[i]-MinXI[i]) * 0.1);
+        Xi=SumXI[i]/((float) n) +  cc_generateRandomNo((MaxXI[i]-MinXI[i]) * 0.1f);
 	SpecialUnitData[p].Xi[i]=Xi;
-	SpecialUnitData[p].Ri[i]=0.0;
+	SpecialUnitData[p].Ri[i]=0.0f;
      }
   }
   FREE_IF_USED(MaxXI);
@@ -569,9 +569,9 @@ int  SnnsCLib::tac_NextSpecialUnit(int p,Patterns in_pat_First)
   float devit,SummedSquaredDistance,BestSSD;
   Patterns in_pat;
 
-  BestSSD = 1e20;
+  BestSSD = 1e20f;
   for(s=0;s<cc_MaxSpecialUnitNo;s++){
-      SummedSquaredDistance = 0.0;
+      SummedSquaredDistance = 0.0f;
       in_pat = in_pat_First;
       for(i=0;i<NoOfInputUnits;i++){
 	  devit = *in_pat++ - SpecialUnitData[s].Xi[i];
@@ -666,15 +666,15 @@ int SnnsCLib::tac_calculateRanksAndRadius(int start,int end)
   int p,pat,sub;
   int UnitNo,dim;
   Patterns in_pat;
-  float MaxSummedError=0.0000001;
+  float MaxSummedError=0.0000001f;
   float MeanDistance;
 
       /* init the values */
   for(UnitNo=0;UnitNo<cc_MaxSpecialUnitNo;UnitNo++){
      SpecialUnitData[UnitNo].NoOfUnitsInRegion=0;
-     SpecialUnitData[UnitNo].SummedErrorInRegion=0.0;
+     SpecialUnitData[UnitNo].SummedErrorInRegion=0.0f;
      for (dim=0;dim<NoOfInputUnits;dim++)
-	SpecialUnitData[UnitNo].SUMMED_DISTANCES[dim]=0.0;
+	SpecialUnitData[UnitNo].SUMMED_DISTANCES[dim]=0.0f;
   }
       /* determine units and error in voronoi regions */
   for(p=start;p<=end;p++){
@@ -699,7 +699,7 @@ int SnnsCLib::tac_calculateRanksAndRadius(int start,int end)
 
 
   for(UnitNo=0;UnitNo<cc_MaxSpecialUnitNo;UnitNo++){
-    if(SpecialUnitData[UnitNo].SummedErrorInRegion > 0.0){
+    if(SpecialUnitData[UnitNo].SummedErrorInRegion > 0.0f){
        for(dim=0;dim<NoOfInputUnits;dim++){
 	  MeanDistance =  (SpecialUnitData[UnitNo].SUMMED_DISTANCES[dim] / 
 		 SpecialUnitData[UnitNo].SummedErrorInRegion);
@@ -711,7 +711,7 @@ int SnnsCLib::tac_calculateRanksAndRadius(int start,int end)
 
   tac_printRanks(MaxSummedError);  
 
-  return MaxSummedError;
+  return (int) MaxSummedError;
 }
 
 
@@ -787,7 +787,7 @@ int SnnsCLib::tac_calculateRanksAndRadius(int start,int end)
 
  //PRINTF("Cycle %3d ",counter);
  FOR_ALL_SPECIAL_UNITS(SpecialUnitPtr,s) {
-   SpecialUnitData[s].ErrorCorrelation = 0.0;
+   SpecialUnitData[s].ErrorCorrelation = 0.0f;
    FOR_ALL_OUTPUT_UNITS(OutputUnitPtr,o) {
      scoreBuffer =  (CorBetweenSpecialActAndOutError[s][o] - 
 		    (MeanOutputUnitError[o] * SpecialUnitSumAct[s] ));
@@ -796,7 +796,7 @@ int SnnsCLib::tac_calculateRanksAndRadius(int start,int end)
    }
    SpecialUnitData[s].ErrorCorrelation /= SumSqError;
    //PRINTF("s[%2d]=%4f   ",s,SpecialUnitData[s].ErrorCorrelation);
-   MeanYi[s]= SpecialUnitSumAct[s] / n;
+   MeanYi[s]= SpecialUnitSumAct[s] / ((float) n);
  }
  return KRERR_NO_ERROR;
 }
@@ -830,21 +830,21 @@ int SnnsCLib::tac_calculateRanksAndRadius(int start,int end)
      }
   }
 
-  FNenner=0.0;
+  FNenner=0.0f;
 
   for(i=0;i<NoOfInstalledUnits;i++){
      for(j=i+1;j<NoOfInstalledUnits;j++){
-	Sum = Zaehler = 0.0;
+	Sum = Zaehler = 0.0f;
 	for(p=0;p<n;p++){
 	   Sum += Di[i][p] * Di[j][p];
 	   Zaehler += SpecialUnitAct[p][i]*SpecialUnitAct[p][j];
 	}
 	if (Sum>0) {
-	   Nij[i][j] = sqrt(Sum);
-	   Rij[i][j] = (Zaehler - MeanYi[i]*MeanYi[j]*n) / Nij[i][j];
+	   Nij[i][j] = (float) sqrt(Sum);
+	   Rij[i][j] = (((float) Zaehler) - MeanYi[i]*MeanYi[j]*((float) n)) / Nij[i][j];
 	}
 	else {
-	   Rij[i][j] = Nij[i][j] = 0.00001; /* no rij==0 allowed */
+	   Rij[i][j] = Nij[i][j] = 0.00001f; /* no rij==0 allowed */
 	}
        FNenner += fabs(Rij[i][j]);
      }
@@ -852,7 +852,7 @@ int SnnsCLib::tac_calculateRanksAndRadius(int start,int end)
 
   FREE_2DIMENSIONAL_ARRAY(Di,NoOfInstalledUnits,i);
 
-  return(FNenner);
+  return((float) FNenner);
 }
 
 
@@ -880,12 +880,12 @@ float SnnsCLib::tac_calculateAntiCorrelation(int StartPattern, int EndPattern,bo
   int start,end,n,i;
   
   cc_getPatternParameter(StartPattern,EndPattern,&start,&end,&n);
-  ERROR_CHECK;
+  ERROR_CHECK_FLOAT;
   
   AC_Nenner = 
      TAC_ETA + tac_calculateRijAndSumRij(Rij,MeanYi,start,end,n);
     
-  AC_Zaehler=0.0;
+  AC_Zaehler=0.0f;
 
   for(i=0;i<NoOfInstalledUnits;i++)
      AC_Zaehler+= SpecialUnitData[i].ErrorCorrelation;
@@ -916,14 +916,14 @@ krui_err SnnsCLib::tac_initSpecialUnitLinks(void)
 
  FOR_ALL_SPECIAL_UNITS(SpecialUnitPtr,s) {
    SpecialUnitPtr->bias = cc_generateRandomNo(TAC_MAX_VALUE);
-   BIAS_CURRENT_SLOPE(SpecialUnitPtr)      = 0.0; 
-   BIAS_PREVIOUS_SLOPE(SpecialUnitPtr)     = 0.0; 
-   BIAS_LAST_WEIGHT_CHANGE(SpecialUnitPtr) = 0.0;
+   BIAS_CURRENT_SLOPE(SpecialUnitPtr)      = 0.0f; 
+   BIAS_PREVIOUS_SLOPE(SpecialUnitPtr)     = 0.0f; 
+   BIAS_LAST_WEIGHT_CHANGE(SpecialUnitPtr) = 0.0f;
    LinkCnt = 0;
    FOR_ALL_LINKS(SpecialUnitPtr,LinkPtr) {
-     SpecialUnitData[s].LinkError[LinkCnt  ].LnCurrentSlope     = 0.0;
-     SpecialUnitData[s].LinkError[LinkCnt  ].LnPreviousSlope    = 0.0;
-     SpecialUnitData[s].LinkError[LinkCnt++].LnLastWeightChange = 0.0;
+     SpecialUnitData[s].LinkError[LinkCnt  ].LnCurrentSlope     = 0.0f;
+     SpecialUnitData[s].LinkError[LinkCnt  ].LnPreviousSlope    = 0.0f;
+     SpecialUnitData[s].LinkError[LinkCnt++].LnLastWeightChange = 0.0f;
      LinkPtr->weight = cc_generateRandomNo(TAC_MAX_VALUE);
    }
  }
@@ -957,7 +957,7 @@ krui_err SnnsCLib::tac_initSpecialUnitLinks(void)
 			    float param3,int MaxSpecialUnitNo,int LayerNo)
 {
     int counter,start,end,n;
-    float oldHighScore=0.0;
+    float oldHighScore=0.0f;
 
     cc_printHeadline(const_cast<char*>("Training of the candidates"),LENGTH_HEADLINE);
 
@@ -1126,11 +1126,11 @@ krui_err SnnsCLib::LEARN_Tacoma(int StartPattern, int EndPattern,
   KernelErrorCode = tac_calculateOutputUnitError(StartPattern,EndPattern);
   TAC_ERROR_CHECK_WITH_MEMORY_DEALLOCATION;
                                 /* determine errors */
-  if (SumSqError==0.0)
+  if (SumSqError==0.0f)
      MaxError=cc_getErr(StartPattern,EndPattern);
                                 /* calc SumSqError, use MaxError as dummy */
 
-  MaxError = tac_MappingOfTheNewUnits(StartPattern,EndPattern);
+  MaxError = (float) tac_MappingOfTheNewUnits(StartPattern,EndPattern);
   TAC_ERROR_CHECK_WITH_MEMORY_DEALLOCATION;
                                 /* kohonen-feature maps */
   LayerNo=NoOfLayers+1; 
@@ -1216,7 +1216,7 @@ void SnnsCLib::tac_propagateXiRi(struct Unit* SpecialUnitPtr,
   float sum;
   float Diff,Prime_Xi,Prime_Ri,DeltaF;
 
-    sum=0.0; 
+    sum=0.0f; 
   FOR_ALL_SPECIAL_UNITS(SecondSpecUnitPtr,s2){
      if(s2!=s){
 	  if(s<s2) { First=s; Sec=s2; }
@@ -1229,8 +1229,8 @@ void SnnsCLib::tac_propagateXiRi(struct Unit* SpecialUnitPtr,
 		 / (Nij[First][Sec]*Nij[First][Sec]);
      }
   }
-  DeltaF = (SummedDeltaS*AC_Nenner-nMinus1Divn*AC_Zaehler*sum) /
-	      (AC_Nenner*AC_Nenner);
+  DeltaF = (float) ((SummedDeltaS*AC_Nenner-nMinus1Divn*AC_Zaehler*sum) /
+	      (AC_Nenner*AC_Nenner));
   
   i=0;
   FOR_ALL_LINKS(SpecialUnitPtr,LinkPtr){
@@ -1276,7 +1276,7 @@ void SnnsCLib::tac_propagateXiRiOnlineCase(struct Unit* SpecialUnitPtr,
   float sum;
   float Diff,Prime_Xi,Prime_Ri,DeltaF;
 
-  sum=0.0;
+  sum=0.0f;
     FOR_ALL_SPECIAL_UNITS(SecondSpecUnitPtr,s2){
        if(s2!=s){
 	  if(s<s2) { First=s; Sec=s2; }
@@ -1288,7 +1288,7 @@ void SnnsCLib::tac_propagateXiRiOnlineCase(struct Unit* SpecialUnitPtr,
 		 / (Nij[First][Sec]*Nij[First][Sec]);
        }
     }
-    DeltaF = (SummedDeltaS*AC_Nenner-nMinus1Divn*AC_Zaehler*sum) / (AC_Nenner*AC_Nenner);
+    DeltaF = (float) ((SummedDeltaS*AC_Nenner-nMinus1Divn*AC_Zaehler*sum) / (AC_Nenner*AC_Nenner));
     
     i=0;
     FOR_ALL_LINKS(SpecialUnitPtr,LinkPtr){
@@ -1328,8 +1328,8 @@ void SnnsCLib::tac_propagateXiRiOnlineCase(struct Unit* SpecialUnitPtr,
 
     for(s=0;s<NoOfInstalledUnits;s++){
        for(i=0;i<NoOfInputUnits;i++){
-	  PrimesOfSpecialUnits[s][i].xi_CurrentSlope=0.0;
-	  PrimesOfSpecialUnits[s][i].ri_CurrentSlope=0.0;
+	  PrimesOfSpecialUnits[s][i].xi_CurrentSlope=0.0f;
+	  PrimesOfSpecialUnits[s][i].ri_CurrentSlope=0.0f;
        }
     }
 
@@ -1348,7 +1348,7 @@ void SnnsCLib::tac_propagateXiRiOnlineCase(struct Unit* SpecialUnitPtr,
 		   (OutputUnitError[p][o]-MeanOutputUnitError[o]);
 	    }  
             SummedDeltaS /= SumSqError;
-	    change = SummedDeltaS*actPrime;
+	    change = (float) (SummedDeltaS*actPrime);
 	    BIAS_CURRENT_SLOPE(SpecialUnitPtr) += change;     
             lastChange = BIAS_LAST_WEIGHT_CHANGE(SpecialUnitPtr);
 	              SpecialUnitPtr->bias -= 
@@ -1367,11 +1367,11 @@ void SnnsCLib::tac_propagateXiRiOnlineCase(struct Unit* SpecialUnitPtr,
 
             if (TAC_XIRI_ONLINE) 
               tac_propagateXiRiOnlineCase
-                 (SpecialUnitPtr,p,s,SummedDeltaS,nMinus1Divn,
-                  TAC_XI_RI_ETA,0.0,0.0);
+                 (SpecialUnitPtr,p,s,(float) SummedDeltaS,nMinus1Divn,
+                  TAC_XI_RI_ETA,0.0,0.0f);
             else
               tac_propagateXiRiOnlineCase
-                 (SpecialUnitPtr,p,s,SummedDeltaS,nMinus1Divn,eta,mu,dummy);
+                 (SpecialUnitPtr,p,s,(float) SummedDeltaS,nMinus1Divn,eta,mu,dummy);
 
 	}
     }
@@ -1401,8 +1401,8 @@ krui_err SnnsCLib::tac_propagateSpecial (int start,int end,int n,
  
     for(s=0;s<NoOfInstalledUnits;s++){
        for(i=0;i<NoOfInputUnits;i++){
-	  PrimesOfSpecialUnits[s][i].xi_CurrentSlope=0.0;
-	  PrimesOfSpecialUnits[s][i].ri_CurrentSlope=0.0;
+	  PrimesOfSpecialUnits[s][i].xi_CurrentSlope=0.0f;
+	  PrimesOfSpecialUnits[s][i].ri_CurrentSlope=0.0f;
        }
     }
 
@@ -1418,7 +1418,7 @@ krui_err SnnsCLib::tac_propagateSpecial (int start,int end,int n,
 		   (OutputUnitError[p][o]-MeanOutputUnitError[o]);
 	    }  
             SummedDeltaS /= SumSqError;
-	    change = SummedDeltaS*actPrime;
+	    change = (float) (SummedDeltaS*actPrime);
 	    BIAS_CURRENT_SLOPE(SpecialUnitPtr) += change;     
 	    LinkCnt = 0;
 	    FOR_ALL_LINKS(SpecialUnitPtr,LinkPtr) {
@@ -1429,11 +1429,11 @@ krui_err SnnsCLib::tac_propagateSpecial (int start,int end,int n,
 
             if (TAC_XIRI_ONLINE) 
               tac_propagateXiRiOnlineCase
-                 (SpecialUnitPtr,p,s,SummedDeltaS,nMinus1Divn,TAC_XI_RI_ETA,0.0,0.0);
+                 (SpecialUnitPtr,p,s,(float) SummedDeltaS,nMinus1Divn,TAC_XI_RI_ETA,0.0,0.0f);
             else
  
             tac_propagateXiRi
-               (SpecialUnitPtr,p,s,SummedDeltaS,nMinus1Divn, dummy1,dummy2,dummy3);
+               (SpecialUnitPtr,p,s,(float) SummedDeltaS,nMinus1Divn, dummy1,dummy2,dummy3);
 
 	}
     }

@@ -143,7 +143,7 @@ krui_err SnnsCLib::getNoOfClasses(int startPattern, int endPattern)
 	kr_getSubPatternByNo(&pat, &sub_pat, p);
 	out_pat = kr_getSubPatData(pat, sub_pat, OUTPUT, NULL);
 
-	patternClass = *out_pat;
+	patternClass = (int) *out_pat;
 	if(patternClass < minPatternClass){
 	    minPatternClass = patternClass;
 	} 
@@ -163,7 +163,7 @@ krui_err SnnsCLib::getNoOfClasses(int startPattern, int endPattern)
     while((counter != (maxPatternClass+1)) && (p <= end)){
 	kr_getSubPatternByNo(&pat, &sub_pat, p++);
 	out_pat = kr_getSubPatData(pat, sub_pat, OUTPUT, NULL);
-	dlvq_learn_class = *out_pat;
+	dlvq_learn_class = (int) *out_pat;
 	if(tmpArray[dlvq_learn_class] == 0){
 	    counter++;
 	    tmpArray[dlvq_learn_class] = 1;
@@ -316,7 +316,7 @@ void SnnsCLib::normPatterns(int startPattern, int endPattern)
 
 	kr_getSubPatternByNo(&pat,&sub,p);
 	in_pat = kr_getSubPatData(pat,sub,INPUT,&count);
-	sum = 0.0;  
+	sum = 0.0f;  
 	in_patStorage = in_pat;  
 
 	for(i=0;i<count;i++){   
@@ -349,7 +349,7 @@ void SnnsCLib::normReferenceVec(struct Unit *hiddenUnitPtr)
     double sum,sqrtSum;
     struct Link *linkPtr;
 
-    sum = 0.0;
+    sum = 0.0f;
     FOR_ALL_LINKS(hiddenUnitPtr,linkPtr) {
 	sum += linkPtr->weight * linkPtr->weight;
     }
@@ -358,10 +358,10 @@ void SnnsCLib::normReferenceVec(struct Unit *hiddenUnitPtr)
 
     FOR_ALL_LINKS(hiddenUnitPtr,linkPtr){
 	if(sqrtSum > 0)
-	    linkPtr->weight = linkPtr->weight / sqrtSum;
+	    linkPtr->weight = linkPtr->weight / ((float) sqrtSum);
 	else
 	    /* Special case */
-	    linkPtr->weight = 0.0;
+	    linkPtr->weight = 0.0f;
     }
 }
 
@@ -480,11 +480,11 @@ void SnnsCLib::initFirstUnit(struct Unit *hiddenUnitPtr, int dlvq_learn_class)
     i = 0;
     FOR_ALL_UNITS(inputUnitPtr){
 	if(IS_INPUT_UNIT(inputUnitPtr) && UNIT_IN_USE(inputUnitPtr)){
-	    inputUnitPtr->act = (initialUnitArray[dlvq_learn_class].link)[i++];
+	    inputUnitPtr->act = (float) (initialUnitArray[dlvq_learn_class].link)[i++];
 	}
     }
 
-    hiddenUnitPtr->bias = dlvq_learn_class;
+    hiddenUnitPtr->bias = (float) dlvq_learn_class;
     FOR_ALL_LINKS(hiddenUnitPtr,linkPtr) {
 	linkPtr->weight = linkPtr->to->act;
     }
@@ -559,16 +559,16 @@ void SnnsCLib::calculateUnitXYPos(void)
 	SET_UNIT_YPOS(inputUnitPtr,GET_UNIT_YPOS(inputUnitPtr) - yOffset);
     }
 
-    bias = (*FirstHiddenUnitPtr)->bias; 
+    bias = (int) (*FirstHiddenUnitPtr)->bias; 
     xPos = (maxXPos - xOffset + 3);
     yPos = 1;
  
     FOR_ALL_HIDDEN_UNITS(hiddenUnitPtr,h){
-	if(bias == hiddenUnitPtr->bias){
+	if(bias == (int) hiddenUnitPtr->bias){
 	    yPos++;
 	}else{
 	    xPos++;
-	    bias = hiddenUnitPtr->bias;
+	    bias = (int) hiddenUnitPtr->bias;
 	    yPos = 2;
 	}
 	SET_UNIT_XPOS(hiddenUnitPtr,xPos);
@@ -619,12 +619,12 @@ krui_err SnnsCLib::insertNewUnits(void)
 	    newUnitPtr->unit_pos.y += 1;     
    
 	    /*init new unit */
-	    sum = 0.0;
+	    sum = 0.0f;
 	    k = 0;
 	    FOR_ALL_UNITS(inputUnitPtr){
 		if(IS_INPUT_UNIT(inputUnitPtr) && UNIT_IN_USE(inputUnitPtr)) {
 		    weight = 
-			inputUnitPtr->act = 
+			inputUnitPtr->act = (float)
 			    ((mixupArray[i][maxJ].link)[k++] /
 			     mixupArray[i][maxJ].counter);     
 		    sum += weight * weight;
@@ -633,7 +633,7 @@ krui_err SnnsCLib::insertNewUnits(void)
 	    sqrtSum = sqrt(sum);
 
 	    FOR_ALL_LINKS(newUnitPtr,linkPtr) {
-		linkPtr->weight = linkPtr->to->act / sqrtSum;
+		linkPtr->weight = linkPtr->to->act / (float) sqrtSum;
 	    }
 	}
     }
@@ -749,7 +749,7 @@ void SnnsCLib::dlvq_trainNet(int noOfTrainingCycles, int startPattern,
 		FOR_ALL_LINKS(hiddenUnitPtr,linkPtr) {
 		    act += linkPtr->weight * linkPtr->to->act;
 		}
-		hiddenUnitPtr->act = act;
+		hiddenUnitPtr->act = (float) act;
 
 		if((((int)hiddenUnitPtr->bias) == ((int) *out_pat)) && 
 		   (act >= correctMaxAct)){
@@ -808,14 +808,14 @@ void SnnsCLib::initLastInsertedUnitArray(void)
     int h,bias;
     struct Unit *hiddenUnitPtr=NULL,*lastUnitPtr=NULL;
 
-    bias = (*FirstHiddenUnitPtr)->bias;
+    bias = (int) (*FirstHiddenUnitPtr)->bias;
     FOR_ALL_HIDDEN_UNITS(hiddenUnitPtr,h){
 	if(((int)(hiddenUnitPtr->bias)) == ((int)bias)) {
 	    lastUnitPtr = hiddenUnitPtr;
 	}else{
 	    lastInsertedUnitArray[(int)lastUnitPtr->bias] =
 		GET_UNIT_NO(lastUnitPtr);
-	    bias = hiddenUnitPtr->bias;
+	    bias = (int) hiddenUnitPtr->bias;
 	    lastUnitPtr = hiddenUnitPtr;
 	}
     }
@@ -914,7 +914,7 @@ krui_err SnnsCLib::insertFirstUnit(struct Unit **hiddenUnitPtr)
     /* generate links between hidden unit and input units */
     FOR_ALL_UNITS(inputUnitPtr) {
 	if(IS_INPUT_UNIT(inputUnitPtr) && UNIT_IN_USE(inputUnitPtr)){
-	    KernelErrorCode = krui_createLink(GET_UNIT_NO(inputUnitPtr),0.0);
+	    KernelErrorCode = krui_createLink(GET_UNIT_NO(inputUnitPtr),0.0f);
 	    ERROR_CHECK;
 	}
     }
@@ -922,7 +922,7 @@ krui_err SnnsCLib::insertFirstUnit(struct Unit **hiddenUnitPtr)
     /* generate a link between the output unit and the hidden unit */
     KernelErrorCode = krui_setCurrentUnit(GET_UNIT_NO(*FirstOutputUnitPtr));
     ERROR_CHECK;
-    KernelErrorCode = krui_createLink(hiddenUnit,1.0); 
+    KernelErrorCode = krui_createLink(hiddenUnit,1.0f); 
     ERROR_CHECK;
     return(KRERR_NO_ERROR);
 }
@@ -1134,7 +1134,7 @@ krui_err SnnsCLib::LEARN_DLVQ(int startPattern, int endPattern, float *Parameter
 	initMixupArray();
 	dlvq_trainNet(dlvq_learn_noOfTrainingCycles,startPattern,endPattern,
 		      dlvq_learn_learnParam1,dlvq_learn_learnParam2);
-	NET_ERROR(dlvq_learn_OutParameter) = wrongClassCounter;
+	NET_ERROR(dlvq_learn_OutParameter) = (float) wrongClassCounter;
 	if((dlvq_learn_cycleCounter<(dlvq_numberOfLearnCycles-1)) &&
 	   (wrongClassCounter != 0)){ 
 	    /*do not insert new hidden units by the last path through the net*/

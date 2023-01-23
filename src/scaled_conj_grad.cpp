@@ -120,10 +120,10 @@ krui_err SnnsCLib::LEARN_SCG(int start_pattern, int end_pattern, float *paramete
     //static FlintType* *LEARN_SCG_weights ;
     //static FlintType  *LEARN_SCG_old_gradient, *LEARN_SCG_p, *LEARN_SCG_r, *LEARN_SCG_old_weights, *LEARN_SCG_step ;
 
-    register FlagWord flags;
-    register struct Link *link_ptr;
-    register struct Unit *unit_ptr;
-    register struct Site *site_ptr;
+     FlagWord flags;
+     struct Link *link_ptr;
+     struct Unit *unit_ptr;
+     struct Site *site_ptr;
 
     int   i, ret_code ;
     int   start_scg,  make_allocations, under_tolerance ;
@@ -136,14 +136,14 @@ krui_err SnnsCLib::LEARN_SCG(int start_pattern, int end_pattern, float *paramete
 
     /* DEFAULTS: */
 
-    if (( sigma_1 = LEARN_PARAM1( parameterInArray )) == 0.0) 
+    if (( sigma_1 = LEARN_PARAM1( parameterInArray )) == 0.0f) 
 	  sigma_1 = SCG_FIRST_SIGMA ;
 
-    if (( lambda_1 = LEARN_PARAM2( parameterInArray )) == 0.0) 
+    if (( lambda_1 = LEARN_PARAM2( parameterInArray )) == 0.0f) 
 	lambda_1 = SCG_FIRST_LAMBDA ;
 
 				/* param 3 is DELTA_max */
-    if (( tolerance = LEARN_PARAM4( parameterInArray )) == 0.0) 
+    if (( tolerance = LEARN_PARAM4( parameterInArray )) == 0.0f) 
 	  tolerance = SCG_TOLERANCE ; 
 
 
@@ -332,7 +332,7 @@ krui_err SnnsCLib::LEARN_SCG(int start_pattern, int end_pattern, float *paramete
     TRACE(("delta scaled = %e\n", LEARN_SCG_delta));
     
     if (LEARN_SCG_delta <=0) {		/* make the Hessian positive definite */
-      LEARN_SCG_lambda_bar = 2.0 * (LEARN_SCG_lambda - LEARN_SCG_delta/LEARN_SCG_norm_of_p_2) ;
+      LEARN_SCG_lambda_bar = 2.0f * (LEARN_SCG_lambda - LEARN_SCG_delta/LEARN_SCG_norm_of_p_2) ;
       LEARN_SCG_delta = -LEARN_SCG_delta + LEARN_SCG_lambda*LEARN_SCG_norm_of_p_2 ;
       LEARN_SCG_lambda = LEARN_SCG_lambda_bar ;
       TRACE(("hessian: l_bar=%e delta=%e lambda=%e\n",LEARN_SCG_lambda_bar,LEARN_SCG_delta,LEARN_SCG_lambda));
@@ -359,7 +359,7 @@ krui_err SnnsCLib::LEARN_SCG(int start_pattern, int end_pattern, float *paramete
     
     TRACE(("current error=%e\n",LEARN_SCG_current_error)) ;
     
-    grand_delta = 2.0*LEARN_SCG_delta*(LEARN_SCG_old_error-LEARN_SCG_current_error)/(mu*mu) ;
+    grand_delta = 2.0f*LEARN_SCG_delta*(LEARN_SCG_old_error-LEARN_SCG_current_error)/(mu*mu) ;
     TRACE(("grand delta=%e\n",grand_delta));
     if (grand_delta >= 0) {	/* a successful reduction in error */
 				/* can be made */
@@ -368,7 +368,7 @@ krui_err SnnsCLib::LEARN_SCG(int start_pattern, int end_pattern, float *paramete
 
 
       TRACE(("ERROR REDUCTION of %e %% --- ",
-	     (LEARN_SCG_old_error-LEARN_SCG_current_error)/LEARN_SCG_old_error*100.0));
+	     (LEARN_SCG_old_error-LEARN_SCG_current_error)/LEARN_SCG_old_error*100.0f));
 
       under_tolerance =
 	2.0 * fabs(LEARN_SCG_old_error-LEARN_SCG_current_error)
@@ -383,7 +383,7 @@ krui_err SnnsCLib::LEARN_SCG(int start_pattern, int end_pattern, float *paramete
 
       /* now, r <- r(k+1) */
       for (i=0 ; i < scg_space_size ; i++) {
-	tmp = -1.0 * *scg_gradient[i] ;
+	tmp = -1.0f * *scg_gradient[i] ;
 	r_sum +=  tmp * LEARN_SCG_r[i] ;
 	LEARN_SCG_r[i] = tmp ;
       }
@@ -403,7 +403,7 @@ krui_err SnnsCLib::LEARN_SCG(int start_pattern, int end_pattern, float *paramete
 	LEARN_SCG_restart_scg = FALSE ;
       }
 
-      if (grand_delta >=0.75) LEARN_SCG_lambda = LEARN_SCG_lambda/4.0 ;
+      if (grand_delta >=0.75f) LEARN_SCG_lambda = LEARN_SCG_lambda/4.0f ;
     }
     
     else {
@@ -509,7 +509,7 @@ krui_err SnnsCLib::LEARN_SCG(int start_pattern, int end_pattern, float *paramete
     if(KernelErrorCode != KRERR_NO_ERROR)
 	return (KernelErrorCode);
 
-    *error = 0.0;	/* reset network error value  */
+    *error = 0.0f;	/* reset network error value  */
 
     while(kr_getSubPatternByOrder(&pattern_no,&sub_pat_no)){
     
@@ -520,7 +520,7 @@ krui_err SnnsCLib::LEARN_SCG(int start_pattern, int end_pattern, float *paramete
     }
 
     for (i=0 ; i< scg_space_size ; i++) 
-	*scg_gradient[i] = - 2.0 * *scg_gradient[i];
+	*scg_gradient[i] = - 2.0f * *scg_gradient[i];
 
     return (KernelErrorCode);
 }
