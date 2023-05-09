@@ -1,5 +1,5 @@
-dbd877843a0f6b603963bf0d25b1c25b *ChangeLog
-766ac8fb5171889592892417943f05be *DESCRIPTION
+7217cb67d8f3386e35649016f214239a *ChangeLog
+254978881c763ed23435e64c8d0aa009 *DESCRIPTION
 e0dd151e3509b3668faaeb7fc39a24fe *LICENSE
 e5c75000dbdba8f9a63803bd95bac9db *NAMESPACE
 b4abc92fafb25dafd9bf5349bbc6e377 *R/RSNNS-package.R
@@ -65,7 +65,7 @@ f3eb65f2f326aee9a657c4ae6cdd2dcd *demo/rbf_irisSnnsR.R
 36bf589e0187f6508cd3926ccb81720d *demo/rbf_sinSnnsR.R
 77fc92269b99ea2495139ce9175b4338 *demo/som_cubeSnnsR.R
 882178fc7b6a3bb821ec790ae885a440 *demo/som_iris.R
-6f28488afc074dc1f1d091051b9c27b0 *inst/CITATION
+cebc76aefd04a0c745452255c05f5f92 *inst/CITATION
 91f968f48478934f905d18d61ebaa5d7 *inst/doc/KnownIssues
 950a43364629c4098b172031049fd01f *man/RSNNS-package.Rd
 0322577f3ec7776de7488bdb0a2cabe1 *man/SnnsR-class.Rd
@@ -142,11 +142,11 @@ f788fbbdf72af49b5093c34df2109b8d *man/som.Rd
 1116e0ae02c846529fc9cdd3a6ebda72 *man/train.Rd
 e7161eb167ee3be039569bdc7fefc98a *man/vectorToActMap.Rd
 496cc4c19c3758daaa2bb2b6459b9b7e *man/weightMatrix.Rd
-b372414fe43314e84f81228e62f0471e *src/Makevars
-1ddc29ece1d79c620f6f2b8e62ed735f *src/Makevars.win
+dacabaf0a170b040fec0dbf350cd8641 *src/Makevars
+2175219ab4d79c7a822011d9f62e9fb5 *src/Makevars.win
 e4e3f5dacdd60d17e15af1114ccc8842 *src/RSNNS_init.c
 fd581b78758604340f006a2963bcdce0 *src/SnnsCLib.cpp
-21817de5e9ff163cdba96a25549d5a38 *src/SnnsCLib.h
+6dc739535f87f6988fd178ac5e644c98 *src/SnnsCLib.h
 2130bbb46be0cfe337bb5bea3f115df5 *src/SnnsCLibGenericR_util.c
 cefdd27decb03a5a42c6c5e587c392de *src/SnnsCLibGeneric_util.h
 dad07bd60df696d19521e5e1501248a3 *src/SnnsCLibWrapper.cpp
@@ -171,9 +171,9 @@ f280bfa7c48c549f69acae8e5ad6492c *src/bn_assoz.h
 8d53f809449d71ad9f4f7b340314cdd3 *src/cc_display.h
 ba35e5bc8d927855f09cbbd93dabacd4 *src/cc_glob.cpp
 7b5602cda798473b4543a1e28eec21f4 *src/cc_glob.h
-f6c87a587b032571cb91bea35fc4fe7e *src/cc_learn.cpp
+d607dc6b6e363f1f5049d965c2c30154 *src/cc_learn.cpp
 0798c58d28420e50214c7c1a28b23084 *src/cc_learn.h
-3879eff19772c9f876f35edd550adaf8 *src/cc_mac.h
+de22e135a0649074164e5fafad22092e *src/cc_mac.h
 a09f7d52f3efc4ee649fafaf451506ba *src/cc_modify.cpp
 d9443313950e600d1598ef4e8be8d302 *src/cc_modify.h
 1470dbcc62534f263aa182a88a378bf7 *src/cc_prune.cpp
@@ -188,7 +188,7 @@ b40fd72b034d41ab956da4c4ddc03377 *src/func_mac.h
 af9d0c026a31c7a4fe1305dec581939b *src/func_tbl.cpp
 6d26c08087e3dc25c3cf5d10c0e29e3c *src/func_tbl.h
 2f1ca3f187866ecde77b9b6d7f93a72c *src/glob_typ.h
-718b143e354fe27c5adde886b47bdf8b *src/init_f.cpp
+b5c15dc72135be06e25da76b7bf04904 *src/init_f.cpp
 046a776fd08e55e169fb50b3e593ebb0 *src/init_f.h
 ba1fab6239edbdb9c10d3ea570b0c345 *src/kernel.cpp
 33aa41a0565898ea173621d5c0b91b2c *src/kernel.h
@@ -217,7 +217,7 @@ b52268780403d2e6964f25bb9da16847 *src/kr_mem.h
 8b98a132affc35cef0a3000629edf53b *src/kr_newpattern.h
 8f57244a986e16e7ed530415cedf3a2a *src/kr_pat_parse.cpp
 14df2fe96b70a94e0b47ee19a1749263 *src/kr_pat_parse.h
-48c32342d8a961fc72d0b30e02807a0a *src/kr_pat_scan.cpp
+adcc1b49f7c7054f1dd32f7a4ff71d97 *src/kr_pat_scan.cpp
 4f153054942d8c202e7f1794419055cd *src/kr_pat_scan.h
 f232af9418446160f5658364b7ffb9a3 *src/kr_td.cpp
 47a72db111bd9a7ced4cd8e4d2f46fd0 *src/kr_td.h
@@ -226,7 +226,7 @@ f8f55cedb378e7fc4606a93c79e04fd2 *src/kr_typ.h
 c4d644421bb7adac331d8c4069fc547f *src/kr_ui.h
 72a2600a47246888e1db844db0e71aa9 *src/krart_df.h
 4b3678983bb3a6fb9bd2a28b3637287b *src/krui_typ.h
-89f3a8acec91a7d18462061fabbf7ffe *src/learn_f.cpp
+fb69f41a385eb80200cc93a829bc67d8 *src/learn_f.cpp
 e8a1da3b526180e88e07739167be5307 *src/learn_f.h
 995240d9e6886bb7ce9ab8aa864892a8 *src/matrix.cpp
 1fd9814f4817734f6f05aabef313387a *src/matrix.h
@@ -234,7 +234,7 @@ d4c22ebaff5a588aeecb5d11a49aefaa *src/prun_f.cpp
 8737839ff46e28452cd9a17c687f22de *src/prun_f.h
 c74206b75c3a5f056fc82a3c4a65de4d *src/remap_f.cpp
 b8d39de0106ad0ca81cf38eb834fb0ff *src/remap_f.h
-d06dcc916f62136d3cae6b4460ba3b54 *src/scaled_conj_grad.cpp
+9614e4aa85b7cc0006a9f48b0be7a51d *src/scaled_conj_grad.cpp
 c298a118f8aa790c8e8125abd3b3f9f8 *src/scaled_conj_grad.h
 89f88f71c45f305a7d0859bc8fc4d76a *src/sigmoid_tbl.h
 0008a4ac026a3aae09437698ba32efa0 *src/stochastic_learn_f.cpp
@@ -243,7 +243,7 @@ e5e43ebcb02e846e7dd6423e8566911c *src/stochastic_learn_f.h
 627fd0abd15c08b8a1e340e6c38bf22d *src/tacoma_learn.h
 eb64bba407c5ac18d009c3e7919dda67 *src/tbl_func.cpp
 50115b07799be4dd320a82f7c7da5843 *src/tbl_func.h
-4031da397ebbe68c01944de668214d2b *src/trans_f.cpp
+901480fc499db5510c717ebe99ad68ac *src/trans_f.cpp
 f9ae5fd36f50f43f9234b09977a568ed *src/trans_f.h
 5b433e607c477d0289b7240a3a67a1b9 *src/u_lrand48.cpp
 0a29b21d6f598558548c9129615b4a69 *src/u_lrand48.h
