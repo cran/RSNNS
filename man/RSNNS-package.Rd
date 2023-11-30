@@ -20,7 +20,7 @@ directly by email.
 
 If you use the package, please cite the following work in your publications:
 
-Bergmeir, C. and Benítez, J.M. (2012), Neural Networks in R Using the Stuttgart Neural Network Simulator: RSNNS. Journal of Statistical Software, 46(7), 1-26. \url{https://www.jstatsoft.org/v46/i07/}
+Bergmeir, C. and Benítez, J.M. (2012), Neural Networks in R Using the Stuttgart Neural Network Simulator: RSNNS. Journal of Statistical Software, 46(7), 1-26.
 
 The package has a hierarchical architecture with three levels:
 \itemize{
@@ -94,7 +94,6 @@ developed by Seymour Shlien, is available here:
 }
 \references{
 Bergmeir, C. and Benítez, J.M. (2012), 'Neural Networks in R Using the Stuttgart Neural Network Simulator: RSNNS', Journal of Statistical Software, 46(7), 1-26.
-\url{https://www.jstatsoft.org/v46/i07/}
 
 \emph{General neural network literature:}
 
@@ -117,10 +116,10 @@ Cambridge, MA etc..
 \emph{Literature on the original SNNS software:}
 
 Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
+\url{https://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 
 javaNNS, the sucessor of the original SNNS with a Java GUI: 
-\url{http://www.ra.cs.uni-tuebingen.de/software/JavaNNS/}
+\url{https://github.com/mwri/javanns}
 
 Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley.
 

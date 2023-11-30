@@ -86,5 +86,5 @@ Berthold, M. R. & Diamond, J. (1995), Boosting the Performance of RBF Networks w
 Hudak, M. (1993), 'RCE classifiers: theory and practice', Cybernetics and Systems 23(5), 483--515.
 
 Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
+\url{https://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 }

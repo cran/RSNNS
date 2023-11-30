@@ -111,7 +111,7 @@ Poggio, T. & Girosi, F. (1989), 'A Theory of Networks for Approximation and Lear
 Vogt, M. (1992), 'Implementierung und Anwendung von Generalized Radial Basis Functions in einem Simulator neuronaler Netze', Master's thesis, IPVR, University of Stuttgart. (in German)
 
 Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen. 
-\url{http://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
+\url{https://www.ra.cs.uni-tuebingen.de/SNNS/welcome.html}
 
 Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)
 }
