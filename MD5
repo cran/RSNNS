@@ -1,8 +1,8 @@
-0b96c2b5786432dedc8825d48a201883 *ChangeLog
-fe193c991578ab41a11a045e6b5bd338 *DESCRIPTION
+33a5a1df8196ff84d796782c2568fc33 *ChangeLog
+73b1bdedea7e7fc3ae5ccfc80c931962 *DESCRIPTION
 e0dd151e3509b3668faaeb7fc39a24fe *LICENSE
 e5c75000dbdba8f9a63803bd95bac9db *NAMESPACE
-599d6ef532b4cd9d9a1a2caa46007d0a *R/RSNNS-package.R
+6b09f8c1df65018c90762ae6dc3e375e *R/RSNNS-package.R
 da6a740d558526689af4b87527c79976 *R/SnnsDefines.R
 7f557321b97799997ad8ee84ad76e335 *R/SnnsRObjectFactory.R
 c0dfc68ba1c91f50fa92e94ccf960fb3 *R/SnnsR_createNets.R
@@ -67,7 +67,7 @@ f3eb65f2f326aee9a657c4ae6cdd2dcd *demo/rbf_irisSnnsR.R
 882178fc7b6a3bb821ec790ae885a440 *demo/som_iris.R
 897f89913e5dd437af7d3c5fbfb46595 *inst/CITATION
 91f968f48478934f905d18d61ebaa5d7 *inst/doc/KnownIssues
-e9bc83d809e895c91e2f049202bbe643 *man/RSNNS-package.Rd
+f62131114c13bfcf850e306fd3b52714 *man/RSNNS-package.Rd
 413d40087001c00f708116cdb293933b *man/SnnsR-class.Rd
 1fd57f79e9e011343830411f939f870f *man/SnnsRObject-createNet.Rd
 1e42a1ac9096a3c35a3f9726a7ebeb05 *man/SnnsRObject-createPatSet.Rd
@@ -142,8 +142,8 @@ e8860f7e52efa36907f52d8d568353b8 *man/savePatFile.Rd
 1116e0ae02c846529fc9cdd3a6ebda72 *man/train.Rd
 e7161eb167ee3be039569bdc7fefc98a *man/vectorToActMap.Rd
 496cc4c19c3758daaa2bb2b6459b9b7e *man/weightMatrix.Rd
-dacabaf0a170b040fec0dbf350cd8641 *src/Makevars
-2175219ab4d79c7a822011d9f62e9fb5 *src/Makevars.win
+d8dc2c706a6469f29babfa8c017b6d40 *src/Makevars
+39776af7b53ebdad9df944cd67372e04 *src/Makevars.win
 e4e3f5dacdd60d17e15af1114ccc8842 *src/RSNNS_init.c
 fd581b78758604340f006a2963bcdce0 *src/SnnsCLib.cpp
 6dc739535f87f6988fd178ac5e644c98 *src/SnnsCLib.h
@@ -234,7 +234,7 @@ d4c22ebaff5a588aeecb5d11a49aefaa *src/prun_f.cpp
 8737839ff46e28452cd9a17c687f22de *src/prun_f.h
 c74206b75c3a5f056fc82a3c4a65de4d *src/remap_f.cpp
 b8d39de0106ad0ca81cf38eb834fb0ff *src/remap_f.h
-9614e4aa85b7cc0006a9f48b0be7a51d *src/scaled_conj_grad.cpp
+cebe60049b3f61e88af8b250f609ce47 *src/scaled_conj_grad.cpp
 c298a118f8aa790c8e8125abd3b3f9f8 *src/scaled_conj_grad.h
 89f88f71c45f305a7d0859bc8fc4d76a *src/sigmoid_tbl.h
 0008a4ac026a3aae09437698ba32efa0 *src/stochastic_learn_f.cpp

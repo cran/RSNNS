@@ -138,8 +138,6 @@ Christoph Bergmeir \email{c.bergmeir@decsai.ugr.es}
 and José M. Benítez \email{j.m.benitez@decsai.ugr.es}
 
 DiCITS Lab, Sci2s group, DECSAI, University of Granada.
-
-\url{http://dicits.ugr.es}, \url{https://sci2s.ugr.es}
 }
 \keyword{SNNS}
 \keyword{networks}
